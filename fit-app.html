@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fit">
+<meta name="theme-color" content="#0e0e0e">
+<title>Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:#0e0e0e;color:#f0f0f0;font-family:'DM Sans',sans-serif;font-size:15px;overscroll-behavior:none}
+  body{display:flex;flex-direction:column;height:100dvh}
+  #nav{display:flex;background:#111;border-top:1px solid #222;flex-shrink:0;position:fixed;bottom:0;left:0;right:0;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+  .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0 8px;border:none;background:none;color:#555;font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer;border-top:2px solid transparent;transition:all .15s;gap:3px}
+  .nav-btn.active{color:#E0699F;border-top-color:#E0699F}
+  .nav-btn span.ico{font-size:22px;line-height:1}
+  #main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:16px 14px 100px;max-width:480px;margin:0 auto;width:100%}
+  .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-top:env(safe-area-inset-top)}
+  .page-title{font-size:20px;font-weight:800}
+  .page-sub{font-size:12px;color:#555}
+  .day-tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding-bottom:2px;scrollbar-width:none}
+  .day-tabs::-webkit-scrollbar{display:none}
+  .day-tab{padding:9px 14px;border-radius:10px;border:1.5px solid #2a2a2a;background:#161616;color:#555;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s}
+  .day-tab.active{color:#fff}
+  .card{background:#161616;border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid #222}
+  .card-sm{background:#161616;border-radius:12px;padding:12px 14px;margin-bottom:8px;border:1px solid #222}
+  .ex-name{font-weight:700;font-size:14px;line-height:1.3;color:#f0f0f0}
+  .ex-meta{font-size:12px;color:#555;margin-top:3px}
+  .ex-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+  .last-tag{font-size:11px;background:#1e1e1e;color:#777;padding:4px 10px;border-radius:20px;border:1px solid #2a2a2a;white-space:nowrap;flex-shrink:0;margin-left:8px;text-align:center}
+  .pr-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;background:#2a0f1f;color:#E0699F;padding:3px 9px;border-radius:20px;border:1px solid #4a1f38;margin-top:5px}
+  .set-row{display:grid;grid-template-columns:24px 1fr 1fr 48px;gap:6px;align-items:center;margin-bottom:8px}
+  .set-num{font-size:12px;color:#444;text-align:center}
+  .set-input{background:#0e0e0e;border:1.5px solid #2a2a2a;border-radius:10px;color:#f0f0f0;font-size:17px;font-weight:700;font-family:'DM Sans',sans-serif;padding:12px 8px;text-align:center;width:100%;outline:none;transition:border-color .15s;-webkit-appearance:none}
+  .set-input:focus{border-color:#E0699F44}
+  .set-input.done{border-color:#E0699F55;background:#1a0f15}
+  .done-btn{width:48px;height:48px;border-radius:10px;border:1.5px solid #2a2a2a;background:#0e0e0e;color:#444;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+  .done-btn.active{background:#E0699F;border-color:#E0699F;color:#fff}
+  .feedback-box{background:#2a0f1f;border:1px solid #4a1f38;border-radius:10px;padding:12px;margin-top:10px;font-size:13px;color:#E0699F;line-height:1.6}
+  .feedback-box.good{background:#0a1a0a;border-color:#1a4a1a;color:#3A9B6F}
+  .feedback-box.warn{background:#1a0a0a;border-color:#4a1a1a;color:#cc6666}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+  .stat-card{background:#161616;border-radius:12px;padding:14px;border:1px solid #222}
+  .stat-val{font-size:26px;font-weight:800;color:#f0f0f0}
+  .stat-label{font-size:11px;color:#555;margin-top:2px}
+  .section-title{font-size:11px;font-weight:700;color:#444;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;margin-top:4px}
+  .macro-row{margin-bottom:10px}
+  .macro-label-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px}
+  .macro-bar{height:6px;border-radius:3px;background:#222;overflow:hidden}
+  .macro-fill{height:100%;border-radius:3px;transition:width .4s}
+  .nut-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .nut-field label{font-size:11px;font-weight:700;display:block;margin-bottom:5px}
+  .nut-input{background:#0e0e0e;border:1.5px solid #2a2a2a;border-radius:10px;color:#f0f0f0;font-size:20px;font-weight:800;font-family:'DM Sans',sans-serif;padding:13px 12px;width:100%;outline:none;-webkit-appearance:none}
+  .nut-input:focus{border-color:#E0699F55}
+  .nut-input.filled{border-color:#3a3a3a}
+  .bw-row{display:flex;gap:8px;margin-bottom:14px}
+  .bw-input{flex:1;background:#0e0e0e;border:1.5px solid #2a2a2a;border-radius:10px;color:#f0f0f0;font-size:18px;font-weight:700;font-family:'DM Sans',sans-serif;padding:13px 14px;outline:none;-webkit-appearance:none}
+  .add-btn{background:#E0699F;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-weight:800;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer}
+  .ex-select{background:#0e0e0e;border:1.5px solid #2a2a2a;border-radius:10px;color:#f0f0f0;font-size:14px;font-family:'DM Sans',sans-serif;padding:13px 14px;width:100%;margin-bottom:12px;outline:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+  .chart-wrap{width:100%;overflow:hidden;border-radius:8px}
+  .rest-day{text-align:center;padding:40px 20px;color:#444}
+  .rest-day .big{font-size:48px;margin-bottom:12px}
+  .rest-day .title{font-size:18px;font-weight:800;color:#555}
+  .rest-day .sub{font-size:13px;color:#333;margin-top:6px;line-height:1.5}
+  .own-card{background:#1a0f15;border:1px solid #3a1f30;border-radius:14px;padding:18px}
+  .own-card .title{font-size:17px;font-weight:800;color:#E0699F}
+  .own-card .sub{font-size:13px;color:#bbb;margin-top:8px;line-height:1.6}
+  .attend-btn{width:100%;border-radius:14px;padding:18px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .15s}
+  .level-bar{display:flex;gap:4px;margin-top:12px}
+  .level-pip{flex:1;height:6px;border-radius:3px;background:#2a2a2a}
+  .level-pip.on{background:#E0699F}
+  .station-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#D4A05B22;color:#D4A05B;font-size:11px;font-weight:800;margin-right:8px;flex-shrink:0}
+  .run-note{font-size:11px;color:#5BA8D4;background:#0d1a24;border:1px dashed #1f3a4a;border-radius:8px;padding:7px 10px;margin-bottom:10px;text-align:center}
+  .history-row{display:flex;justify-content:space-between;align-items:center}
+  input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+</style>
+</head>
+<body>
+
+<div id="main"></div>
+
+<nav id="nav">
+  <button class="nav-btn active" data-view="training" onclick="setView('training')"><span class="ico">🧘</span>Training</button>
+  <button class="nav-btn" data-view="dashboard" onclick="setView('dashboard')"><span class="ico">📊</span>Dashboard</button>
+  <button class="nav-btn" data-view="nutrition" onclick="setView('nutrition')"><span class="ico">🥗</span>Voeding</button>
+  <button class="nav-btn" data-view="progress" onclick="setView('progress')"><span class="ico">📈</span>Progressie</button>
+</nav>
+
+<script>
+// ── SCHEMA ──
+const SCHEMA = {
+  Ma:{label:"Maandag",type:"Pilates Tone",color:"#E0699F",attend:true,
+    note:"Je eigen Pilates Tone les. Focus op core, houding en lange spierlijnen. Lage intensiteit, hoge controle — perfecte start van de week.",exercises:[]},
+  Di:{label:"Dinsdag",type:"Upper Body",color:"#9B6FD4",exercises:[
+    {id:"chest_press",name:"Dumbbell Chest Press",sets:3,reps:"10–12",rest:90},
+    {id:"lat_pulldown",name:"Lat Pulldown",sets:3,reps:"10–12",rest:90},
+    {id:"shoulder_press",name:"Seated DB Shoulder Press",sets:3,reps:"10–12",rest:90},
+    {id:"cable_row",name:"Seated Cable Row",sets:3,reps:"12",rest:90},
+    {id:"bicep_curl",name:"Dumbbell Bicep Curl",sets:3,reps:"12–15",rest:60},
+    {id:"tricep_push",name:"Cable Tricep Pushdown",sets:3,reps:"12–15",rest:60},
+    {id:"plank",name:"Plank (seconden vasthouden)",sets:3,reps:"30–45s",rest:45,time:true},
+  ]},
+  Wo:{label:"Woensdag",type:"Core + Cardio",color:"#5BA8D4",cardio:true,
+    cardioNote:"Sluit af met 30–40 min Zone 2 cardio (fiets, crosstrainer of loopband met lichte helling). Zone 2 = je kunt nog net praten. Cardio ná je core, niet ervoor — zo houd je je kracht voor de core-oefeningen.",exercises:[
+    {id:"leg_raise",name:"Lying Leg Raise",sets:3,reps:"12–15",rest:45,repsOnly:true},
+    {id:"cable_crunch",name:"Cable Crunch",sets:3,reps:"15–20",rest:45},
+    {id:"russian_twist",name:"Russian Twist",sets:3,reps:"20",rest:45,repsOnly:true},
+    {id:"side_plank",name:"Side Plank (seconden per kant)",sets:3,reps:"30s p/kant",rest:45,time:true},
+  ]},
+  Do:{label:"Donderdag",type:"Hyrox",color:"#D4A05B",hyrox:true,exercises:[]},
+  Vr:{label:"Vrijdag",type:"Billen & Benen",color:"#7BC67A",exercises:[
+    {id:"hip_thrust",name:"Barbell Hip Thrust",sets:4,reps:"10–12",rest:120},
+    {id:"rdl",name:"Romanian Deadlift (DB)",sets:3,reps:"10–12",rest:90},
+    {id:"split_squat",name:"Bulgarian Split Squat",sets:3,reps:"10–12 p/been",rest:90},
+    {id:"kickback",name:"Cable Glute Kickback",sets:3,reps:"15 p/been",rest:60},
+    {id:"abduction",name:"Hip Abduction (machine)",sets:3,reps:"15–20",rest:60},
+    {id:"glute_bridge",name:"Glute Bridge / Frog Pump",sets:3,reps:"15–20",rest:60},
+  ]},
+  Za:{label:"Zaterdag",type:"Rust",color:"#555",exercises:[]},
+  Zo:{label:"Zondag",type:"Rust",color:"#555",exercises:[]}
+};
+
+// ── HYROX PROGRESSIE-CYCLUS (zwaarder naarmate ervaring groeit) ──
+// Volgt de echte Hyrox-stationvolgorde: SkiErg → Sled Push → Sled Pull → Burpee Broad Jumps → Row → Farmers Carry → Sandbag Lunges → Wall Balls, met hardlopen ertussen.
+const HYROX_LEVELS = [
+  {name:"Level 1 — Kennismaking",
+   run:"2 rondes · 200m hardlopen tussen elke station.",
+   tip:"Leer de bewegingen. Techniek boven snelheid.",
+   exercises:[
+     {id:"row",name:"Rower (meters)",sets:2,reps:"250m",rest:60,repsOnly:true},
+     {id:"burpee_broad",name:"Burpee Broad Jumps",sets:2,reps:"8 reps",rest:60,repsOnly:true},
+     {id:"wallball",name:"Wall Balls",sets:2,reps:"15 reps",rest:60,repsOnly:true},
+   ]},
+  {name:"Level 2 — Basis",
+   run:"2 rondes · 300m hardlopen tussen stations.",
+   tip:"Voeg gewicht toe op sled & farmers. Blijf rondes afmaken.",
+   exercises:[
+     {id:"row",name:"Rower (meters)",sets:2,reps:"300m",rest:60,repsOnly:true},
+     {id:"sled_push",name:"Sled Push (of Leg Press) — 25m",sets:2,reps:"25m",rest:75},
+     {id:"farmers",name:"Farmers Carry — 40m (kg loggen)",sets:2,reps:"40m",rest:60},
+     {id:"wallball",name:"Wall Balls",sets:2,reps:"20 reps",rest:60,repsOnly:true},
+   ]},
+  {name:"Level 3 — Opbouw",
+   run:"3 rondes · 400m hardlopen tussen stations.",
+   tip:"Nu 5 stations. Houd je hartslag onder controle tussen runs.",
+   exercises:[
+     {id:"skierg",name:"SkiErg (meters)",sets:3,reps:"300m",rest:60,repsOnly:true},
+     {id:"sled_push",name:"Sled Push — 25m (kg loggen)",sets:3,reps:"25m",rest:75},
+     {id:"burpee_broad",name:"Burpee Broad Jumps",sets:3,reps:"10 reps",rest:60,repsOnly:true},
+     {id:"farmers",name:"Farmers Carry — 40m (kg loggen)",sets:3,reps:"40m",rest:60},
+     {id:"wallball",name:"Wall Balls",sets:3,reps:"20 reps",rest:60,repsOnly:true},
+   ]},
+  {name:"Level 4 — Gevorderd",
+   run:"3 rondes · 500m hardlopen tussen stations.",
+   tip:"Je nadert echte Hyrox-volumes. Sled pull komt erbij.",
+   exercises:[
+     {id:"skierg",name:"SkiErg (meters)",sets:3,reps:"400m",rest:60,repsOnly:true},
+     {id:"sled_push",name:"Sled Push — 40m (kg loggen)",sets:3,reps:"40m",rest:75},
+     {id:"sled_pull",name:"Sled Pull — 40m (kg loggen)",sets:3,reps:"40m",rest:75},
+     {id:"burpee_broad",name:"Burpee Broad Jumps",sets:3,reps:"12 reps",rest:60,repsOnly:true},
+     {id:"row",name:"Rower (meters)",sets:3,reps:"400m",rest:60,repsOnly:true},
+     {id:"wallball",name:"Wall Balls",sets:3,reps:"25 reps",rest:60,repsOnly:true},
+   ]},
+  {name:"Level 5 — Vergevorderd",
+   run:"3–4 rondes · 600m hardlopen tussen stations.",
+   tip:"Bijna de volledige Hyrox. Sandbag lunges erbij.",
+   exercises:[
+     {id:"skierg",name:"SkiErg (meters)",sets:4,reps:"500m",rest:60,repsOnly:true},
+     {id:"sled_push",name:"Sled Push — 50m (kg loggen)",sets:4,reps:"50m",rest:75},
+     {id:"sled_pull",name:"Sled Pull — 50m (kg loggen)",sets:4,reps:"50m",rest:75},
+     {id:"burpee_broad",name:"Burpee Broad Jumps",sets:4,reps:"15 reps",rest:60,repsOnly:true},
+     {id:"row",name:"Rower (meters)",sets:4,reps:"500m",rest:60,repsOnly:true},
+     {id:"sandbag_lunge",name:"Sandbag Lunges — 50m (kg loggen)",sets:4,reps:"50m",rest:75},
+     {id:"wallball",name:"Wall Balls",sets:4,reps:"30 reps",rest:60,repsOnly:true},
+   ]},
+  {name:"Level 6 — Volledige Hyrox",
+   run:"De echte deal: 8 stations in Hyrox-volgorde · 1000m (of 800m) hardlopen vóór elke station.",
+   tip:"Dit is een complete Hyrox. Verbeter nu je tijd, meters en gewichten elke keer.",
+   exercises:[
+     {id:"skierg",name:"1. SkiErg (meters)",sets:1,reps:"1000m",rest:90,repsOnly:true},
+     {id:"sled_push",name:"2. Sled Push — 50m (kg loggen)",sets:1,reps:"50m",rest:90},
+     {id:"sled_pull",name:"3. Sled Pull — 50m (kg loggen)",sets:1,reps:"50m",rest:90},
+     {id:"burpee_broad",name:"4. Burpee Broad Jumps",sets:1,reps:"40 reps",rest:90,repsOnly:true},
+     {id:"row",name:"5. Rower (meters)",sets:1,reps:"1000m",rest:90,repsOnly:true},
+     {id:"farmers",name:"6. Farmers Carry — 200m (kg loggen)",sets:1,reps:"200m",rest:90},
+     {id:"sandbag_lunge",name:"7. Sandbag Lunges — 100m (kg loggen)",sets:1,reps:"100m",rest:90},
+     {id:"wallball",name:"8. Wall Balls",sets:1,reps:"100 reps",rest:90,repsOnly:true},
+   ]},
+];
+const SESSIONS_PER_LEVEL=2; // elke 2 voltooide Hyrox-sessies een level omhoog
+
+const DAYS=["Ma","Di","Wo","Do","Vr","Za","Zo"];
+const MACROS={kcal:1700,protein:130,carbs:170,fat:55};
+const GOAL_WEIGHT=70;
+
+function allExercises(){
+  const map={};
+  Object.values(SCHEMA).forEach(d=>(d.exercises||[]).forEach(e=>{if(!e.check)map[e.id]=e}));
+  HYROX_LEVELS.forEach(l=>l.exercises.forEach(e=>{map[e.id]=e}));
+  return Object.values(map);
+}
+const TIME_EX=new Set();
+const REPS_EX=new Set();
+[...Object.values(SCHEMA).flatMap(d=>d.exercises||[]),...HYROX_LEVELS.flatMap(l=>l.exercises)].forEach(e=>{if(e.time)TIME_EX.add(e.id);if(e.repsOnly)REPS_EX.add(e.id)});
+function isSingle(exId){return TIME_EX.has(exId)||REPS_EX.has(exId)}
+
+// ── STATE ──
+const SK="fit_v1";
+function load(){try{const r=localStorage.getItem(SK);return r?JSON.parse(r):{sessions:{},bodyweight:[],nutrition:{},steps:{}}}catch{return{sessions:{},bodyweight:[],nutrition:{},steps:{}}}}
+function save(){try{localStorage.setItem(SK,JSON.stringify(DB))}catch{}}
+let DB=load();
+function today(){return new Date().toISOString().slice(0,10)}
+function todayDay(){return["Zo","Ma","Di","Wo","Do","Vr","Za"][new Date().getDay()]}
+let currentView="training";
+let activeDay=todayDay();
+let progressEx="";
+
+// ── HYROX ERVARING & LEVEL ──
+function hyroxExperience(){
+  const todayKey="Do_"+today();
+  let c=0;
+  for(const k of Object.keys(DB.sessions)){
+    if(!k.startsWith("Do_")||k===todayKey)continue;
+    const s=DB.sessions[k];
+    if(Object.values(s.sets||{}).some(arr=>arr.some(x=>x.done)))c++;
+  }
+  return c;
+}
+function hyroxLevelIndex(){return Math.min(Math.floor(hyroxExperience()/SESSIONS_PER_LEVEL),HYROX_LEVELS.length-1)}
+
+// ── DATA HELPERS ──
+function sessKey(day){return`${day}_${today()}`}
+function getSession(day){return DB.sessions[sessKey(day)]||(DB.sessions[sessKey(day)]={date:today(),sets:{}},DB.sessions[sessKey(day)])}
+function setVal(day,exId,setIdx,field,val){
+  const s=getSession(day);
+  if(!s.sets[exId])s.sets[exId]=[];
+  while(s.sets[exId].length<=setIdx)s.sets[exId].push({weight:"",reps:"",done:false});
+  s.sets[exId][setIdx][field]=val;save();
+}
+function toggleDone(day,exId,setIdx){
+  const s=getSession(day);
+  if(!s.sets[exId])s.sets[exId]=[];
+  while(s.sets[exId].length<=setIdx)s.sets[exId].push({weight:"",reps:"",done:false});
+  s.sets[exId][setIdx].done=!s.sets[exId][setIdx].done;
+  save();render();
+}
+function getLastSession(dayId,exId){
+  const keys=Object.keys(DB.sessions).filter(k=>k.startsWith(dayId+"_")).sort().reverse();
+  for(const k of keys){const s=DB.sessions[k];if(s.sets&&s.sets[exId]&&s.sets[exId].length)return s.sets[exId]}
+  return null;
+}
+function getPR(exId){
+  const single=isSingle(exId);
+  let best=null;
+  for(const k of Object.keys(DB.sessions)){
+    const s=DB.sessions[k];if(!s.sets||!s.sets[exId])continue;
+    for(const set of s.sets[exId]){
+      const v=single?(parseInt(set.reps)||0):(parseFloat(set.weight)||0)*(parseInt(set.reps)||0);
+      if(v>0&&(!best||v>best.val))best={val:v,weight:set.weight,reps:set.reps,date:s.date};
+    }
+  }
+  return best;
+}
+function getProgress(exId){
+  const single=isSingle(exId);
+  const pts=[];
+  for(const k of Object.keys(DB.sessions).sort()){
+    const s=DB.sessions[k];if(!s.sets||!s.sets[exId])continue;
+    const maxV=single?Math.max(...s.sets[exId].map(x=>parseInt(x.reps)||0)):Math.max(...s.sets[exId].map(x=>parseFloat(x.weight)||0));
+    if(maxV>0)pts.push({date:s.date,weight:maxV});
+  }
+  return pts;
+}
+function getFeedback(exId,curSets,lastSets){
+  if(!lastSets||!curSets)return null;
+  const done=curSets.filter(s=>s.done);if(done.length<1)return null;
+  if(TIME_EX.has(exId)){
+    const cur=Math.max(...done.map(s=>parseInt(s.reps)||0)),last=Math.max(...lastSets.map(s=>parseInt(s.reps)||0));
+    if(cur>last)return{msg:`🔥 ${cur-last}s langer volgehouden dan vorige keer!`,cls:"good"};
+    if(cur===last&&cur>0)return{msg:`✅ Zelfde tijd vastgehouden. Probeer +5s.`,cls:""};
+    if(cur>0)return{msg:`➡️ Iets korter. Blijf oefenen — het komt.`,cls:""};
+    return null;
+  }
+  if(REPS_EX.has(exId)){
+    const cur=Math.max(...done.map(s=>parseInt(s.reps)||0)),last=Math.max(...lastSets.map(s=>parseInt(s.reps)||0));
+    if(cur>last)return{msg:`🔥 ${cur-last} meer dan vorige keer!`,cls:"good"};
+    if(cur===last&&cur>0)return{msg:`✅ Zelfde aantal. Probeer er +1 bij.`,cls:""};
+    if(cur>0)return{msg:`➡️ Iets minder. Blijf pushen.`,cls:""};
+    return null;
+  }
+  const curMax=Math.max(...done.map(s=>parseFloat(s.weight)||0));
+  const lastMax=Math.max(...lastSets.map(s=>parseFloat(s.weight)||0));
+  const curReps=done.reduce((a,s)=>a+(parseInt(s.reps)||0),0);
+  const lastReps=lastSets.reduce((a,s)=>a+(parseInt(s.reps)||0),0);
+  if(curMax>lastMax)return{msg:`🔥 Sterker dan vorige keer! +${(curMax-lastMax).toFixed(1)}kg.`,cls:"good"};
+  if(curMax===lastMax&&curReps>lastReps)return{msg:`✅ Meer reps bij zelfde gewicht — top.`,cls:"good"};
+  if(curMax>0&&curMax<lastMax)return{msg:`➡️ Iets lichter. Prima — focus op nette uitvoering.`,cls:""};
+  if(curMax>0)return{msg:`➡️ Zelfde als vorige keer. Probeer +1 rep.`,cls:""};
+  return null;
+}
+function prText(exId,pr){
+  if(TIME_EX.has(exId))return pr.reps+"s";
+  if(REPS_EX.has(exId))return pr.reps+"×";
+  return pr.weight+"kg × "+pr.reps;
+}
+
+// ── SCORE ──
+function calcDayScore(nut,steps){
+  if(!nut)return null;
+  const g=MACROS;
+  const p=parseFloat(nut.protein)||0,k=parseFloat(nut.carbs)||0,v=parseFloat(nut.fat)||0;
+  const kcalIn=parseFloat(nut.kcal)||Math.round(p*4+k*4+v*9);
+  const st=parseInt(steps)||0;
+  let scored=0,total=0;
+  if(p>0){const pr=p/g.protein;scored+=pr>=0.92&&pr<=1.15?25:pr>=0.80?15:pr>=0.65?8:2;total+=25}
+  if(kcalIn>0){const cr=kcalIn/g.kcal;scored+=cr>=0.90&&cr<=1.08?20:cr>=0.80&&cr<=1.15?13:cr>=0.70?6:2;total+=20}
+  if(k>0){const kr=k/g.carbs;scored+=kr>=0.85&&kr<=1.15?10:kr>=0.70?6:3;total+=10}
+  if(v>0){const vr=v/g.fat;scored+=vr>=0.85&&vr<=1.20?5:3;total+=5}
+  if(st>0){scored+=st>=10000?20:st>=8000?17:st>=6000?12:st>=4000?7:3;total+=20}
+  if(total===0)return null;
+  return Math.min(Math.round((scored/total)*100)/10,10);
+}
+function scoreColor(s){if(s>=9)return"#3A9B6F";if(s>=7.5)return"#7BC67A";if(s>=6)return"#E0699F";if(s>=4.5)return"#cc8833";return"#cc4444"}
+function scoreLabel(s){if(s>=9)return"Perfecte dag 🔥";if(s>=7.5)return"Sterke dag ✅";if(s>=6)return"Redelijke dag";if(s>=4.5)return"Matige dag";return"Morgen weer een kans 💪"}
+
+// ── CHART ──
+function miniChart(data,color){
+  if(!data||data.length<2)return`<div style="color:#444;font-size:12px;padding:12px 0">Log minimaal 2 keer voor een grafiek.</div>`;
+  const W=340,H=90,P=10;
+  const ws=data.map(d=>d.weight),mn=Math.min(...ws),mx=Math.max(...ws),range=mx-mn||1;
+  const pts=data.map((d,i)=>{const x=P+(i/(data.length-1))*(W-P*2);const y=H-P-((d.weight-mn)/range)*(H-P*2);return`${x.toFixed(1)},${y.toFixed(1)}`}).join(" ");
+  const dots=data.map((d,i)=>{const x=P+(i/(data.length-1))*(W-P*2);const y=H-P-((d.weight-mn)/range)*(H-P*2);return`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="${color}"/>`}).join("");
+  return`<div class="chart-wrap"><svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block">
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>${dots}
+    <text x="${P}" y="${H}" font-size="10" fill="#555">${data[0].date.slice(5)}</text>
+    <text x="${W-P}" y="${H}" font-size="10" fill="#555" text-anchor="end">${data[data.length-1].date.slice(5)}</text>
+    <text x="${P}" y="10" font-size="10" fill="${color}">${mx}</text></svg></div>`;
+}
+
+// ── EXERCISE CARDS (gedeeld) ──
+function renderExerciseCards(dayId,exercises){
+  const sess=getSession(dayId);
+  let html="";
+  for(const ex of exercises){
+    const mode=ex.time?"time":(ex.repsOnly?"reps":"weight");
+    const single=mode!=="weight";
+    const curSets=sess.sets[ex.id]||[];
+    const lastSets=getLastSession(dayId,ex.id);
+    const pr=getPR(ex.id);
+    const lastMax=lastSets?(single?Math.max(...lastSets.map(s=>parseInt(s.reps)||0)):Math.max(...lastSets.map(s=>parseFloat(s.weight)||0))):null;
+    const fb=getFeedback(ex.id,curSets,lastSets);
+    let setsHtml="";
+    for(let i=0;i<ex.sets;i++){
+      const s=curSets[i]||{};const last=lastSets?.[i];const done=!!s.done;
+      if(single){
+        const ph=last?.reps?(last.reps+(mode==="time"?"s":"")):(mode==="time"?"seconden":"aantal");
+        setsHtml+=`<div class="set-row" style="grid-template-columns:24px 1fr 48px">
+          <div class="set-num">${i+1}</div>
+          <input class="set-input${done?" done":""}" type="number" inputmode="numeric" placeholder="${ph}" value="${s.reps||""}" onchange="setVal('${dayId}','${ex.id}',${i},'reps',this.value);render()" onfocus="this.select()">
+          <button class="done-btn${done?" active":""}" onclick="toggleDone('${dayId}','${ex.id}',${i})">${done?"✓":"○"}</button></div>`;
+      }else{
+        setsHtml+=`<div class="set-row">
+          <div class="set-num">${i+1}</div>
+          <input class="set-input${done?" done":""}" type="number" inputmode="decimal" placeholder="${last?.weight||"kg"}" value="${s.weight||""}" onchange="setVal('${dayId}','${ex.id}',${i},'weight',this.value);render()" onfocus="this.select()">
+          <input class="set-input${done?" done":""}" type="number" inputmode="numeric" placeholder="${last?.reps||"reps"}" value="${s.reps||""}" onchange="setVal('${dayId}','${ex.id}',${i},'reps',this.value);render()" onfocus="this.select()">
+          <button class="done-btn${done?" active":""}" onclick="toggleDone('${dayId}','${ex.id}',${i})">${done?"✓":"○"}</button></div>`;
+      }
+    }
+    const prHtml=pr?`<div class="pr-badge">🏆 Beste: ${prText(ex.id,pr)}</div>`:"";
+    const fbHtml=fb?`<div class="feedback-box ${fb.cls}">${fb.msg}</div>`:"";
+    const lastTag=lastMax?`<div class="last-tag">Vorig:<br><strong>${single?(mode==="time"?lastMax+"s":lastMax+"×"):lastMax+"kg"}</strong></div>`:"";
+    html+=`<div class="card"><div class="ex-header"><div style="flex:1"><div class="ex-name">${ex.name}</div><div class="ex-meta">${ex.sets} ${ex.sets>1?"rondes":"ronde"} · ${ex.reps}</div>${prHtml}</div>${lastTag}</div>${setsHtml}${fbHtml}</div>`;
+  }
+  return html;
+}
+
+// ── VIEWS ──
+function renderTraining(){
+  const day=SCHEMA[activeDay];
+  const tabsHtml=DAYS.map(d=>{const a=d===activeDay;const c=SCHEMA[d].color;
+    return`<button class="day-tab${a?" active":""}" style="${a?`border-color:${c};color:${c};background:${c}18`:""}" onclick="switchDay('${d}')">${d}<br><span style="font-size:9px;font-weight:400;opacity:.7">${SCHEMA[d].type}</span></button>`}).join("");
+  const header=`<div class="page-header"><div class="page-title">${day.type}</div><div class="page-sub">${day.label} · ${today()}</div></div><div class="day-tabs">${tabsHtml}</div>`;
+
+  // Pilates: uitleg + 1 knop "ik ben geweest"
+  if(day.attend){
+    const sess=getSession(activeDay);
+    const been=sess.sets["attended"]?.[0]?.done;
+    const card=`<div class="own-card" style="margin-bottom:12px"><div class="title">🧘‍♀️ ${day.type}</div><div class="sub">${day.note}</div></div>`;
+    const btn=`<button class="attend-btn" onclick="toggleDone('${activeDay}','attended',0)" style="${been?"background:#E0699F;color:#fff;border:none":"background:#161616;color:#888;border:1.5px solid #2a2a2a"}">${been?"✅ Geweest — top!":"○ Vink af dat je geweest bent"}</button>`;
+    return header+card+btn;
+  }
+
+  // Hyrox: progressieve cyclus
+  if(day.hyrox){
+    const idx=hyroxLevelIndex();
+    const level=HYROX_LEVELS[idx];
+    const exp=hyroxExperience();
+    const isMax=idx>=HYROX_LEVELS.length-1;
+    const toNext=isMax?0:((idx+1)*SESSIONS_PER_LEVEL-exp);
+    const pips=HYROX_LEVELS.map((_,i)=>`<div class="level-pip${i<=idx?" on":""}"></div>`).join("");
+    const nextTxt=isMax?"Hoogste level bereikt — verbeter nu je prestaties per station.":`Nog ${toNext} sessie${toNext===1?"":"s"} tot ${HYROX_LEVELS[idx+1].name}.`;
+    const banner=`<div class="own-card" style="margin-bottom:12px">
+      <div class="title">🏃‍♀️ ${level.name}</div>
+      <div class="sub">${level.run}</div>
+      <div class="sub" style="color:#D4A05B;margin-top:6px"><strong>${level.tip}</strong></div>
+      <div class="level-bar">${pips}</div>
+      <div style="font-size:11px;color:#777;margin-top:8px">${exp} Hyrox-sessie${exp===1?"":"s"} voltooid · ${nextTxt}</div></div>`;
+    const runHint=`<div class="run-note">🏃 Vergeet het hardlopen tussen de stations niet — dat is de kern van Hyrox.</div>`;
+    return header+banner+runHint+renderExerciseCards("Do",level.exercises);
+  }
+
+  // Woensdag: core eerst, cardio als afsluiter
+  if(day.cardio){
+    const core=renderExerciseCards("Wo",day.exercises);
+    const cardioCard=`<div class="own-card" style="margin-top:4px"><div class="title" style="font-size:15px">🚴‍♀️ Cardio als afsluiter</div><div class="sub">${day.cardioNote}</div></div>`;
+    return header+core+cardioCard;
+  }
+
+  // Rustdag
+  if(day.exercises.length===0){
+    return `<div class="page-header"><div class="page-title">Training</div><div class="page-sub">${today()}</div></div><div class="day-tabs">${tabsHtml}</div>`+`<div class="rest-day"><div class="big">🌙</div><div class="title">Rustdag — ${day.label}</div><div class="sub">Rust is waar je vooruitgang boekt.<br>Slaap goed, eet je eiwitten, drink water.</div></div>`;
+  }
+
+  // Normale krachtdag (Di, Vr)
+  return header+renderExerciseCards(activeDay,day.exercises);
+}
+
+function renderDashboard(){
+  const total=Object.keys(DB.sessions).length;
+  const latestBW=DB.bodyweight?.slice(-1)[0]?.weight;
+  const diff=latestBW?(latestBW-GOAL_WEIGHT).toFixed(1):null;
+  const prRows=allExercises().map(ex=>{const pr=getPR(ex.id);if(!pr)return"";
+    return`<div class="card-sm" style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;color:#aaa;flex:1">${ex.name}</div><div class="pr-badge">🏆 ${prText(ex.id,pr)}</div></div>`}).join("");
+  const bwHistory=DB.bodyweight?.slice(-8)||[];
+  return`<div class="page-header"><div class="page-title">Dashboard</div><div class="page-sub">${today()}</div></div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-val">${total}</div><div class="stat-label">Workouts gelogd</div></div>
+    <div class="stat-card"><div class="stat-val">${latestBW?latestBW+"kg":"—"}</div><div class="stat-label">Huidig gewicht</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#E0699F">${GOAL_WEIGHT}kg</div><div class="stat-label">Doelgewicht</div></div>
+    <div class="stat-card"><div class="stat-val" style="font-size:20px">${diff!==null?(parseFloat(diff)>0?diff+"kg":"bereikt! 🎉"):"—"}</div><div class="stat-label">${diff!==null&&parseFloat(diff)>0?"Nog te gaan":"Doel"}</div></div>
+  </div>
+  <div class="section-title">Gewicht bijhouden</div>
+  <div class="bw-row"><input class="bw-input" type="number" inputmode="decimal" id="bw-input" placeholder="Gewicht in kg vandaag"><button class="add-btn" onclick="logBW()">+ Log</button></div>
+  ${bwHistory.length>1?`<div class="card">${miniChart(bwHistory,"#E0699F")}</div>`:""}
+  <div class="section-title">Persoonlijke records</div>
+  ${prRows||`<div style="color:#444;font-size:13px;padding:8px 0">Log je eerste workout om records te zien.</div>`}`;
+}
+
+function renderNutrition(){
+  const nutKey=today();
+  const nut=DB.nutrition[nutKey]||{};
+  const steps=DB.steps?.[nutKey]||"";
+  const g=MACROS;
+  const p=parseFloat(nut.protein)||0,k=parseFloat(nut.carbs)||0,v=parseFloat(nut.fat)||0,kcal=parseFloat(nut.kcal)||0;
+  const calcKcal=Math.round(p*4+k*4+v*9);
+  const st=parseInt(steps)||0;
+  const score=calcDayScore(nut,steps);
+  function bar(val,goal,color){const pct=Math.min((val/goal)*100,100);return`<div class="macro-bar"><div class="macro-fill" style="width:${pct}%;background:${color}"></div></div>`}
+  const macros=[
+    {field:"protein",label:"Eiwit",unit:"g",color:"#E0699F",val:p,goal:g.protein},
+    {field:"carbs",label:"Koolhydraten",unit:"g",color:"#9B6FD4",val:k,goal:g.carbs},
+    {field:"fat",label:"Vetten",unit:"g",color:"#3A9B6F",val:v,goal:g.fat},
+    {field:"kcal",label:"Calorieën",unit:"kcal",color:"#888",val:kcal||calcKcal,goal:g.kcal},
+  ];
+  const fbLines=[];
+  for(const m of macros){
+    if(!m.val)continue;
+    const d=m.val-m.goal,pct=Math.round((m.val/m.goal)*100);
+    let msg,col;
+    if(pct>=92&&pct<=108){msg=`✅ ${m.label} op schema`;col="#3A9B6F"}
+    else if(m.val<m.goal){msg=`⬇️ ${m.label} ${Math.abs(d).toFixed(0)}${m.unit} onder doel`;col="#E0699F"}
+    else{msg=`⬆️ ${m.label} ${Math.abs(d).toFixed(0)}${m.unit} boven doel`;col="#9B6FD4"}
+    fbLines.push({msg,col});
+  }
+  if(st>0){
+    if(st>=10000)fbLines.push({msg:`✅ Stappen: ${st.toLocaleString()} — top!`,col:"#3A9B6F"});
+    else if(st>=8000)fbLines.push({msg:`✅ Stappen: ${st.toLocaleString()} — goed`,col:"#7BC67A"});
+    else if(st>=6000)fbLines.push({msg:`➡️ Stappen: ${st.toLocaleString()} — richting 8.000+`,col:"#E0699F"});
+    else fbLines.push({msg:`⬇️ Stappen: ${st.toLocaleString()} — meer bewegen helpt enorm`,col:"#cc4444"});
+  }
+  const fbHtml=fbLines.map((f,i)=>`<div style="font-size:13px;color:${f.col};padding:6px 0;border-bottom:${i<fbLines.length-1?"1px solid #1c1c1c":"none"}">${f.msg}</div>`).join("");
+  const scoreHtml=score!==null?`<div style="display:flex;align-items:center;justify-content:space-between;background:#111;border-radius:12px;padding:14px 16px;margin-bottom:12px;border:1px solid #222">
+    <div><div style="font-size:11px;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Dagcijfer</div><div style="font-size:13px;color:${scoreColor(score)}">${scoreLabel(score)}</div></div>
+    <div style="font-size:48px;font-weight:800;color:${scoreColor(score)};line-height:1">${score.toFixed(1)}</div></div>`:"";
+  const history=Object.entries(DB.nutrition).sort(([a],[b])=>b.localeCompare(a)).slice(0,7);
+  const histHtml=history.map(([date,n])=>{
+    const pp=parseFloat(n.protein)||0,kk=parseFloat(n.carbs)||0,vv=parseFloat(n.fat)||0;
+    const kc=parseFloat(n.kcal)||Math.round(pp*4+kk*4+vv*9);
+    const st2=parseInt(DB.steps?.[date])||0;
+    const sc=calcDayScore(n,DB.steps?.[date]);
+    return`<div class="card-sm"><div class="history-row"><div>
+      <div style="font-size:13px;font-weight:700;color:${date===nutKey?"#E0699F":"#f0f0f0"}">${date}${date===nutKey?" · vandaag":""}</div>
+      <div style="font-size:11px;color:#555;margin-top:2px">P${pp}g · K${kk}g · V${vv}g${st2?` · 👟${st2.toLocaleString()}`:""}</div></div>
+      <div style="text-align:right"><div style="font-weight:800;font-size:14px">${kc} kcal</div>
+      ${sc!==null?`<div style="font-size:14px;font-weight:800;color:${scoreColor(sc)};margin-top:2px">${sc.toFixed(1)}</div>`:""}</div></div></div>`}).join("");
+  return`<div class="page-header"><div class="page-title">Voeding & Dag</div><div class="page-sub">Doel: ${g.kcal} kcal · P${g.protein} K${g.carbs} V${g.fat}</div></div>
+  ${scoreHtml}
+  <div class="card"><div style="font-weight:800;font-size:15px;margin-bottom:14px">Vandaag <span style="font-size:11px;font-weight:400;color:#555">${nutKey}</span></div>
+    <div class="nut-grid">
+      ${macros.map(m=>`<div class="nut-field"><label style="color:${m.color}">${m.label} (${m.unit})</label>
+        <input class="nut-input${nut[m.field]?" filled":""}" type="number" inputmode="decimal" placeholder="doel: ${m.goal}" value="${nut[m.field]||""}" id="nut-${m.field}" onchange="updateNut('${m.field}',this.value)"></div>`).join("")}
+      <div class="nut-field" style="grid-column:1/-1"><label style="color:#888">👟 Stappen vandaag</label>
+        <input class="nut-input${steps?" filled":""}" type="number" inputmode="numeric" placeholder="bijv. 8500" value="${steps||""}" id="steps-input" onchange="updateSteps(this.value)"></div>
+    </div>
+    ${calcKcal>0&&!nut.kcal?`<div style="font-size:12px;color:#555;margin:0 0 12px">Berekend: <strong style="color:#E0699F">${calcKcal} kcal</strong></div>`:""}
+    ${macros.slice(0,3).map(m=>`<div class="macro-row"><div class="macro-label-row"><span style="color:#666;font-size:12px">${m.label}</span><span style="color:${m.color};font-weight:700;font-size:12px">${m.val||0}${m.unit} <span style="color:#444">/ ${m.goal}${m.unit}</span></span></div>${bar(m.val,m.goal,m.color)}</div>`).join("")}
+    ${st>0?`<div class="macro-row"><div class="macro-label-row"><span style="color:#666;font-size:12px">Stappen</span><span style="color:#888;font-weight:700;font-size:12px">${st.toLocaleString()} <span style="color:#444">/ 8.000</span></span></div><div class="macro-bar"><div class="macro-fill" style="width:${Math.min((st/8000)*100,100)}%;background:#888"></div></div></div>`:""}
+  </div>
+  ${fbLines.length?`<div class="card" style="background:#111;padding:12px 16px">${fbHtml}</div>`:""}
+  <div class="section-title">Geschiedenis (7 dagen)</div>
+  ${histHtml||`<div style="color:#444;font-size:13px;padding:8px 0">Nog niets gelogd.</div>`}`;
+}
+
+function renderProgress(){
+  const exs=allExercises();
+  const opts=exs.map(ex=>`<option value="${ex.id}"${progressEx===ex.id?" selected":""}>${ex.name}</option>`).join("");
+  let chartHtml="";
+  if(progressEx){
+    const ex=exs.find(e=>e.id===progressEx);
+    const pts=getProgress(progressEx);const pr=getPR(progressEx);
+    chartHtml=`<div class="card"><div style="font-weight:700;margin-bottom:8px">${ex?.name}</div>
+      ${pr?`<div class="pr-badge" style="margin-bottom:12px">🏆 Beste: ${prText(progressEx,pr)} · ${pr.date}</div>`:""}
+      ${miniChart(pts,"#E0699F")}</div>`;
+  }
+  const volHtml=DAYS.filter(d=>d!=="Za"&&d!=="Zo").map(d=>{
+    const keys=Object.keys(DB.sessions).filter(k=>k.startsWith(d+"_")).sort().reverse();
+    const last=keys[0]?DB.sessions[keys[0]]:null;
+    const sets=last?Object.values(last.sets||{}).reduce((a,ss)=>a+ss.filter(s=>s.done).length,0):0;
+    return`<div class="card-sm" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">${SCHEMA[d].label}</div><div style="font-size:11px;color:#555">${SCHEMA[d].type}</div></div>
+      <div style="text-align:right"><div style="font-weight:800;color:${sets>0?"#E0699F":"#333"}">${sets>0?sets+" gedaan":"—"}</div><div style="font-size:10px;color:#555">${last?.date||"Nog niet gelogd"}</div></div></div>`}).join("");
+  return`<div class="page-header"><div class="page-title">Progressie</div></div>
+  <div class="section-title">Oefening kiezen</div>
+  <select class="ex-select" onchange="progressEx=this.value;render()"><option value="">Kies een oefening...</option>${opts}</select>
+  ${chartHtml}
+  <div class="section-title" style="margin-top:8px">Workouts deze week</div>${volHtml}`;
+}
+
+// ── RENDER + ACTIONS ──
+function render(){
+  const main=document.getElementById("main");
+  if(currentView==="training")main.innerHTML=renderTraining();
+  else if(currentView==="dashboard")main.innerHTML=renderDashboard();
+  else if(currentView==="nutrition")main.innerHTML=renderNutrition();
+  else if(currentView==="progress")main.innerHTML=renderProgress();
+}
+function setView(v){currentView=v;document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===v));render()}
+function switchDay(d){activeDay=d;render()}
+function logBW(){const inp=document.getElementById("bw-input");if(!inp||!inp.value)return;DB.bodyweight=DB.bodyweight||[];DB.bodyweight.push({date:today(),weight:parseFloat(inp.value)});save();render()}
+function updateNut(field,val){DB.nutrition=DB.nutrition||{};const key=today();DB.nutrition[key]=DB.nutrition[key]||{};DB.nutrition[key][field]=val;save();renderNutBars()}
+function updateSteps(val){DB.steps=DB.steps||{};DB.steps[today()]=val;save();renderNutBars()}
+function renderNutBars(){if(currentView==="nutrition"){const main=document.getElementById("main");const y=main.scrollTop;main.innerHTML=renderNutrition();main.scrollTop=y}}
+
+render();
+</script>
+</body>
+</html>
