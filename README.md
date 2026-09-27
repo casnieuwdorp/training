@@ -2,13 +2,13 @@
 
 Een mobiele, offline trainings- en voedingstracker als één los HTML-bestand. Geen build, geen framework, geen backend. Je opent `index.html` en alles draait lokaal in de browser, met je data opgeslagen op het apparaat zelf.
 
-De app is gebouwd rond een 5-daagse krachtsplit (Push/Pull/Upper/Legs & Abs/Lower) met 2 losse cardiodagen (interval en Zone 2 hardlopen) en cut-macro's, gericht op lean blijven met progressie op kracht en volume. Compound lifts staan op 3 sets, isolatie op 2-3 sets (meestal 2), zodat een sessie rond de 45 minuten blijft.
+De app is gebouwd rond een 4-daagse upper/lower krachtsplit (Upper A/Lower A/Upper B/Lower B) met 2 losse cardiodagen (Zone 2 hardlopen en intervallen) en cut-macro's, gericht op een vol, atletisch fysiek met een goede conditie ernaast. Compound lifts staan op 3 sets, isolatie op 2-3 sets, zodat een sessie rond de 45 minuten blijft.
 
 ## Inhoud van de repo
 
 | Bestand | App | Omschrijving |
 |---|---|---|
-| `index.html` | **Training** | Hoofd-app. Amber thema, 5-daagse Push/Pull/Legs/Upper/Lower plus een conditie/HIIT-dag. Cut-macro's. |
+| `index.html` | **Training** | Hoofd-app. Amber thema, 4-daagse Upper A/Lower A/Upper B/Lower B split plus 2 cardiodagen (Zone 2 en intervallen). Cut-macro's. |
 | `fit-app.html` | **Fit** | Losse tweede app. Roze thema, Pilates/Upper/Core/Hyrox/Billen en Benen. Eigen opslag en lagere macro's. |
 
 De twee apps staan los van elkaar: ze gebruiken een eigen opslagsleutel, dus hun data loopt niet door elkaar.
