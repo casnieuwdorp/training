@@ -92,56 +92,49 @@
 <script>
 // ── SCHEMA ──────────────────────────────────────────────────────────────────
 const SCHEMA = {
-  Ma:{label:"Maandag",type:"Push",color:"#C8873A",
-    note:"Chest, schouders, triceps. Compounds op 3 sets, isolatie op 2-3. Streef naar ~45 min sessie.",exercises:[
-    {id:"bench",name:"Barbell Bench Press",sets:3,reps:"5-8",rest:180},
-    {id:"incline_db",name:"Incline Dumbbell Press",sets:3,reps:"8-12",rest:150},
-    {id:"standing_bb_press",name:"Standing Barbell Shoulder Press",sets:3,reps:"6-10",rest:150},
-    {id:"cable_fly",name:"Cable Flys",sets:2,reps:"12-15",rest:60},
-    {id:"lateral_raise",name:"Lateral Raise (cable of dumbbell)",sets:2,reps:"15-20",rest:45},
-    {id:"pushdown",name:"Cable Tricep Pushdown (buitenste hoofd)",sets:2,reps:"10-15",rest:60},
-    {id:"overhead_ext",name:"Overhead Tricep Extension (lange hoofd)",sets:2,reps:"10-15",rest:60},
-  ]},
-  Di:{label:"Dinsdag",type:"Pull",color:"#3A9B6F",
-    note:"Rug en biceps. Pull ups: bouw op van elastiek-assisted, naar bodyweight, naar extra gewicht erbij. Compounds op 3 sets, isolatie op 2-3.",exercises:[
+  Ma:{label:"Maandag",type:"Upper A",color:"#C8873A",
+    note:"Rug- en borstdominant. Barbell rows en pull-ups voor rugdikte/-breedte, dips en incline press voor de borst. Compounds op 3 sets, isolatie op 2-3. Streef naar ~45 min sessie.",exercises:[
+    {id:"barbell_row",name:"Barbell Row",sets:3,reps:"6-10",rest:180},
+    {id:"incline_db",name:"Incline Dumbbell Press",sets:3,reps:"6-10",rest:150},
     {id:"pullups",name:"Pull Ups (elastiek → bodyweight → gewicht)",sets:3,reps:"6-10",rest:180},
-    {id:"barbell_row",name:"Barbell Row",sets:3,reps:"8-12",rest:150},
-    {id:"lat_pulldown",name:"Lat Pulldown",sets:3,reps:"8-12",rest:120},
-    {id:"reverse_fly",name:"Reverse Fly (dumbbell, voorovergebogen)",sets:2,reps:"15-20",rest:60},
-    {id:"bb_curl",name:"Barbell Curl (beide hoofden)",sets:2,reps:"8-12",rest:60},
-    {id:"incline_curl",name:"Incline DB Curl (lange hoofd, stretch)",sets:2,reps:"10-12",rest:60},
+    {id:"dips",name:"Dips (onderborst/triceps)",sets:3,reps:"8-12",rest:120},
+    {id:"lateral_raise",name:"Lateral Raise (cable of dumbbell)",sets:3,reps:"12-20",rest:45},
+    {id:"ez_curl",name:"EZ-Bar Curl",sets:2,reps:"8-12",rest:60},
   ]},
-  Wo:{label:"Woensdag",type:"Legs & Abs + Zone 2",color:"#7B6FD4",
-    note:"Ochtend: quad-dominant beenwerk plus buikspieren. Middag: rustige Zone 2 duurloop, los van de ochtendsessie. Compounds op 3 sets, isolatie op 2-3.",exercises:[
+  Di:{label:"Dinsdag",type:"Lower A",color:"#7B6FD4",
+    note:"Quads, kuiten en core. Bulgarian split squat traint meteen je balans en eenzijdige beenkracht. Compounds op 3 sets, isolatie op 2-3.",exercises:[
     {id:"squat",name:"Back Squat (of Leg Press)",sets:3,reps:"6-10",rest:210},
-    {id:"split_squat",name:"Bulgarian Split Squat",sets:3,reps:"8-12 p/been",rest:120},
-    {id:"leg_ext",name:"Leg Extension",sets:2,reps:"12-20",rest:60},
-    {id:"cable_crunch",name:"Cable Crunch (bovenbuik)",sets:2,reps:"12-15",rest:45},
-    {id:"hanging_leg",name:"Hanging Leg Raise (onderbuik)",sets:2,reps:"10-15",rest:45},
-    {id:"ab_wheel",name:"Ab Wheel Rollout (volledige core)",sets:2,reps:"10-12",rest:60},
-    {id:"zone2_run",name:"Zone 2 Hardlopen ('s middags)",reps:"30-40 min",cardio:true,unit:"min",howto:"los van de ochtendsessie, rustig tempo, je kunt nog net een gesprek voeren"},
+    {id:"rdl_a",name:"Romanian Deadlift",sets:2,reps:"8-10",rest:150},
+    {id:"standing_calf",name:"Staande Kuitheffen (volle rek)",sets:3,reps:"8-12",rest:60},
+    {id:"split_squat_a",name:"Bulgarian Split Squat",sets:2,reps:"8-12 p/been",rest:120},
+    {id:"hanging_leg",name:"Hanging Leg Raise (onderbuik)",sets:3,reps:"10-15",rest:45},
   ]},
-  Do:{label:"Donderdag",type:"Upper",color:"#E0A458",
-    note:"Tweede boven-lichaam dag: tweede borstsessie, rug-dikte, achterdelts en de resterende triceps- en biceps-hoofden. Compounds op 3 sets, isolatie op 2. 🔗 = superset (zelfde dumbbells, geen looproute nodig).",exercises:[
-    {id:"bench_thu",name:"Barbell Bench Press (tweede sessie)",sets:3,reps:"8-12",rest:150},
-    {id:"cable_row_seated",name:"Seated Cable Row (rug-dikte)",sets:3,reps:"10-12",rest:120},
-    {id:"face_pull",name:"Face Pull (achterdelts, cable)",sets:2,reps:"15-20",rest:45},
-    {id:"skull_crusher",name:"DB Skull Crusher (triceps lange hoofd)",sets:2,reps:"10-15",rest:60,ss:"A"},
-    {id:"hammer_curl",name:"DB Hammer Curl (brachialis)",sets:2,reps:"10-15",rest:60,ss:"A"},
-    {id:"bench_dips",name:"Tricep Dips (mediale hoofd)",sets:2,reps:"10-15",rest:60},
-    {id:"preacher_curl",name:"Preacher Curl (biceps korte hoofd)",sets:2,reps:"10-12",rest:60},
+  Wo:{label:"Woensdag",type:"Zone 2 Cardio",color:"#5BA8D4",cardio:true,
+    note:"Aerobe basis, kost bijna geen herstel voor je krachtsessies. Gesprekstempo: je kunt nog net praten.",exercises:[
+    {id:"zone2_run",name:"Zone 2 Hardlopen",reps:"40-50 min",cardio:true,unit:"min",howto:"rustig tempo, ongeveer 65-75% van je max hartslag, je kunt nog net een gesprek voeren"},
   ]},
-  Vr:{label:"Vrijdag",type:"Lower",color:"#9B85E0",
-    note:"Hamstrings, glutes en kuiten, plus schuine buikspieren. Compounds op 3 sets, isolatie op 2-3.",exercises:[
-    {id:"rdl",name:"Romanian Deadlift",sets:3,reps:"8-12",rest:180},
-    {id:"leg_curl_l",name:"Lying Leg Curl",sets:2,reps:"12-15",rest:60},
-    {id:"standing_calf",name:"Standing Calf Raise",sets:2,reps:"10-15",rest:60},
-    {id:"seated_calf",name:"Seated Calf Raise",sets:2,reps:"12-20",rest:45},
-    {id:"oblique_twist",name:"Cable Woodchop (obliques)",sets:2,reps:"12-15 p/kant",rest:45},
+  Do:{label:"Donderdag",type:"Upper B",color:"#E0A458",
+    note:"Volume-dag voor schouders en armen, plus rugdikte via chest-supported row. 🔗 = superset (zelfde dumbbells, geen looproute nodig). Compounds op 3 sets, isolatie op 2-3.",exercises:[
+    {id:"flat_press",name:"Vlakke Barbell/Dumbbell Press",sets:3,reps:"8-12",rest:150},
+    {id:"cs_row",name:"Chest-Supported Row",sets:3,reps:"10-12",rest:120},
+    {id:"ohp",name:"Overhead Press",sets:3,reps:"8-10",rest:150},
+    {id:"pullups_wide",name:"Pull Ups (breed/chin-up variant)",sets:2,reps:"8-12",rest:150},
+    {id:"rear_delt",name:"Rear Delt Fly",sets:2,reps:"15",rest:45},
+    {id:"incline_curl",name:"Incline DB Curl",sets:2,reps:"10-12",rest:60,ss:"A"},
+    {id:"overhead_ext",name:"Overhead Tricep Extension",sets:2,reps:"10-12",rest:60,ss:"A"},
   ]},
-  Za:{label:"Zaterdag",type:"Interval Cardio",color:"#5BA8D4",cardio:true,
-    note:"Interval-dag gericht op je conditie via hardlopen. Stappenplan: 5 min rustig inlopen, dan de intervallen, daarna 5 min uitlopen.",exercises:[
-    {id:"interval_run",name:"Interval Hardlopen",reps:"8x 400m hard / 2 min rustig jog",cardio:true,unit:"rondes",howto:"buiten of op de loopband, hard tempo op de sprints, rustig joggen als hersteltijd"},
+  Vr:{label:"Vrijdag",type:"Interval Cardio",color:"#4E97C4",cardio:true,
+    note:"Je enige echt zware conditieprikkel van de week. Stappenplan: 5 min rustig inlopen, dan de intervallen, daarna 5 min uitlopen.",exercises:[
+    {id:"interval_run",name:"Interval Hardlopen",reps:"5-6x 2-3 min hard / gelijke rust jog (of 4x4 min)",cardio:true,unit:"rondes",howto:"85-90% max hartslag op de sprints, rustig joggen als hersteltijd"},
+  ]},
+  Za:{label:"Zaterdag",type:"Lower B",color:"#9B85E0",
+    note:"Hamstrings, glutes, kuiten en anti-rotatie core. Pallof press geeft je core-stabiliteit in het rotatievlak, naast de flexie van cable crunch. 🔗 = superset. Compounds op 3 sets, isolatie op 2-3.",exercises:[
+    {id:"deadlift_hip",name:"Trap Bar Deadlift (of Hip Thrust)",sets:3,reps:"6-10",rest:180},
+    {id:"split_squat_b",name:"Bulgarian Split Squat (dumbbell variant)",sets:2,reps:"8-12 p/been",rest:120},
+    {id:"leg_curl",name:"Leg Curl (zittend of liggend)",sets:3,reps:"10-15",rest:60},
+    {id:"seated_calf",name:"Zittende Kuitheffen",sets:3,reps:"10-15",rest:45},
+    {id:"cable_crunch",name:"Cable Crunch (bovenbuik)",sets:3,reps:"10-15",rest:45,ss:"B"},
+    {id:"pallof_press",name:"Pallof Press (anti-rotatie core)",sets:2,reps:"10-12 p/kant",rest:45,ss:"B"},
   ]},
   Zo:{label:"Zondag",type:"Rust",color:"#555",exercises:[]}
 };
