@@ -2,13 +2,13 @@
 
 Een mobiele, offline trainings- en voedingstracker als één los HTML-bestand. Geen build, geen framework, geen backend. Je opent `index.html` en alles draait lokaal in de browser, met je data opgeslagen op het apparaat zelf.
 
-De app is gebouwd rond een 4-daagse upper/lower krachtsplit (Upper A/Lower A/Upper B/Lower B) met 2 losse cardiodagen (Zone 2 hardlopen en intervallen) en cut-macro's, gericht op een vol, atletisch fysiek met een goede conditie ernaast. Compound lifts staan op 3 sets, isolatie op 2-3 sets, zodat een sessie rond de 45 minuten blijft.
+De app is gebouwd rond een lean bulk naar 100 kg met chest als prioriteit: 3x full body (losse gewichten + kabels voor flyes, max 60 min) afgewisseld met 3 runs, zondag rust. Blok 1 start op 5 oktober 2026.
 
 ## Inhoud van de repo
 
 | Bestand | App | Omschrijving |
 |---|---|---|
-| `index.html` | **Training** | Hoofd-app. Amber thema, 4-daagse Upper A/Lower A/Upper B/Lower B split plus 2 cardiodagen (Zone 2 en intervallen). Cut-macro's. |
+| `index.html` | **Training** | Hoofd-app. Amber thema, 3x full body + 3 runs, progressie-coach, bulk-macro's (3.500 krachtdag / 3.800 loopdag). |
 | `fit-app.html` | **Fit** | Losse tweede app. Roze thema, Pilates/Upper/Core/Hyrox/Billen en Benen. Eigen opslag en lagere macro's. |
 
 De twee apps staan los van elkaar: ze gebruiken een eigen opslagsleutel, dus hun data loopt niet door elkaar.
@@ -24,62 +24,55 @@ Geen installatie nodig.
 ## Functies
 
 ### Training
-- Dagtabs voor de hele week. Opent standaard op de dag van vandaag.
-- Per oefening een kaart met sets, reps en geadviseerde rusttijd.
-- Per set een invoer voor gewicht en reps, met een afvink-knop.
-- "Laatste keer": de vorige sessie van diezelfde oefening wordt als referentie getoond.
-- PR-badge per oefening, gebaseerd op het zwaarste gewicht maal reps.
-- Superset-aanduiding: oefeningen met een 🔗 horen bij elkaar, met de naam van de partneroefening erbij.
-- Loggbare cardiokaarten (eigen blauwe stijl) met één invoerveld, voor de optionele Zone 2 en de HIIT-dag.
-- Automatische feedback na het afvinken: herkent een PR, meer reps bij hetzelfde gewicht, een lichtere sessie (met een hersteltip), of een gelijke sessie met een nudge voor de volgende keer.
-- Coachingsnotitie per dag met de focus en aandachtspunten.
-- Rustdag toont een apart herstelscherm.
-- Screen Wake Lock: tijdens het trainen blijft het scherm aan. Een groen stipje rechtsboven geeft aan dat dit actief is.
+- Dagtabs, opent op vandaag. Weeknummer van het blok bovenin.
+- **Progressie-coach per oefening:** double progression (alle sets op de bovenkant van de range → gewicht omhoog), opbouwfase voor squat en RDL (+5 kg/week tot 100 en 115 kg), fases voor dips en pull-ups (eigen gewicht → met gewicht bij 3 x 8). Het voorgestelde gewicht staat als placeholder in het veld; afvinken zonder invoer neemt het voorstel over.
+- Chest-oefeningen: 6 weken geen e1RM-progressie → seintje om een variatie te kiezen.
+- "Laatste keer" zoekt over alle dagen heen, dus historie blijft bewaard als een oefening van dag wisselt.
+- Volgorde = prioriteit (chest altijd eerst), één spier tegelijk. Supersets alleen op dezelfde plek (drukke gym). Warming-up per krachtdag, chest-sets deze week.
+- Deficit push-ups ontgrendelen in week 4, deloadbanner in week 6 en 12.
+- Runs: minuten, km, gemiddelde hartslag, automatisch tempo, doelduur per week en een vinkje voor de zone 2-check.
 
 ### Dashboard
-- Kerncijfers: aantal gelogde sessies, huidig lichaamsgewicht, doelgewicht (90 kg) en het verschil daarmee.
-- Lichaamsgewicht loggen met een mini-grafiek van de laatste metingen.
-- Overzicht van persoonlijke records over alle krachtoefeningen.
+- Gewicht: 7-daags gemiddelde, tempo vs +0,25 kg/week met advies (+/−150 kcal), verwachte weken tot 100 kg. Eén meting per dag.
+- Doelen eind december: bench 80 x 8, incline DB 30 x 8, dips en pull-ups 3 x 8 met eigen gewicht.
+- Chest-volume per week (laatste 6 weken), zone 2-tempo-grafiek met de 7:00-lijn, laatste runs.
+- **Backup:** exporteer als JSON (deelmenu op iPhone) en importeer weer. Herinnering na 7 dagen zonder backup.
 
 ### Voeding
-- Dagdoelen: 2500 kcal, 195 g eiwit, 265 g koolhydraten, 75 g vet.
-- Eiwit, koolhydraten, vet en calorieën loggen, plus stappen (doel 8000). Calorieën worden automatisch berekend uit de macro's als je ze niet zelf invult.
-- Voortgangsbalken per macro en gedetailleerde feedbackregels (te laag, op schema, te hoog).
-- Dagcijfer van 1 tot 10, gewogen opgebouwd: eiwit 25 punten, calorieën 20, koolhydraten 10, vet 5 en stappen 20. Met een label van "Zwakke dag" tot "Perfecte dag".
-- Geschiedenis van de laatste 7 dagen.
+- Doelen per dag: krachtdag/zondag 3.500 kcal (P185 K500 V85), loopdag 3.800 kcal (P185 K575 V85).
+- Dagcijfer, waarbij calorieën in een bulk zwaarder wegen.
+- Consistentie: gemiddelde afwijking van je calorie-doel over de laatste 7 gelogde dagen.
 
 ### Progressie
-- Kies een oefening voor een PR-badge en een grafiek van het gewichtsverloop over je sessies.
-- Wekelijks volume per trainingsdag, op basis van de afgevinkte sets in de laatste sessie.
+- Grafiek per oefening op e1RM (gewicht en reps samen), of reps voor eigen-gewicht-oefeningen.
+- Laatste sessie per workout: gedane vs geplande sets.
 
-## Trainingsschema (Training-app)
+## Trainingsschema
 
-| Dag | Type | Focus |
-|---|---|---|
-| Maandag | Push | Chest, schouders (standing barbell press), triceps (buitenste en lange hoofd) |
-| Dinsdag | Pull | Rug, biceps (beide hoofden), achterdelts |
-| Woensdag | Legs & Abs + Zone 2 | Ochtend: quad-dominant beenwerk en buikspieren. Middag: rustige duurloop |
-| Donderdag | Upper | Tweede borstsessie, rug-dikte, achterdelts, resterende biceps-hoofden |
-| Vrijdag | Lower | Hamstrings, glutes, kuiten, obliques |
-| Zaterdag | Interval Cardio | Interval hardlopen voor conditie |
-| Zondag | Rust | Herstel |
-
-Alle drie de triceps-hoofden (buitenste: pushdown, lange: overhead extension + skull crusher, mediale: tricep dips) en beide biceps-hoofden (plus brachialis) komen verspreid over Push, Pull en Upper aan bod. Supersets staan alleen nog waar ze met dezelfde apparatuur zonder omlopen te doen zijn (Donderdag: dumbbell skull crusher + dumbbell hammer curl). Lateral raise en standing calf raise zijn van 3 naar 2 sets gegaan, zodat er ruimte was om bench dips toe te voegen zonder de sessies langer te maken dan nodig.
+| Dag | Sessie |
+|---|---|
+| Ma | Full body A: incline DB, cable fly, pull-ups, squat, ab wheel, lateral raise |
+| Di | Run 1: kort en rustig |
+| Wo | Full body B: bench, dips, chest-supported row, RDL, back extension, hanging leg raise, calf raise |
+| Do | Run 2: comfortabel + strides |
+| Vr | Full body C: low-incline DB, low-to-high cable fly, deficit push-ups, one-arm row, cossack squat, dead bug + Copenhagen plank, armen |
+| Za | Run 3: langste run |
+| Zo | Rust |
 
 ## Techniek
 
 - Eén `index.html`, vanilla JavaScript, geen externe libraries (alleen het lettertype DM Sans via Google Fonts).
-- Persistentie via `localStorage`. De Training-app gebruikt sleutel `gym_v3`, de Fit-app gebruikt `fit_v1`.
+- Persistentie via `localStorage`. De Training-app gebruikt sleutel `gym_v3` (ongewijzigd, bestaande logs blijven staan), de Fit-app gebruikt `fit_v1`.
+- Datums in lokale tijd (niet UTC).
 - Grafieken zijn handgemaakte inline-SVG, dus zonder chart-library.
 - Mobiel-eerst, donker thema, maximale breedte 480 px, amber accent (`#C8873A`).
 - Screen Wake Lock API om het scherm aan te houden tijdens een sessie.
 
 ## Data en privacy
 
-Alle data staat uitsluitend lokaal in de browser van het apparaat. Er gaat niets naar een server. Dat betekent ook: wis je je browsergegevens of gebruik je een ander apparaat, dan begint de log opnieuw. Een export- of synchronisatiefunctie zit er nu niet in.
+Alle data staat uitsluitend lokaal in de browser van het apparaat. Er gaat niets naar een server. Dat betekent ook: wis je je browsergegevens of gebruik je een ander apparaat, dan begint de log opnieuw. Daarom zit er een export/import-functie in op het dashboard. Maak elke week een backup.
 
 ## Aanpassen
 
-- Het schema staat bovenin het script in het `SCHEMA`-object. Per dag een lijst met oefeningen, elk met `id`, `name`, `sets`, `reps` en `rest` (in seconden). Een superset markeer je met `ss`, een cardio-item met `cardio:true`.
-- De macrodoelen staan in het `MACROS`-object.
-- Het doelgewicht (90 kg) staat in het dashboardgedeelte.
+- Het schema staat bovenin het script in `SCHEMA`. Per oefening: `id`, `block`, `name`, `sets`, `min`/`max` (reprange), `rest`, `start` (startgewicht), `inc` (stap), optioneel `rampTo`, `mode` (`bw` of `core`), `chest`, `ss` (superset), `fromWeek`, `alias` (oude id's voor historie).
+- Macro's: `MACROS_LIFT` en `MACROS_RUN`. Doelgewicht: `GOAL_BW`. Blokstart: `PROGRAM_START`. Loopopbouw: `RUN_PLAN`. 12-wekendoelen: `GOALS`.

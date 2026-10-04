@@ -14,7 +14,7 @@
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{height:100%;background:#0e0e0e;color:#f0f0f0;font-family:'DM Sans',sans-serif;font-size:15px;overscroll-behavior:none}
   body{display:flex;flex-direction:column;height:100dvh}
-  
+
   /* NAV */
   #nav{display:flex;background:#111;border-top:1px solid #222;padding:0;flex-shrink:0;position:fixed;bottom:0;left:0;right:0;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
   .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0 8px;border:none;background:none;color:#555;font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer;border-top:2px solid transparent;transition:all .15s;gap:3px}
@@ -27,7 +27,8 @@
   /* HEADER */
   .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-top:env(safe-area-inset-top)}
   .page-title{font-size:20px;font-weight:800}
-  .page-sub{font-size:12px;color:#555}
+  .page-sub{font-size:12px;color:#555;text-align:right}
+  .section-title{font-size:11px;font-weight:800;color:#666;text-transform:uppercase;letter-spacing:.08em;margin:20px 0 10px}
 
   /* DAY TABS */
   .day-tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding-bottom:2px;scrollbar-width:none}
@@ -38,27 +39,82 @@
   /* CARDS */
   .card{background:#161616;border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid #222}
   .card-sm{background:#161616;border-radius:12px;padding:12px 14px;margin-bottom:8px;border:1px solid #222}
+  .note{background:#0d1722;border:1px solid #1f3a4a;color:#9fc4dd;font-size:13px;line-height:1.6}
+  .banner{background:#1a1400;border:1px solid #3a2800;color:#E0A458;font-size:13px;line-height:1.5;border-radius:12px;padding:12px 14px;margin-bottom:12px}
+  .muted{color:#555}
+  .dim{opacity:.45}
 
   /* EXERCISE */
   .ex-name{font-weight:700;font-size:14px;line-height:1.3;color:#f0f0f0}
-  .ex-meta{font-size:12px;color:#555;margin-top:3px}
-  .ex-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
-  .last-tag{font-size:11px;background:#1e1e1e;color:#777;padding:4px 10px;border-radius:20px;border:1px solid #2a2a2a;white-space:nowrap;flex-shrink:0;margin-left:8px}
-  .pr-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;background:#1a1200;color:#C8873A;padding:3px 9px;border-radius:20px;border:1px solid #3a2800;margin-top:5px}
+  .ex-meta{font-size:12px;color:#666;margin-top:3px;line-height:1.5}
+  .ex-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+  .block-tag{font-size:11px;font-weight:800;color:#0e0e0e;background:#C8873A;border-radius:6px;padding:2px 7px;margin-right:8px;flex-shrink:0}
+  .pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 9px;border-radius:20px;margin:6px 6px 0 0}
+  .pr-badge{background:#1a1200;color:#C8873A;border:1px solid #3a2800}
+  .chest-badge{background:#2a1020;color:#E07AA8;border:1px solid #4a2038}
+  .ss-badge{background:#10243a;color:#5BA8D4;border:1px solid #1f4a6b;font-weight:700}
+  .coach{font-size:13px;line-height:1.5;border-radius:10px;padding:10px 12px;margin-bottom:10px;background:#0f1a10;border:1px solid #1f3a22;color:#7BC67A}
+  .coach.up{background:#1a1400;border-color:#5a3d00;color:#F0B060}
+  .coach.warn{background:#1a0a0a;border-color:#4a1a1a;color:#cc6666}
+  .prev{font-size:12px;color:#9a9a9a;background:#0e0e0e;border:1px solid #242424;border-radius:8px;padding:8px 10px;margin-bottom:10px}
 
   /* SET ROW */
+  .set-head{display:grid;grid-template-columns:24px 1fr 1fr 48px;gap:6px;font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;text-align:center}
   .set-row{display:grid;grid-template-columns:24px 1fr 1fr 48px;gap:6px;align-items:center;margin-bottom:8px}
   .set-num{font-size:12px;color:#444;text-align:center}
   .set-input{background:#0e0e0e;border:1.5px solid #2a2a2a;border-radius:10px;color:#f0f0f0;font-size:17px;font-weight:700;font-family:'DM Sans',sans-serif;padding:12px 8px;text-align:center;width:100%;outline:none;transition:border-color .15s;-webkit-appearance:none}
-  .set-input:focus{border-color:#C8873A44}
+  .set-input::placeholder{color:#4a4a4a}
+  .set-input:focus{border-color:#C8873A88}
   .set-input.done{border-color:#C8873A55;background:#1a1000}
   .done-btn{width:48px;height:48px;border-radius:10px;border:1.5px solid #2a2a2a;background:#0e0e0e;color:#444;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
   .done-btn.active{background:#C8873A;border-color:#C8873A;color:#fff}
 
+  /* RUN */
+  .run-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px}
+  .run-grid label,.nut-field label{display:block;font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;text-align:center}
+  .check-row{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;color:#9fc4dd;margin:4px 0 10px}
+  .toggle{padding:8px 12px;border-radius:10px;border:1.5px solid #1f4a6b;background:#0e0e0e;color:#5BA8D4;font-family:'DM Sans',sans-serif;font-weight:700;font-size:12px;cursor:pointer}
+  .toggle.on{background:#5BA8D4;color:#0e0e0e}
+
   /* FEEDBACK */
-  .feedback-box{background:#1a1400;border:1px solid #3a2800;border-radius:10px;padding:12px;margin-top:10px;font-size:13px;color:#C8873A;line-height:1.6}
+  .feedback-box{background:#1a1400;border:1px solid #3a2800;border-radius:10px;padding:12px;margin-top:4px;font-size:13px;color:#C8873A;line-height:1.6}
   .feedback-box.good{background:#0a1a0a;border-color:#1a4a1a;color:#3A9B6F}
   .feedback-box.warn{background:#1a0a0a;border-color:#4a1a1a;color:#cc6666}
+
+  /* DASHBOARD */
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+  .stat-card{background:#161616;border:1px solid #222;border-radius:12px;padding:14px}
+  .stat-val{font-size:24px;font-weight:800;line-height:1.1}
+  .stat-label{font-size:11px;color:#666;margin-top:4px}
+  .bw-row{display:flex;gap:8px;margin-bottom:12px}
+  .bw-input,.ex-select{flex:1;background:#161616;border:1.5px solid #2a2a2a;border-radius:10px;color:#f0f0f0;font-size:16px;font-family:'DM Sans',sans-serif;padding:12px;outline:none;width:100%;-webkit-appearance:none}
+  .ex-select{margin-bottom:12px}
+  .add-btn,.btn{background:#C8873A;color:#0e0e0e;border:none;border-radius:10px;padding:12px 16px;font-weight:800;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;white-space:nowrap}
+  .btn.ghost{background:#161616;color:#f0f0f0;border:1.5px solid #2a2a2a}
+  .btn-row{display:flex;gap:8px}
+  .btn-row .btn{flex:1}
+  .goal-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:6px}
+  .bar{height:7px;background:#222;border-radius:4px;overflow:hidden;margin-bottom:12px}
+  .bar-fill{height:100%;border-radius:4px;transition:width .3s}
+  .week-bars{display:flex;align-items:flex-end;gap:6px;height:90px;margin-top:6px}
+  .week-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:10px;color:#666;gap:4px}
+  .week-bar div.b{width:100%;border-radius:5px 5px 2px 2px;background:#E07AA8}
+
+  /* NUTRITION */
+  .nut-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+  .nut-input{background:#0e0e0e;border:1.5px solid #2a2a2a;border-radius:10px;color:#f0f0f0;font-size:17px;font-weight:700;font-family:'DM Sans',sans-serif;padding:12px 8px;text-align:center;width:100%;outline:none;-webkit-appearance:none}
+  .nut-input.filled{border-color:#C8873A55}
+  .macro-row{margin-bottom:10px}
+  .macro-label-row{display:flex;justify-content:space-between;margin-bottom:5px}
+  .macro-bar{height:7px;background:#222;border-radius:4px;overflow:hidden}
+  .macro-fill{height:100%;border-radius:4px}
+  .history-row{display:flex;justify-content:space-between;align-items:center}
+
+  /* REST DAY */
+  .rest-day{text-align:center;padding:50px 20px}
+  .rest-day .big{font-size:52px;margin-bottom:12px}
+  .rest-day .title{font-size:18px;font-weight:800;margin-bottom:8px}
+  .rest-day .sub{font-size:14px;color:#777;line-height:1.6}
 
   /* WAKE LOCK indicator */
   #wake-indicator{position:fixed;top:12px;right:14px;width:7px;height:7px;border-radius:50%;background:#3A9B6F;opacity:0;transition:opacity .3s;z-index:200}
@@ -90,65 +146,109 @@
 </nav>
 
 <script>
-// ── SCHEMA ──────────────────────────────────────────────────────────────────
+// ── PROGRAMMA ───────────────────────────────────────────────────────────────
+// Blok 1 start op maandag 5 okt 2026. Weeknummer stuurt loopopbouw, deloads en deficit push-ups.
+const PROGRAM_START="2026-10-05";
+const GOAL_BW=100;          // lean bulk doel
+const BW_RATE=0.25;         // kg per week
+const STEPS_GOAL=8000;
+
+// Volgorde = prioriteit (chest eerst). Geen supersets over stations heen (drukke gym), alleen op dezelfde plek.
+// mode: "load" = gewicht + reps, "bw" = eigen gewicht (gewicht = extra kg), "core" = geen gewichtscoach
+// inc = stap bij double progression, rampTo = opbouw met +5 kg/week tot dit gewicht (RPE 7)
 const SCHEMA = {
-  Ma:{label:"Maandag",type:"Upper A",color:"#C8873A",
-    note:"Rug- en borstdominant. Barbell rows en pull-ups voor rugdikte/-breedte, dips en incline press voor de borst. Compounds op 3 sets, isolatie op 2-3. Streef naar ~45 min sessie.",exercises:[
-    {id:"barbell_row",name:"Barbell Row",sets:3,reps:"6-10",rest:180},
-    {id:"incline_db",name:"Incline Dumbbell Press",sets:3,reps:"6-10",rest:150},
-    {id:"pullups",name:"Pull Ups (elastiek → bodyweight → gewicht)",sets:3,reps:"6-10",rest:180},
-    {id:"dips",name:"Dips (onderborst/triceps)",sets:3,reps:"8-12",rest:120},
-    {id:"lateral_raise",name:"Lateral Raise (cable of dumbbell)",sets:3,reps:"12-20",rest:45},
-    {id:"ez_curl",name:"EZ-Bar Curl",sets:2,reps:"8-12",rest:60},
+  Ma:{label:"Maandag",type:"Full body A",color:"#C8873A",
+    note:"Volgorde = prioriteit: eerst chest, dan rug, dan benen, core en schouders. Geen supersets: één spier tegelijk, één plek. Chest op RPE 8 tot 9, squat op RPE 7: je loopt morgen.",exercises:[
+    {id:"incline_db",block:"1",name:"Incline Dumbbell Press (30°)",sets:4,min:6,max:10,rest:120,start:24,inc:2,chest:true,tip:"Per dumbbell. 3 sec zakken, pauze in de stretch."},
+    {id:"cable_fly",block:"2",name:"Cable Fly (op borsthoogte)",sets:3,min:10,max:15,rest:90,start:null,inc:2.5,chest:true,tip:"Gewicht per kant. Constante spanning, diep in de stretch. Kabels bezet? Flat DB fly."},
+    {id:"pullups",block:"3",name:"Pull-ups (eigen gewicht)",sets:3,min:6,max:8,rest:120,mode:"bw",tip:"Gewicht = extra kg (0 = eigen gewicht). Onder 5 reps? Aanvullen met band."},
+    {id:"squat",block:"4",name:"Back Squat",sets:3,min:5,max:6,rest:150,start:80,inc:2.5,rampTo:100,tip:"RPE 7, geen sets tot falen."},
+    {id:"ab_wheel",block:"5",name:"Ab Wheel Rollout",sets:3,min:8,max:12,rest:60,mode:"core"},
+    {id:"lateral_raise",block:"6",name:"Dumbbell Lateral Raise",sets:3,min:12,max:20,rest:60,start:10,inc:2},
   ]},
-  Di:{label:"Dinsdag",type:"Lower A",color:"#7B6FD4",
-    note:"Quads, kuiten en core. Bulgarian split squat traint meteen je balans en eenzijdige beenkracht. Compounds op 3 sets, isolatie op 2-3.",exercises:[
-    {id:"squat",name:"Back Squat (of Leg Press)",sets:3,reps:"6-10",rest:210},
-    {id:"rdl_a",name:"Romanian Deadlift",sets:2,reps:"8-10",rest:150},
-    {id:"standing_calf",name:"Staande Kuitheffen (volle rek)",sets:3,reps:"8-12",rest:60},
-    {id:"split_squat_a",name:"Bulgarian Split Squat",sets:2,reps:"8-12 p/been",rest:120},
-    {id:"hanging_leg",name:"Hanging Leg Raise (onderbuik)",sets:3,reps:"10-15",rest:45},
+  Di:{label:"Dinsdag",type:"Run 1",color:"#5BA8D4",run:true,
+    note:"Kort en rustig. Praattempo, korte snelle passen (165 tot 175 spm). Gewrichten protesteren? Doe 45 tot 60 min zone 2 op fiets of roeier.",exercises:[
+    {id:"run_easy",name:"Rustige run",runSlot:0},
   ]},
-  Wo:{label:"Woensdag",type:"Zone 2 Cardio",color:"#5BA8D4",cardio:true,
-    note:"Aerobe basis, kost bijna geen herstel voor je krachtsessies. Gesprekstempo: je kunt nog net praten.",exercises:[
-    {id:"zone2_run",name:"Zone 2 Hardlopen",reps:"40-50 min",cardio:true,unit:"min",howto:"rustig tempo, ongeveer 65-75% van je max hartslag, je kunt nog net een gesprek voeren"},
+  Wo:{label:"Woensdag",type:"Full body B",color:"#E0A458",
+    note:"Volgorde = prioriteit: chest, dan rug en onderrug, dan core. Dips: eigen reps, daarna negatives (3 tot 5 sec zakken) tot 6 totaal.",exercises:[
+    {id:"bench",block:"1",name:"Flat Barbell Bench Press",sets:4,min:5,max:8,rest:150,start:72.5,inc:2.5,chest:true,alias:["flat_press"]},
+    {id:"dips",block:"2",name:"Dips (eigen gewicht)",sets:3,min:6,max:8,rest:120,mode:"bw",chest:true,tip:"Gewicht = extra kg (0 = eigen gewicht). Reps = eigen reps + negatives. Iets voorover leunen."},
+    {id:"cs_row",block:"3",name:"Chest-Supported DB Row",sets:3,min:8,max:12,rest:90,start:26,inc:2,tip:"Per dumbbell, op de incline bank."},
+    {id:"rdl_a",block:"4",name:"Romanian Deadlift",sets:3,min:6,max:10,rest:120,start:95,inc:2.5,rampTo:115,tip:"RPE 7, rug neutraal."},
+    {id:"back_ext",block:"5",name:"45° Back Extension",sets:3,min:12,max:15,rest:60,start:0,inc:2.5,tip:"Gewicht = schijf tegen je borst (0 = zonder)."},
+    {id:"hanging_leg",block:"6",name:"Hanging Leg Raise",sets:3,min:10,max:15,rest:60,mode:"core"},
+    {id:"calf_raise",block:"7",name:"Single-leg DB Calf Raise",sets:2,min:10,max:15,rest:45,start:20,inc:2},
   ]},
-  Do:{label:"Donderdag",type:"Upper B",color:"#E0A458",
-    note:"Volume-dag voor schouders en armen, plus rugdikte via chest-supported row. 🔗 = superset (zelfde dumbbells, geen looproute nodig). Compounds op 3 sets, isolatie op 2-3.",exercises:[
-    {id:"flat_press",name:"Vlakke Barbell/Dumbbell Press",sets:3,reps:"8-12",rest:150},
-    {id:"cs_row",name:"Chest-Supported Row",sets:3,reps:"10-12",rest:120},
-    {id:"ohp",name:"Overhead Press",sets:3,reps:"8-10",rest:150},
-    {id:"pullups_wide",name:"Pull Ups (breed/chin-up variant)",sets:2,reps:"8-12",rest:150},
-    {id:"rear_delt",name:"Rear Delt Fly",sets:2,reps:"15",rest:45},
-    {id:"incline_curl",name:"Incline DB Curl",sets:2,reps:"10-12",rest:60,ss:"A"},
-    {id:"overhead_ext",name:"Overhead Tricep Extension",sets:2,reps:"10-12",rest:60,ss:"A"},
+  Do:{label:"Donderdag",type:"Run 2",color:"#4E97C4",run:true,
+    note:"Comfortabel tempo (RPE 5): stevig, maar je kunt nog korte zinnen zeggen. Daarna 4 tot 6 strides van 20 sec met 1 min wandelen.",exercises:[
+    {id:"run_comfort",name:"Comfortabele run + strides",runSlot:1},
   ]},
-  Vr:{label:"Vrijdag",type:"Interval Cardio",color:"#4E97C4",cardio:true,
-    note:"Je enige echt zware conditieprikkel van de week. Stappenplan: 5 min rustig inlopen, dan de intervallen, daarna 5 min uitlopen.",exercises:[
-    {id:"interval_run",name:"Interval Hardlopen",reps:"5-6x 2-3 min hard / gelijke rust jog (of 4x4 min)",cardio:true,unit:"rondes",howto:"85-90% max hartslag op de sprints, rustig joggen als hersteltijd"},
+  Vr:{label:"Vrijdag",type:"Full body C",color:"#E07AA8",
+    note:"Chest-volume, benen licht: morgen je langste run. Alleen supersets waar je niet hoeft te verplaatsen (zelfde matje, zelfde dumbbells).",exercises:[
+    {id:"low_incline_db",block:"1",name:"Low-incline Dumbbell Press (15°)",sets:4,min:8,max:12,rest:120,start:26,inc:2,chest:true,tip:"Per dumbbell."},
+    {id:"cable_fly_low",block:"2",name:"Low-to-high Cable Fly",sets:3,min:12,max:15,rest:90,start:null,inc:2.5,chest:true,tip:"Gewicht per kant. Van laag naar hoog: bovenkant borst. Kabels bezet? Incline DB fly."},
+    {id:"deficit_pushup",block:"3",name:"Deficit Push-ups (op dumbbells)",sets:2,min:10,max:30,rest:60,mode:"core",chest:true,fromWeek:4,tip:"Zoveel mogelijk reps."},
+    {id:"one_arm_row",block:"4",name:"One-arm Dumbbell Row",sets:3,min:8,max:12,rest:90,start:30,inc:2},
+    {id:"cossack",block:"5",name:"Cossack Squat / Goblet Squat (licht)",sets:2,min:8,max:8,rest:60,mode:"core",repLabel:"p/kant"},
+    {id:"dead_bug",block:"6a",name:"Dead Bug (met DB)",sets:3,min:10,max:10,rest:0,mode:"core",ss:"A",repLabel:"p/kant",tip:"Zelfde matje als 6b."},
+    {id:"copenhagen",block:"6b",name:"Copenhagen Plank",sets:3,min:20,max:30,rest:45,mode:"core",ss:"A",repLabel:"sec"},
+    {id:"arms_giant",block:"7",name:"Lateral Raise + Curl + Skull Crusher",sets:3,min:12,max:15,rest:60,mode:"core",tip:"Zelfde paar dumbbells, achter elkaar. Log de reps van de lateral raise."},
   ]},
-  Za:{label:"Zaterdag",type:"Lower B",color:"#9B85E0",
-    note:"Hamstrings, glutes, kuiten en anti-rotatie core. Pallof press geeft je core-stabiliteit in het rotatievlak, naast de flexie van cable crunch. 🔗 = superset. Compounds op 3 sets, isolatie op 2-3.",exercises:[
-    {id:"deadlift_hip",name:"Trap Bar Deadlift (of Hip Thrust)",sets:3,reps:"6-10",rest:180},
-    {id:"split_squat_b",name:"Bulgarian Split Squat (dumbbell variant)",sets:2,reps:"8-12 p/been",rest:120},
-    {id:"leg_curl",name:"Leg Curl (zittend of liggend)",sets:3,reps:"10-15",rest:60},
-    {id:"seated_calf",name:"Zittende Kuitheffen",sets:3,reps:"10-15",rest:45},
-    {id:"cable_crunch",name:"Cable Crunch (bovenbuik)",sets:3,reps:"10-15",rest:45,ss:"B"},
-    {id:"pallof_press",name:"Pallof Press (anti-rotatie core)",sets:2,reps:"10-12 p/kant",rest:45,ss:"B"},
+  Za:{label:"Zaterdag",type:"Run 3",color:"#3E7FAA",run:true,
+    note:"Je langste run. Comfortabel of run/walk (5 min lopen, 1 min wandelen). Eet vooraf 30 tot 60 g koolhydraten.",exercises:[
+    {id:"run_long",name:"Lange run",runSlot:2},
   ]},
   Zo:{label:"Zondag",type:"Rust",color:"#555",exercises:[]}
 };
 const DAYS=["Ma","Di","Wo","Do","Vr","Za","Zo"];
-const MACROS={kcal:2500,protein:195,carbs:265,fat:75};
+const MOBILITY=["90/90 hip switches, 6 per kant","Deep goblet squat hold, 30 sec","Couch stretch, 30 sec per kant","Cat-cow + bird dog, 8 reps","2 opbouwsets op oefening 1"];
+
+// Loopopbouw per week: [Di, Do, Za] in minuten
+const RUN_PLAN=[
+  {upTo:2,mins:["20","20 tot 25","30"]},
+  {upTo:4,mins:["25","25","35"]},
+  {upTo:6,mins:["25","30","40"]},
+  {upTo:99,mins:["30","35","45 tot 50"]},
+];
+const Z2_HR_CAP=150;
+const Z2_PACE_GOAL=7.0, Z2_PACE_GOAL2=6.5;
+
+// Macro's: krachtdag/zondag 3.500, loopdag 3.800 (extra kcal naar koolhydraten)
+const MACROS_LIFT={kcal:3500,protein:185,carbs:500,fat:85};
+const MACROS_RUN ={kcal:3800,protein:185,carbs:575,fat:85};
+function macrosFor(date){return SCHEMA[dayOf(date)]?.run?MACROS_RUN:MACROS_LIFT}
+
+// 12-wekendoelen (eind dec 2026)
+const GOALS=[
+  {id:"bench",label:"Bench",w:80,r:8},
+  {id:"incline_db",label:"Incline DB",w:30,r:8},
+  {id:"dips",label:"Dips eigen gewicht",bw:true,r:8},
+  {id:"pullups",label:"Pull-ups eigen gewicht",bw:true,r:8},
+];
+
+const EX={};
+for(const d of DAYS)for(const e of SCHEMA[d].exercises)EX[e.id]={...e,day:d};
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 const SK="gym_v3";
-function load(){try{const r=localStorage.getItem(SK);return r?JSON.parse(r):{sessions:{},bodyweight:[],nutrition:{}}}catch{return{sessions:{},bodyweight:[],nutrition:{}}}}
+function blank(){return{sessions:{},bodyweight:[],nutrition:{},steps:{},meta:{}}}
+function load(){try{const r=localStorage.getItem(SK);const d=r?JSON.parse(r):blank();d.meta=d.meta||{};d.steps=d.steps||{};d.bodyweight=d.bodyweight||[];d.nutrition=d.nutrition||{};d.sessions=d.sessions||{};return d}catch{return blank()}}
 function save(){try{localStorage.setItem(SK,JSON.stringify(DB))}catch{}}
 let DB=load();
 
-function today(){return new Date().toISOString().slice(0,10)}
-function todayDay(){return["Zo","Ma","Di","Wo","Do","Vr","Za"][new Date().getDay()]}
+// ── DATUM (lokale tijd, niet UTC) ────────────────────────────────────────────
+function ymd(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function today(){return ymd(new Date())}
+function parseYmd(s){const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)}
+function dayOf(date){return["Zo","Ma","Di","Wo","Do","Vr","Za"][parseYmd(date).getDay()]}
+function todayDay(){return dayOf(today())}
+function daysBetween(a,b){return Math.round((parseYmd(b)-parseYmd(a))/864e5)}
+function programWeek(date=today()){return Math.max(1,Math.floor(daysBetween(PROGRAM_START,date)/7)+1)}
+function weekStart(date){const d=parseYmd(date);const off=(d.getDay()+6)%7;d.setDate(d.getDate()-off);return ymd(d)}
+function addDays(date,n){const d=parseYmd(date);d.setDate(d.getDate()+n);return ymd(d)}
+function fmtDate(s){const d=parseYmd(s);return`${d.getDate()}/${d.getMonth()+1}`}
+function nl(n,dec=1){return(Math.round(n*10**dec)/10**dec).toString().replace(".",",")}
 
 let currentView="training";
 let activeDay=todayDay();
@@ -172,7 +272,11 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 // ── DATA HELPERS ─────────────────────────────────────────────────────────────
 function sessKey(day){return`${day}_${today()}`}
 function getSession(day){return DB.sessions[sessKey(day)]||(DB.sessions[sessKey(day)]={date:today(),sets:{}},DB.sessions[sessKey(day)])}
+function peekSession(day){return DB.sessions[sessKey(day)]||{date:today(),sets:{}}}
+// Komma of punt: "72,5" en "72.5" worden allebei 72.5 (NL-toetsenbord op iPhone)
+function num(v){return String(v??"").trim().replace(",",".").replace(/[^0-9.\-]/g,"")}
 function setVal(day,exId,setIdx,field,val){
+  if(field!=="z2")val=num(val);
   const s=getSession(day);
   if(!s.sets[exId])s.sets[exId]=[];
   while(s.sets[exId].length<=setIdx)s.sets[exId].push({weight:"",reps:"",done:false});
@@ -182,503 +286,628 @@ function toggleDone(day,exId,setIdx){
   const s=getSession(day);
   if(!s.sets[exId])s.sets[exId]=[];
   while(s.sets[exId].length<=setIdx)s.sets[exId].push({weight:"",reps:"",done:false});
-  s.sets[exId][setIdx].done=!s.sets[exId][setIdx].done;
+  const set=s.sets[exId][setIdx];
+  // Afvinken zonder invoer: neem het voorstel (placeholder) over
+  if(!set.done){
+    const ex=EX[exId];
+    if(ex&&!ex.runSlot&&ex.runSlot!==0){
+      const c=coach(ex);
+      if(set.weight===""&&c&&c.target!=null&&ex.mode!=="core")set.weight=String(c.target);
+      if(set.reps===""){const last=getLastFull(exId);const lr=last?.sets?.[setIdx]?.reps;set.reps=String(lr||ex.min)}
+    }
+  }
+  set.done=!set.done;
   save();
   render();
 }
-function getLastSession(dayId,exId){
-  const keys=Object.keys(DB.sessions).filter(k=>k.startsWith(dayId+"_")).sort().reverse();
-  for(const k of keys){const s=DB.sessions[k];if(s.sets&&s.sets[exId]&&s.sets[exId].length)return s.sets[exId]}
+function idsFor(exId){return[exId,...(EX[exId]?.alias||[])]}
+// Laatste sessie van een oefening, over alle dagen heen (zodat historie meeverhuist met het schema)
+function getLastFull(exId,{includeToday=false}={}){
+  const ids=idsFor(exId);
+  const keys=Object.keys(DB.sessions).sort((a,b)=>DB.sessions[b].date.localeCompare(DB.sessions[a].date));
+  for(const k of keys){
+    const s=DB.sessions[k];
+    if(!includeToday&&s.date===today())continue;
+    for(const id of ids){
+      const sets=s.sets?.[id];
+      if(sets&&sets.some(x=>x.done||x.weight||x.reps))return{sets,date:s.date};
+    }
+  }
   return null;
 }
-function getLastFull(dayId,exId){
-  const keys=Object.keys(DB.sessions).filter(k=>k.startsWith(dayId+"_")).sort().reverse();
-  for(const k of keys){const s=DB.sessions[k];if(s.sets&&s.sets[exId]&&s.sets[exId].length)return{sets:s.sets[exId],date:s.date}}
-  return null;
+function allSetsOf(exId){
+  const out=[];
+  for(const k of Object.keys(DB.sessions)){
+    const s=DB.sessions[k];
+    for(const id of idsFor(exId)){
+      for(const set of s.sets?.[id]||[]){if(set.done||(set.weight&&set.reps))out.push({...set,date:s.date})}
+    }
+  }
+  return out;
 }
-function fmtSet(s){
+function fmtSet(s,ex){
   const w=s.weight,r=s.reps;
+  if(ex?.mode==="bw"){const extra=parseFloat(w)||0;return r?`${extra>0?"+"+w+"kg × ":"EG × "}${r}`:null}
   if(w&&r)return`${w}kg × ${r}`;
   if(w)return`${w}kg`;
   if(r)return`${r}`;
   return null;
 }
+function e1rm(w,r){w=parseFloat(w)||0;r=parseInt(r)||0;return w*(1+r/30)}
+function setScore(set,ex){
+  if(ex?.mode==="bw")return(parseFloat(set.weight)||0)*100+(parseInt(set.reps)||0);
+  if(ex?.mode==="core")return parseInt(set.reps)||0;
+  return e1rm(set.weight,set.reps);
+}
 function getPR(exId){
-  let best=null;
-  for(const k of Object.keys(DB.sessions)){
-    const s=DB.sessions[k];
-    if(!s.sets||!s.sets[exId])continue;
-    for(const set of s.sets[exId]){
-      const v=(parseFloat(set.weight)||0)*(parseInt(set.reps)||0);
-      if(!best||v>best.val)best={val:v,weight:set.weight,reps:set.reps,date:s.date};
-    }
+  const ex=EX[exId];let best=null;
+  for(const set of allSetsOf(exId)){
+    const v=setScore(set,ex);
+    if(v>0&&(!best||v>best.val))best={val:v,weight:set.weight,reps:set.reps,date:set.date};
   }
   return best;
 }
 function getProgress(exId){
-  const pts=[];
-  for(const k of Object.keys(DB.sessions).sort()){
-    const s=DB.sessions[k];
-    if(!s.sets||!s.sets[exId])continue;
-    const maxW=Math.max(...s.sets[exId].map(x=>parseFloat(x.weight)||0));
-    if(maxW>0)pts.push({date:s.date,weight:maxW});
+  const ex=EX[exId];const byDate={};
+  for(const set of allSetsOf(exId)){
+    const v=ex?.mode==="bw"||ex?.mode==="core"?(parseInt(set.reps)||0):e1rm(set.weight,set.reps);
+    if(v>0)byDate[set.date]=Math.max(byDate[set.date]||0,v);
   }
-  return pts;
+  return Object.keys(byDate).sort().map(d=>({date:d,value:Math.round(byDate[d]*10)/10}));
 }
-function getFeedback(exId,curSets,lastSets){
-  if(!lastSets||!curSets)return null;
+
+// ── PROGRESSIE-COACH ─────────────────────────────────────────────────────────
+// Double progression: alle sets op de bovenkant van de range → gewicht omhoog.
+function coach(ex){
+  if(ex.mode==="core")return null;
+  const last=getLastFull(ex.id);
+  if(ex.mode==="bw"){
+    if(!last)return{target:0,cls:"",msg:`Fase 1: zoveel mogelijk eigen reps per set, aanvullen ${ex.id==="dips"?"met negatives":"met band"} tot 6 tot 8. Doel: 3 x 8 met eigen gewicht.`};
+    const extra=Math.max(...last.sets.map(s=>parseFloat(s.weight)||0));
+    const reps=last.sets.slice(0,ex.sets).map(s=>parseInt(s.reps)||0).filter(r=>r>0);
+    const hit=reps.length>=Math.max(1,ex.sets-1)&&reps.every(r=>r>=8);
+    if(hit)return{target:extra+2.5,cls:"up",msg:extra===0?`🎯 3 x 8 met eigen gewicht gehaald. Fase 2: zet er 2,5 kg bij.`:`⬆️ Alle sets op 8+: vandaag +2,5 kg (totaal +${nl(extra+2.5)} kg).`};
+    if(extra>0)return{target:extra,cls:"",msg:`Zelfde extra gewicht (+${nl(extra)} kg), mik op +1 rep per set tot 8.`};
+    return{target:0,cls:"",msg:`Fase 1: vorige keer ${reps.join(" / ")}. Mik op +1 rep. Doel: 3 x 8 met eigen gewicht.`};
+  }
+  if(!last&&ex.start==null)return{target:null,cls:"",msg:`Eerste keer: kies een gewicht waarmee je ${ex.min} tot ${ex.max} strikte reps haalt, 1 tot 2 in de tank. Vanaf dan rekent de coach mee.`};
+  if(!last)return{target:ex.start,cls:"",msg:`Startgewicht: ${nl(ex.start)} kg × ${ex.min} tot ${ex.max}.${ex.rampTo?` Daarna elke week +5 kg tot ~${ex.rampTo} kg (RPE 7).`:""}`};
+  const done=last.sets.filter(s=>s.weight!==""||s.done);
+  const w=done.length?Math.max(...done.map(s=>parseFloat(s.weight)||0)):(ex.start??0);
+  // Telt ook als je vorige keer 1 set minder deed (bv. oud schema met 3 sets)
+  const reps=last.sets.slice(0,ex.sets).map(s=>parseInt(s.reps)||0).filter(r=>r>0);
+  const allHit=reps.length>=Math.max(1,ex.sets-1)&&reps.every(r=>r>=ex.max);
+  const anyMiss=reps.some(r=>r>0&&r<ex.min);
+  const stall=ex.chest?stallCheck(ex.id):null;
+  if(ex.rampTo&&w<ex.rampTo&&!anyMiss){
+    const t=Math.min(w+5,ex.rampTo);
+    return{target:t,cls:"up",msg:`⬆️ Opbouwfase: ${nl(w)} → ${nl(t)} kg. Voelt het zwaarder dan RPE 7, blijf dan op ${nl(w)} kg.`};
+  }
+  if(allHit)return{target:w+ex.inc,cls:"up",msg:`⬆️ Vorige keer alle sets op ${ex.max}+. Vandaag ${nl(w+ex.inc)} kg.${stall?" "+stall:""}`};
+  if(anyMiss)return{target:w,cls:"warn",msg:`Vorige keer onder de ${ex.min} reps (${reps.join(" / ")}). Blijf op ${nl(w)} kg, check slaap en eten. Twee keer op rij? Dan 1 stap terug.`};
+  return{target:w,cls:stall?"warn":"",msg:`Zelfde gewicht (${nl(w)} kg), mik op +1 rep per set tot ${ex.max}. Vorige keer: ${reps.join(" / ")}.${stall?" "+stall:""}`};
+}
+// Chest: 6 weken geen e1RM-progressie → variatie wisselen
+function stallCheck(exId){
+  const pts=getProgress(exId);
+  if(pts.length<4)return null;
+  const span=daysBetween(pts[0].date,today());
+  if(span<42)return null;
+  const cutoff=addDays(today(),-42);
+  const before=Math.max(...pts.filter(p=>p.date<cutoff).map(p=>p.value),0);
+  const recent=Math.max(...pts.filter(p=>p.date>=cutoff).map(p=>p.value),0);
+  return before>0&&recent<=before?"⚠️ 6 weken geen progressie: wissel naar een variatie (andere hoek of grip).":null;
+}
+function getFeedback(ex,curSets,lastSets){
+  if(!lastSets||!curSets||ex.mode==="core")return null;
   const done=curSets.filter(s=>s.done);
-  if(done.length<1)return null;
-  const curMax=Math.max(...done.map(s=>parseFloat(s.weight)||0));
-  const lastMax=Math.max(...lastSets.map(s=>parseFloat(s.weight)||0));
+  if(done.length<ex.sets)return null;
+  const cur=Math.max(...done.map(s=>setScore(s,ex)));
+  const prev=Math.max(...lastSets.map(s=>setScore(s,ex)));
   const curReps=done.reduce((a,s)=>a+(parseInt(s.reps)||0),0);
   const lastReps=lastSets.reduce((a,s)=>a+(parseInt(s.reps)||0),0);
-  if(curMax>lastMax)return{msg:`🔥 PR! +${(curMax-lastMax).toFixed(1)}kg zwaarder dan vorige sessie.`,cls:"good"};
-  if(curMax===lastMax&&curReps>lastReps)return{msg:`✅ Meer reps bij zelfde gewicht — verhoog volgende keer het gewicht.`,cls:"good"};
-  if(curMax>0&&curMax<lastMax)return{msg:`⚠️ Lichter dan vorige sessie. Check herstel, slaap en voeding.`,cls:"warn"};
-  if(curMax>0)return{msg:`➡️ Zelfde als vorige sessie. Doel: +1 rep of +2.5kg volgende keer.`,cls:""};
-  return null;
+  const curW=Math.max(...done.map(s=>parseFloat(s.weight)||0));
+  const lastW=Math.max(...lastSets.map(s=>parseFloat(s.weight)||0));
+  if(curW>lastW)return{msg:`🔥 +${nl(curW-lastW)} kg zwaarder dan vorige sessie.`,cls:"good"};
+  if(curW===lastW&&curReps>lastReps)return{msg:`✅ +${curReps-lastReps} reps bij zelfde gewicht. Progressie.`,cls:"good"};
+  if(cur<prev*0.95)return{msg:`⚠️ Lichter dan vorige sessie. Check herstel, slaap en voeding.`,cls:"warn"};
+  return{msg:`➡️ Gelijk aan vorige sessie. Volgende keer +1 rep.`,cls:""};
 }
+
+// ── RUNS ─────────────────────────────────────────────────────────────────────
+const RUN_IDS=["run_easy","run_comfort","run_long","zone2_run","interval_run"];
+function paceOf(r){const m=parseFloat(r.min),k=parseFloat(r.km);return m>0&&k>0?m/k:null}
+function fmtPace(p){if(!p)return"–";let m=Math.floor(p),s=Math.round((p-m)*60);if(s===60){m++;s=0}return`${m}:${String(s).padStart(2,"0")}`}
+function allRuns(){
+  const out=[];
+  for(const k of Object.keys(DB.sessions)){
+    const s=DB.sessions[k];
+    for(const id of RUN_IDS){
+      const r=s.sets?.[id]?.[0];
+      if(!r)continue;
+      const min=parseFloat(r.min||(id==="zone2_run"?r.reps:""))||0;
+      if(min>0||parseFloat(r.km)>0)out.push({id,date:s.date,min,km:parseFloat(r.km)||0,hr:parseInt(r.hr)||0,z2:!!r.z2,done:!!r.done});
+    }
+  }
+  return out.sort((a,b)=>a.date.localeCompare(b.date));
+}
+function runPlanMins(slot,week=programWeek()){return RUN_PLAN.find(p=>week<=p.upTo).mins[slot]}
 
 // ── CHART ────────────────────────────────────────────────────────────────────
-function miniChart(data,color){
-  if(!data||data.length<2)return`<div style="color:#444;font-size:12px;padding:12px 0">Log minimaal 2 sessies voor een grafiek.</div>`;
-  const W=340,H=90,P=10;
-  const weights=data.map(d=>d.weight);
-  const mn=Math.min(...weights),mx=Math.max(...weights),range=mx-mn||1;
-  const pts=data.map((d,i)=>{
-    const x=P+(i/(data.length-1))*(W-P*2);
-    const y=H-P-((d.weight-mn)/range)*(H-P*2);
-    return`${x.toFixed(1)},${y.toFixed(1)}`;
-  }).join(" ");
-  const dots=data.map((d,i)=>{
-    const x=P+(i/(data.length-1))*(W-P*2);
-    const y=H-P-((d.weight-mn)/range)*(H-P*2);
-    return`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="${color}"/>`;
-  }).join("");
-  return`<div class="chart-wrap"><svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block">
+function miniChart(data,color,{fmt=v=>v,goal=null,goalLabel="",invert=false}={}){
+  if(!data||data.length<2)return`<div style="color:#444;font-size:12px;padding:12px 0">Log minimaal 2 keer voor een grafiek.</div>`;
+  const W=340,H=100,P=12;
+  const vals=data.map(d=>d.value).concat(goal!=null?[goal]:[]);
+  const mn=Math.min(...vals),mx=Math.max(...vals),range=mx-mn||1;
+  const y=v=>{const t=(v-mn)/range;return H-P-(invert?1-t:t)*(H-P*2)};
+  const x=i=>P+(i/(data.length-1))*(W-P*2);
+  const pts=data.map((d,i)=>`${x(i).toFixed(1)},${y(d.value).toFixed(1)}`).join(" ");
+  const dots=data.map((d,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(d.value).toFixed(1)}" r="3.5" fill="${color}"/>`).join("");
+  const goalLine=goal!=null?`<line x1="${P}" x2="${W-P}" y1="${y(goal).toFixed(1)}" y2="${y(goal).toFixed(1)}" stroke="#3A9B6F" stroke-dasharray="4 4" stroke-width="1.5"/><text x="${W-P}" y="${(y(goal)-4).toFixed(1)}" font-size="10" fill="#3A9B6F" text-anchor="end">${goalLabel}</text>`:"";
+  const last=data[data.length-1];
+  return`<svg viewBox="0 0 ${W} ${H+4}" style="width:100%;display:block">
+    ${goalLine}
     <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>
     ${dots}
-    <text x="${P}" y="${H}" font-size="10" fill="#555">${data[0].date.slice(5)}</text>
-    <text x="${W-P}" y="${H}" font-size="10" fill="#555" text-anchor="end">${data[data.length-1].date.slice(5)}</text>
-    <text x="${P}" y="10" font-size="10" fill="${color}">${mx}kg</text>
-  </svg></div>`;
+    <text x="${P}" y="${H+4}" font-size="10" fill="#555">${fmtDate(data[0].date)}</text>
+    <text x="${W-P}" y="${H+4}" font-size="10" fill="#555" text-anchor="end">${fmtDate(last.date)} · ${fmt(last.value)}</text>
+  </svg>`;
 }
 
-// ── VIEWS ────────────────────────────────────────────────────────────────────
+// ── VIEWS: TRAINING ──────────────────────────────────────────────────────────
 function renderTraining(){
   const day=SCHEMA[activeDay];
+  const week=programWeek();
   const tabsHtml=DAYS.map(d=>{
     const active=d===activeDay;
     const col=SCHEMA[d].color;
     return`<button class="day-tab${active?" active":""}" style="${active?`border-color:${col};color:${col};background:${col}18`:""}" onclick="switchDay('${d}')">${d}<br><span style="font-size:9px;font-weight:400;opacity:.7">${SCHEMA[d].type}</span></button>`;
   }).join("");
+  const header=`<div class="page-header"><div class="page-title">${day.type}</div><div class="page-sub">${day.label} · ${fmtDate(today())}<br>Week ${week}</div></div>
+  <div class="day-tabs">${tabsHtml}</div>`;
 
   if(day.exercises.length===0){
-    return`<div class="page-header"><div class="page-title">Training</div><div class="page-sub">${today()}</div></div>
-    <div class="day-tabs">${tabsHtml}</div>
-    <div class="rest-day"><div class="big">😴</div><div class="title">Rustdag — ${day.label}</div><div class="sub">Herstel is waar groei plaatsvindt.<br>Slaap 7–9 uur. Eet je eiwitten.</div></div>`;
+    return`${header}
+    <div class="rest-day"><div class="big">😴</div><div class="title">Rustdag</div><div class="sub">Herstel is waar groei plaatsvindt.<br>Slaap 7 tot 9 uur. Haal je 185 g eiwit.<br>Morgen: Full body A.</div></div>`;
   }
 
-  const sess=getSession(activeDay);
-  // Superset-groepen voor deze dag in kaart brengen
-  const ssMap={};
-  day.exercises.forEach(e=>{if(e.ss){(ssMap[e.ss]=ssMap[e.ss]||[]).push(e.name)}});
+  const deload=week%6===0?`<div class="banner">🧘 <strong>Deloadweek.</strong> Helft van de sets, zelfde gewicht. Lopen: zelfde duur, rustig tempo.</div>`:"";
+  const backupNudge=backupDue()?`<div class="banner" onclick="setView('dashboard')" style="cursor:pointer">💾 Je laatste backup is ${DB.meta.lastBackup?`van ${fmtDate(DB.meta.lastBackup)}`:"er nog niet"}. Tik hier en exporteer je data.</div>`:"";
+  const sess=peekSession(activeDay);
   let exHtml="";
+
+  if(day.run){
+    const ex=day.exercises[0];
+    const r=(sess.sets[ex.id]||[])[0]||{};
+    const pace=paceOf(r);
+    const isDone=!!r.done;
+    const hrWarn=parseInt(r.hr)>170?`<div class="feedback-box warn">Gemiddelde hartslag boven 170: te hard voor deze fase. Volgende keer langzamer of run/walk.</div>`:"";
+    exHtml=`<div class="card" style="border-left:3px solid ${day.color}">
+      <div style="font-size:10px;font-weight:800;color:${day.color};letter-spacing:.08em;margin-bottom:5px">🏃 RUN · WEEK ${week}</div>
+      <div class="ex-name">${ex.name}</div>
+      <div class="ex-meta">Doel deze week: <strong style="color:#9fc4dd">${runPlanMins(ex.runSlot,week)} min</strong></div>
+      <div class="run-grid" style="margin-top:12px">
+        <div><label>Minuten</label><input class="set-input${isDone?" done":""}" type="text" inputmode="decimal" autocomplete="off" placeholder="min" value="${r.min||""}" onchange="setVal('${activeDay}','${ex.id}',0,'min',this.value);render()" onfocus="this.select()"></div>
+        <div><label>Km</label><input class="set-input${isDone?" done":""}" type="text" inputmode="decimal" autocomplete="off" placeholder="km" value="${r.km||""}" onchange="setVal('${activeDay}','${ex.id}',0,'km',this.value);render()" onfocus="this.select()"></div>
+        <div><label>Gem. HR</label><input class="set-input${isDone?" done":""}" type="number" inputmode="numeric" placeholder="bpm" value="${r.hr||""}" onchange="setVal('${activeDay}','${ex.id}',0,'hr',this.value);render()" onfocus="this.select()"></div>
+      </div>
+      <div class="check-row"><span>Tempo: <strong>${fmtPace(pace)}</strong> /km</span>
+        <button class="toggle${r.z2?" on":""}" onclick="toggleZ2('${activeDay}','${ex.id}')">${r.z2?"✓ ":""}Zone 2-check</button></div>
+      <div class="ex-meta" style="margin-bottom:10px">Zone 2-check (elke 4 weken): 3 km met je hartslag onder ${Z2_HR_CAP}. Vul dan alleen die 3 km in.</div>
+      <div class="set-row" style="grid-template-columns:1fr 48px">
+        <div style="font-size:13px;color:#777">${isDone?"Gelogd ✓":"Afvinken als je klaar bent"}</div>
+        <button class="done-btn${isDone?" active":""}" onclick="toggleDone('${activeDay}','${ex.id}',0)">${isDone?"✓":"○"}</button>
+      </div>
+      ${hrWarn}
+    </div>`;
+    return`${header}${deload}${backupNudge}<div class="card note">${day.note}</div>${exHtml}`;
+  }
+
+  const ssMap={};
+  day.exercises.forEach(e=>{if(e.ss){(ssMap[e.ss]=ssMap[e.ss]||[]).push(e)}});
   for(const ex of day.exercises){
-    if(ex.cardio){
-      const cs=(sess.sets[ex.id]||[])[0]||{};
-      const isDone=!!cs.done;
-      exHtml+=`<div class="card" style="border-left:3px solid #5BA8D4">
-        <div class="ex-header"><div style="flex:1">
-          <div style="font-size:10px;font-weight:800;color:#5BA8D4;letter-spacing:.08em;margin-bottom:5px">🚴 CARDIO</div>
-          <div class="ex-name">${ex.name}</div>
-          <div class="ex-meta">Doel: <strong style="color:#9fc4dd">${ex.reps}</strong>${ex.howto?`<br>${ex.howto}`:""}</div>
-        </div></div>
-        <div class="set-row" style="grid-template-columns:1fr 48px">
-          <input class="set-input${isDone?" done":""}" type="number" inputmode="numeric" placeholder="${ex.unit||"waarde"} gedaan" value="${cs.reps||""}"
-            onchange="setVal('${activeDay}','${ex.id}',0,'reps',this.value);render()" onfocus="this.select()">
-          <button class="done-btn${isDone?" active":""}" onclick="toggleDone('${activeDay}','${ex.id}',0)">${isDone?"✓":"○"}</button>
-        </div>
-      </div>`;
-      continue;
-    }
+    const locked=ex.fromWeek&&week<ex.fromWeek;
     const curSets=sess.sets[ex.id]||[];
-    const lf=getLastFull(activeDay,ex.id);
+    const lf=getLastFull(ex.id);
     const lastSets=lf?lf.sets:null;
     const pr=getPR(ex.id);
-    const fb=getFeedback(ex.id,curSets,lastSets);
+    const c=locked?null:coach(ex);
+    const fb=getFeedback(ex,curSets,lastSets);
+    const repLabel=ex.repLabel||"reps";
+    const wLabel=ex.mode==="bw"?"+kg":ex.mode==="core"?"kg (opt.)":"kg";
 
-    let setsHtml="";
+    let setsHtml=`<div class="set-head"><div>#</div><div>${wLabel}</div><div>${repLabel}</div><div></div></div>`;
     for(let i=0;i<ex.sets;i++){
       const s=curSets[i]||{};
       const last=lastSets?.[i];
       const isDone=!!s.done;
+      const wPh=c&&c.target!=null?nl(c.target):(last?.weight||"kg");
+      const rPh=last?.reps||ex.min;
       setsHtml+=`<div class="set-row">
         <div class="set-num">${i+1}</div>
-        <input class="set-input${isDone?" done":""}" type="number" inputmode="decimal" placeholder="${last?.weight||"kg"}" value="${s.weight||""}" 
+        <input class="set-input${isDone?" done":""}" type="text" inputmode="decimal" autocomplete="off" placeholder="${wPh}" value="${s.weight||""}"
           onchange="setVal('${activeDay}','${ex.id}',${i},'weight',this.value);render()" onfocus="this.select()">
-        <input class="set-input${isDone?" done":""}" type="number" inputmode="numeric" placeholder="${last?.reps||"reps"}" value="${s.reps||""}"
+        <input class="set-input${isDone?" done":""}" type="number" inputmode="numeric" placeholder="${rPh}" value="${s.reps||""}"
           onchange="setVal('${activeDay}','${ex.id}',${i},'reps',this.value);render()" onfocus="this.select()">
         <button class="done-btn${isDone?" active":""}" onclick="toggleDone('${activeDay}','${ex.id}',${i})">${isDone?"✓":"○"}</button>
       </div>`;
     }
 
-    const fbHtml=fb?`<div class="feedback-box ${fb.cls}">${fb.msg}</div>`:"";
-    const prHtml=pr?`<div class="pr-badge">🏆 PR: ${pr.weight}kg × ${pr.reps} reps</div>`:"";
-    // Vorige sessie: alle sets duidelijk tonen
-    const prevList=lastSets?lastSets.map(fmtSet).filter(Boolean):[];
-    const prevHtml=prevList.length?`<div style="font-size:12px;color:#9a9a9a;background:#0e0e0e;border:1px solid #242424;border-radius:8px;padding:8px 10px;margin-bottom:10px">
-      <span style="color:#666">📋 Laatste keer${lf?.date?` (${lf.date})`:""}:</span> <span style="color:#cfcfcf;font-weight:600">${prevList.join("  ·  ")}</span></div>`:"";
-    // Superset-aanduiding met naam van de partner
+    const prevList=lastSets?lastSets.map(s=>fmtSet(s,ex)).filter(Boolean):[];
+    const prevHtml=prevList.length?`<div class="prev"><span style="color:#666">📋 Laatste keer (${fmtDate(lf.date)}):</span> <span style="color:#cfcfcf;font-weight:600">${prevList.join("  ·  ")}</span></div>`:"";
+    const coachHtml=c?`<div class="coach ${c.cls}">${c.msg}</div>`:"";
+    const prHtml=pr&&ex.mode!=="core"?`<span class="pill pr-badge">🏆 ${fmtSet(pr,ex)}</span>`:"";
+    const chestHtml=ex.chest?`<span class="pill chest-badge">💗 Chest</span>`:"";
     let ssHtml="";
     if(ex.ss){
-      const partners=(ssMap[ex.ss]||[]).filter(n=>n!==ex.name);
-      ssHtml=`<div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;background:#10243a;color:#5BA8D4;border:1px solid #1f4a6b;padding:4px 10px;border-radius:20px;margin-top:6px">🔗 Superset met ${partners.join(" + ")||"de volgende oefening"}</div>`;
+      const partners=(ssMap[ex.ss]||[]).filter(e=>e.id!==ex.id).map(e=>e.block);
+      if(partners.length)ssHtml=`<span class="pill ss-badge">🔗 zelfde plek als ${partners.join(" + ")}</span>`;
     }
+    const restTxt=ex.rest?`rust ${Math.floor(ex.rest/60)}:${String(ex.rest%60).padStart(2,"0")}`:"direct door naar de volgende";
+    const fbHtml=fb?`<div class="feedback-box ${fb.cls}">${fb.msg}</div>`:"";
 
-    exHtml+=`<div class="card"${ex.ss?' style="border-left:3px solid #5BA8D4"':""}>
+    exHtml+=`<div class="card${locked?" dim":""}"${ex.ss?` style="border-left:3px solid ${day.color}"`:""}>
       <div class="ex-header">
-        <div style="flex:1">
-          <div class="ex-name">${ex.name}</div>
-          <div class="ex-meta">${ex.sets} sets · ${ex.reps} reps · rust ${Math.floor(ex.rest/60)}:${(ex.rest%60).toString().padStart(2,"0")} min</div>
-          ${prHtml}${ssHtml}
+        <div style="display:flex;align-items:flex-start;flex:1">
+          <span class="block-tag" style="background:${day.color}">${ex.block}</span>
+          <div style="flex:1">
+            <div class="ex-name">${ex.name}</div>
+            <div class="ex-meta">${ex.sets} sets · ${ex.min===ex.max?ex.min:ex.min+" tot "+ex.max} ${repLabel} · ${restTxt}${ex.tip?`<br>${ex.tip}`:""}</div>
+            ${chestHtml}${prHtml}${ssHtml}
+          </div>
         </div>
       </div>
-      ${prevHtml}
-      ${setsHtml}
-      ${fbHtml}
+      ${locked?`<div class="coach">🔒 Start in week ${ex.fromWeek}. Nu ben je in week ${week}.</div>`:`${coachHtml}${prevHtml}${setsHtml}${fbHtml}`}
     </div>`;
   }
 
-  const noteHtml=day.note?`<div class="card" style="background:#0d1722;border:1px solid #1f3a4a;color:#9fc4dd;font-size:13px;line-height:1.6">${day.note}</div>`:"";
-  return`<div class="page-header"><div class="page-title">${day.type}</div><div class="page-sub">${day.label} · ${today()}</div></div>
-  <div class="day-tabs">${tabsHtml}</div>
-  ${noteHtml}${exHtml}`;
+  const mobHtml=`<div class="card note"><strong>Warming-up (5 min)</strong><br>${MOBILITY.join("<br>")}</div>`;
+  const chest=chestSetsInWeek(weekStart(today()));
+  const chestHtml=day.exercises.some(e=>e.chest)?`<div class="card-sm" style="display:flex;justify-content:space-between;font-size:13px"><span class="muted">💗 Chest-sets deze week</span><strong style="color:#E07AA8">${chest} / ${chestTarget(week)}</strong></div>`:"";
+  return`${header}${deload}${backupNudge}<div class="card note">${day.note}</div>${mobHtml}${chestHtml}${exHtml}`;
+}
+function toggleZ2(day,exId){
+  const s=getSession(day);
+  if(!s.sets[exId])s.sets[exId]=[{}];
+  s.sets[exId][0].z2=!s.sets[exId][0].z2;save();render();
 }
 
-function renderDashboard(){
-  const total=Object.keys(DB.sessions).length;
-  const latestBW=DB.bodyweight?.slice(-1)[0]?.weight;
-  const diff=latestBW?(latestBW-90).toFixed(1):null;
+// ── CHEST-VOLUME ─────────────────────────────────────────────────────────────
+function chestTarget(week){return week>=4?22:20}
+function chestSetsInWeek(ws){
+  const we=addDays(ws,6);let n=0;
+  for(const k of Object.keys(DB.sessions)){
+    const s=DB.sessions[k];
+    if(s.date<ws||s.date>we)continue;
+    for(const[id,sets]of Object.entries(s.sets||{})){
+      const ex=EX[id]||Object.values(EX).find(e=>e.alias?.includes(id));
+      if(ex?.chest)n+=sets.filter(x=>x.done).length;
+    }
+  }
+  return n;
+}
 
-  const allEx=Object.values(SCHEMA).flatMap(d=>d.exercises).filter(e=>!e.cardio);
-  const prRows=allEx.map(ex=>{
-    const pr=getPR(ex.id);
-    if(!pr)return"";
-    return`<div class="card-sm" style="display:flex;justify-content:space-between;align-items:center">
-      <div style="font-size:13px;color:#aaa;flex:1">${ex.name}</div>
-      <div class="pr-badge">🏆 ${pr.weight}kg × ${pr.reps}</div>
-    </div>`;
+// ── LICHAAMSGEWICHT ──────────────────────────────────────────────────────────
+function bwAvg(from,to){
+  const v=DB.bodyweight.filter(b=>b.date>=from&&b.date<=to).map(b=>b.weight);
+  return v.length?v.reduce((a,b)=>a+b,0)/v.length:null;
+}
+function bwStatus(){
+  const t=today();
+  const cur=bwAvg(addDays(t,-6),t);
+  const prev=bwAvg(addDays(t,-13),addDays(t,-7));
+  const first=DB.bodyweight[0]?.date;
+  if(cur==null)return{cur:null};
+  if(prev==null||!first||daysBetween(first,t)<13)return{cur,msg:"Weeg elke ochtend. Na 2 weken zie je hier of je op +0,25 kg per week zit.",cls:""};
+  const rate=cur-prev;
+  let msg,cls;
+  if(rate<0.15){msg=`Weekgemiddelde +${nl(rate,2)} kg. Te langzaam: eet +150 kcal per dag.`;cls="warn"}
+  else if(rate>0.4){msg=`Weekgemiddelde +${nl(rate,2)} kg. Te snel: eet −150 kcal per dag.`;cls="warn"}
+  else{msg=`Weekgemiddelde +${nl(rate,2)} kg. Precies op koers, zo laten.`;cls="good"}
+  return{cur,rate,msg,cls};
+}
+
+// ── VIEWS: DASHBOARD ─────────────────────────────────────────────────────────
+function renderDashboard(){
+  const t=today();
+  const week=programWeek();
+  const bw=bwStatus();
+  const latest=DB.bodyweight.slice(-1)[0];
+  const etaWeeks=bw.cur?Math.max(0,(GOAL_BW-bw.cur)/BW_RATE):null;
+  const ws=weekStart(t);
+  const chest=chestSetsInWeek(ws);
+  const runsWeek=allRuns().filter(r=>r.date>=ws&&r.date<=addDays(ws,6));
+  const runMin=runsWeek.reduce((a,r)=>a+r.min,0);
+
+  // Doelen 12 weken
+  const goalsHtml=GOALS.map(g=>{
+    const sets=allSetsOf(g.id);
+    let label,pct;
+    if(g.bw){
+      // beste sessie: laagste set van 3 (zonder extra gewicht telt ook)
+      const byDate={};
+      for(const s of sets){(byDate[s.date]=byDate[s.date]||[]).push(parseInt(s.reps)||0)}
+      let best=0;
+      for(const reps of Object.values(byDate)){if(reps.length>=3)best=Math.max(best,Math.min(...reps.slice(0,3)))}
+      pct=Math.min(best/g.r,1);label=best?`3 x ${best} / 3 x ${g.r}`:"nog niet gelogd";
+    }else{
+      const pr=getPR(g.id);
+      const goal=e1rm(g.w,g.r);
+      pct=pr?Math.min(pr.val/goal,1):0;
+      label=pr?`${pr.weight} × ${pr.reps} / ${g.w} × ${g.r}`:"nog niet gelogd";
+    }
+    return`<div class="goal-row"><span>${g.label}</span><span class="muted">${label}</span></div>
+      <div class="bar"><div class="bar-fill" style="width:${Math.round(pct*100)}%;background:${pct>=1?"#3A9B6F":"#C8873A"}"></div></div>`;
   }).join("");
 
-  const bwHistory=DB.bodyweight?.slice(-8)||[];
-  const bwChart=miniChart(bwHistory,"#C8873A");
+  // Chest per week (laatste 6 weken)
+  const chestWeeks=[];
+  for(let i=5;i>=0;i--){const w=addDays(ws,-7*i);chestWeeks.push({w,n:chestSetsInWeek(w)})}
+  const maxN=Math.max(22,...chestWeeks.map(c=>c.n));
+  const chestBars=chestWeeks.map(c=>`<div class="week-bar"><span>${c.n||""}</span><div class="b" style="height:${Math.max(2,c.n/maxN*70)}px;opacity:${c.w===ws?1:.55}"></div><span>${fmtDate(c.w)}</span></div>`).join("");
 
-  return`<div class="page-header"><div class="page-title">Dashboard</div><div class="page-sub">${today()}</div></div>
+  // Zone 2-checks
+  const z2=allRuns().filter(r=>r.z2&&paceOf(r)).map(r=>({date:r.date,value:Math.round(paceOf(r)*100)/100}));
+  const z2Last=z2.slice(-1)[0];
+  const z2Html=z2.length?miniChart(z2,"#5BA8D4",{fmt:fmtPace,goal:Z2_PACE_GOAL,goalLabel:"7:00",invert:true})
+    :`<div class="muted" style="font-size:13px">Nog geen zone 2-check. Elke 4 weken: 3 km onder ${Z2_HR_CAP} bpm, vink "Zone 2-check" aan bij je run.</div>`;
+  const runList=allRuns().slice(-5).reverse().map(r=>`<div class="history-row" style="font-size:13px;padding:6px 0;border-bottom:1px solid #1c1c1c">
+      <span>${fmtDate(r.date)} ${r.z2?"<span style='color:#5BA8D4'>Z2</span>":""}</span>
+      <span class="muted">${r.min||"–"} min · ${r.km?nl(r.km,2)+" km":"–"} · ${fmtPace(paceOf(r))} · ${r.hr||"–"} bpm</span></div>`).join("");
+
+  const bwHistory=DB.bodyweight.slice(-30).map(b=>({date:b.date,value:b.weight}));
+
+  return`<div class="page-header"><div class="page-title">Dashboard</div><div class="page-sub">Week ${week} · ${fmtDate(t)}</div></div>
   <div class="stat-grid">
-    <div class="stat-card"><div class="stat-val">${total}</div><div class="stat-label">Sessies gelogd</div></div>
-    <div class="stat-card"><div class="stat-val">${latestBW?latestBW+"kg":"—"}</div><div class="stat-label">Huidig gewicht</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#C8873A">90kg</div><div class="stat-label">Doelgewicht</div></div>
-    <div class="stat-card"><div class="stat-val" style="font-size:20px">${diff!==null?(parseFloat(diff)>0?"+":"")+diff+"kg":"—"}</div><div class="stat-label">Van doel</div></div>
+    <div class="stat-card"><div class="stat-val">${bw.cur?nl(bw.cur):"–"}<span style="font-size:14px"> kg</span></div><div class="stat-label">Gem. 7 dagen${latest?` · laatste ${nl(latest.weight)}`:""}</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#C8873A">${GOAL_BW} kg</div><div class="stat-label">${etaWeeks!=null?`Nog ${nl(GOAL_BW-bw.cur)} kg · ~${Math.ceil(etaWeeks)} wk`:"Doel lean bulk"}</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#E07AA8">${chest}<span style="font-size:14px;color:#666"> / ${chestTarget(week)}</span></div><div class="stat-label">Chest-sets deze week</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#5BA8D4">${Math.round(runMin)}<span style="font-size:14px;color:#666"> min</span></div><div class="stat-label">Gelopen deze week (${runsWeek.length}/3)</div></div>
   </div>
 
-  <div class="section-title">Lichaamsgewicht</div>
+  <div class="section-title">Lichaamsgewicht (elke ochtend)</div>
   <div class="bw-row">
-    <input class="bw-input" type="number" inputmode="decimal" id="bw-input" placeholder="Gewicht in kg vandaag">
+    <input class="bw-input" type="text" inputmode="decimal" autocomplete="off" id="bw-input" placeholder="Gewicht vandaag (kg)">
     <button class="add-btn" onclick="logBW()">+ Log</button>
   </div>
-  ${bwHistory.length>1?`<div class="card">${bwChart}</div>`:""}
+  ${bw.msg?`<div class="feedback-box ${bw.cls}" style="margin-bottom:12px">${bw.msg}</div>`:""}
+  ${bwHistory.length>1?`<div class="card">${miniChart(bwHistory,"#C8873A",{fmt:v=>nl(v)+" kg"})}</div>`:""}
 
-  <div class="section-title">Persoonlijke records</div>
-  ${prRows||`<div style="color:#444;font-size:13px;padding:8px 0">Log je eerste sessie om PR's te zien.</div>`}`;
+  <div class="section-title">Doelen eind december</div>
+  <div class="card">${goalsHtml}</div>
+
+  <div class="section-title">Chest-volume per week</div>
+  <div class="card"><div class="week-bars">${chestBars}</div><div class="ex-meta" style="margin-top:8px">Doel: ${chestTarget(week)} sets per week (20 in week 1 tot 3, daarna 22).</div></div>
+
+  <div class="section-title">Zone 2-tempo</div>
+  <div class="card">${z2Html}${z2Last?`<div class="ex-meta" style="margin-top:6px">Laatste: ${fmtPace(z2Last.value)} /km. Doel 1: onder 7:00, doel 2: rond 6:30.</div>`:""}</div>
+  ${runList?`<div class="card">${runList}</div>`:""}
+
+  <div class="section-title">Data & backup</div>
+  <div class="card">
+    <div class="ex-meta" style="margin-bottom:12px">Alles staat alleen op dit apparaat. Exporteer elke week een backup.<br>Laatste backup: <strong style="color:${backupDue()?"#cc6666":"#3A9B6F"}">${DB.meta.lastBackup?fmtDate(DB.meta.lastBackup):"nog nooit"}</strong></div>
+    <div class="btn-row">
+      <button class="btn" onclick="exportData()">💾 Exporteer</button>
+      <button class="btn ghost" onclick="document.getElementById('import-file').click()">📂 Importeer</button>
+    </div>
+    <input type="file" id="import-file" accept="application/json,.json" style="display:none" onchange="importData(this)">
+  </div>`;
 }
 
-function calcDayScore(nut, steps){
-  // Score uit 10: macros (60%), stappen (20%), calorieën (20%)
-  if(!nut) return null;
-  const goals=MACROS;
-  const p=parseFloat(nut.protein)||0;
-  const k=parseFloat(nut.carbs)||0;
-  const v=parseFloat(nut.fat)||0;
+// ── VIEWS: VOEDING ───────────────────────────────────────────────────────────
+function calcDayScore(nut,steps,goals){
+  if(!nut)return null;
+  const p=parseFloat(nut.protein)||0,k=parseFloat(nut.carbs)||0,v=parseFloat(nut.fat)||0;
   const kcalIn=parseFloat(nut.kcal)||Math.round(p*4+k*4+v*9);
   const st=parseInt(steps)||0;
-
-  let scored=0, total=0;
-
-  // Eiwit (25 punten) — meest kritisch
-  if(p>0){
-    const pPct=p/goals.protein;
-    const pScore=pPct>=0.92&&pPct<=1.15?25:pPct>=0.80?15:pPct>=0.65?8:2;
-    scored+=pScore; total+=25;
-  }
-
-  // Calorieën (20 punten)
-  if(kcalIn>0){
-    const cPct=kcalIn/goals.kcal;
-    const cScore=cPct>=0.90&&cPct<=1.08?20:cPct>=0.80&&cPct<=1.15?13:cPct>=0.70?6:2;
-    scored+=cScore; total+=20;
-  }
-
-  // Koolhydraten (10 punten)
-  if(k>0){
-    const kPct=k/goals.carbs;
-    const kScore=kPct>=0.88&&kPct<=1.12?10:kPct>=0.70?6:3;
-    scored+=kScore; total+=10;
-  }
-
-  // Vetten (5 punten)
-  if(v>0){
-    const vPct=v/goals.fat;
-    const vScore=vPct>=0.85&&vPct<=1.20?5:3;
-    scored+=vScore; total+=5;
-  }
-
-  // Stappen (20 punten) — doel 8000+
-  if(st>0){
-    const sScore=st>=10000?20:st>=8000?17:st>=6000?12:st>=4000?7:3;
-    scored+=sScore; total+=20;
-  }
-
-  if(total===0) return null;
-  const raw=Math.round((scored/total)*10*10)/10;
-  return Math.min(raw,10);
+  let scored=0,total=0;
+  if(p>0){const r=p/goals.protein;scored+=r>=0.92&&r<=1.15?25:r>=0.80?15:r>=0.65?8:2;total+=25}
+  // Bulk: te weinig eten is erger dan iets te veel
+  if(kcalIn>0){const r=kcalIn/goals.kcal;scored+=r>=0.95&&r<=1.05?25:r>=0.90&&r<=1.10?16:r>=0.80?7:2;total+=25}
+  if(k>0){const r=k/goals.carbs;scored+=r>=0.88&&r<=1.12?10:r>=0.70?6:3;total+=10}
+  if(v>0){const r=v/goals.fat;scored+=r>=0.85&&r<=1.20?5:3;total+=5}
+  if(st>0){scored+=st>=10000?15:st>=8000?13:st>=6000?9:st>=4000?5:2;total+=15}
+  if(total===0)return null;
+  return Math.min(Math.round((scored/total)*100)/10,10);
 }
-
-function scoreColor(s){
-  if(s>=9)return"#3A9B6F";
-  if(s>=7.5)return"#7BC67A";
-  if(s>=6)return"#C8873A";
-  if(s>=4.5)return"#cc8833";
-  return"#cc4444";
-}
-
-function scoreLabel(s){
-  if(s>=9)return"Perfecte dag 🔥";
-  if(s>=7.5)return"Sterke dag ✅";
-  if(s>=6)return"Redelijke dag";
-  if(s>=4.5)return"Matige dag ⚠️";
-  return"Zwakke dag ❌";
-}
+function scoreColor(s){if(s>=9)return"#3A9B6F";if(s>=7.5)return"#7BC67A";if(s>=6)return"#C8873A";if(s>=4.5)return"#cc8833";return"#cc4444"}
+function scoreLabel(s){if(s>=9)return"Perfecte dag 🔥";if(s>=7.5)return"Sterke dag ✅";if(s>=6)return"Redelijke dag";if(s>=4.5)return"Matige dag ⚠️";return"Zwakke dag ❌"}
 
 function renderNutrition(){
   const nutKey=today();
   const nut=DB.nutrition[nutKey]||{};
   const steps=DB.steps?.[nutKey]||"";
-  const goals=MACROS;
-  const p=parseFloat(nut.protein)||0;
-  const k=parseFloat(nut.carbs)||0;
-  const v=parseFloat(nut.fat)||0;
+  const goals=macrosFor(nutKey);
+  const isRun=goals===MACROS_RUN;
+  const p=parseFloat(nut.protein)||0,k=parseFloat(nut.carbs)||0,v=parseFloat(nut.fat)||0;
   const kcal=parseFloat(nut.kcal)||0;
   const calcKcal=Math.round(p*4+k*4+v*9);
   const st=parseInt(steps)||0;
-  const score=calcDayScore(nut,steps);
-
-  function bar(val,goal,color){
-    const pct=Math.min((val/goal)*100,100);
-    return`<div class="macro-bar"><div class="macro-fill" style="width:${pct}%;background:${color}"></div></div>`;
-  }
-
+  const score=calcDayScore(nut,steps,goals);
+  const bar=(val,goal,color)=>`<div class="macro-bar"><div class="macro-fill" style="width:${Math.min((val/goal)*100,100)}%;background:${color}"></div></div>`;
   const macros=[
     {field:"protein",label:"Eiwit",unit:"g",color:"#C8873A",val:p,goal:goals.protein},
     {field:"carbs",label:"Koolhydraten",unit:"g",color:"#7B6FD4",val:k,goal:goals.carbs},
     {field:"fat",label:"Vetten",unit:"g",color:"#3A9B6F",val:v,goal:goals.fat},
     {field:"kcal",label:"Calorieën",unit:"kcal",color:"#888",val:kcal||calcKcal,goal:goals.kcal},
   ];
-
-  // Gedetailleerde feedback regels
   const feedbackLines=[];
   for(const m of macros){
     if(!m.val)continue;
-    const diff=m.val-m.goal;
-    const pct=Math.round((m.val/m.goal)*100);
+    const diff=m.val-m.goal,pct=Math.round((m.val/m.goal)*100);
     let msg,col;
     if(pct>=92&&pct<=108){msg=`✅ ${m.label} op schema`;col="#3A9B6F"}
-    else if(m.val<m.goal){msg=`⬇️ ${m.label} ${Math.abs(diff).toFixed(0)}${m.unit} te laag`;col="#C8873A"}
+    else if(m.val<m.goal){msg=`⬇️ ${m.label} ${Math.abs(diff).toFixed(0)}${m.unit} te laag${m.field==="kcal"?": in een bulk is dit de belangrijkste":""}`;col="#C8873A"}
     else{msg=`⬆️ ${m.label} ${Math.abs(diff).toFixed(0)}${m.unit} te hoog`;col="#7B6FD4"}
     feedbackLines.push({msg,col});
   }
   if(st>0){
-    if(st>=10000)feedbackLines.push({msg:`✅ Stappen: ${st.toLocaleString()} — uitstekend`,col:"#3A9B6F"});
-    else if(st>=8000)feedbackLines.push({msg:`✅ Stappen: ${st.toLocaleString()} — goed`,col:"#7BC67A"});
-    else if(st>=6000)feedbackLines.push({msg:`➡️ Stappen: ${st.toLocaleString()} — probeer 8.000+ te halen`,col:"#C8873A"});
-    else feedbackLines.push({msg:`⬇️ Stappen: ${st.toLocaleString()} — te weinig beweging`,col:"#cc4444"});
+    if(st>=STEPS_GOAL)feedbackLines.push({msg:`✅ Stappen: ${st.toLocaleString("nl")}`,col:"#3A9B6F"});
+    else feedbackLines.push({msg:`➡️ Stappen: ${st.toLocaleString("nl")}, doel ${STEPS_GOAL.toLocaleString("nl")}+`,col:"#C8873A"});
   }
   const feedbackHtml=feedbackLines.map((f,i)=>`<div style="font-size:13px;color:${f.col};padding:6px 0;border-bottom:${i<feedbackLines.length-1?"1px solid #1c1c1c":"none"}">${f.msg}</div>`).join("");
-
-  // Score blok
   const scoreHtml=score!==null?`<div style="display:flex;align-items:center;justify-content:space-between;background:#111;border-radius:12px;padding:14px 16px;margin-bottom:12px;border:1px solid #222">
-    <div>
-      <div style="font-size:11px;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Dagcijfer</div>
-      <div style="font-size:13px;color:${scoreColor(score)}">${scoreLabel(score)}</div>
-    </div>
-    <div style="font-size:48px;font-weight:800;color:${scoreColor(score)};line-height:1">${score.toFixed(1)}</div>
-  </div>`:"";
+    <div><div style="font-size:11px;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Dagcijfer</div>
+    <div style="font-size:13px;color:${scoreColor(score)}">${scoreLabel(score)}</div></div>
+    <div style="font-size:48px;font-weight:800;color:${scoreColor(score)};line-height:1">${score.toFixed(1)}</div></div>`:"";
 
+  // Consistentie: gemiddelde kcal laatste 7 gelogde dagen vs doel
   const history=Object.entries(DB.nutrition).sort(([a],[b])=>b.localeCompare(a)).slice(0,7);
+  const kcalOf=n=>parseFloat(n.kcal)||Math.round((parseFloat(n.protein)||0)*4+(parseFloat(n.carbs)||0)*4+(parseFloat(n.fat)||0)*9);
+  const logged=history.filter(([,n])=>kcalOf(n)>0);
+  const consist=logged.length>=3?(()=>{const devs=logged.map(([d,n])=>Math.abs(kcalOf(n)-macrosFor(d).kcal));const avg=devs.reduce((a,b)=>a+b,0)/devs.length;return`<div class="feedback-box ${avg<=200?"good":avg<=400?"":"warn"}" style="margin-bottom:12px">Consistentie (${logged.length} dagen): gemiddeld ${Math.round(avg)} kcal naast je doel. ${avg<=200?"Strak.":"Doel: binnen 200 kcal. Een vast dagmenu helpt het meest."}</div>`})():"";
+
   const histHtml=history.map(([date,n])=>{
-    const pp=parseFloat(n.protein)||0;
-    const kk=parseFloat(n.carbs)||0;
-    const vv=parseFloat(n.fat)||0;
-    const kc=parseFloat(n.kcal)||Math.round(pp*4+kk*4+vv*9);
+    const pp=parseFloat(n.protein)||0,kk=parseFloat(n.carbs)||0,vv=parseFloat(n.fat)||0;
+    const kc=kcalOf(n),g=macrosFor(date);
     const st2=parseInt(DB.steps?.[date])||0;
-    const sc=calcDayScore(n,DB.steps?.[date]);
-    return`<div class="card-sm">
-      <div class="history-row">
-        <div>
-          <div style="font-size:13px;font-weight:700;color:${date===nutKey?"#C8873A":"#f0f0f0"}">${date}${date===nutKey?" · vandaag":""}</div>
-          <div style="font-size:11px;color:#555;margin-top:2px">P${pp}g · K${kk}g · V${vv}g${st2?` · 👟${st2.toLocaleString()}`:""}</div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-weight:800;font-size:14px">${kc} kcal</div>
-          ${sc!==null?`<div style="font-size:14px;font-weight:800;color:${scoreColor(sc)};margin-top:2px">${sc.toFixed(1)}</div>`:""}
-        </div>
-      </div>
-    </div>`;
+    const sc=calcDayScore(n,DB.steps?.[date],g);
+    return`<div class="card-sm"><div class="history-row">
+      <div><div style="font-size:13px;font-weight:700;color:${date===nutKey?"#C8873A":"#f0f0f0"}">${fmtDate(date)} ${dayOf(date)}${date===nutKey?" · vandaag":""}</div>
+      <div style="font-size:11px;color:#555;margin-top:2px">P${pp} · K${kk} · V${vv}${st2?` · 👟${st2.toLocaleString("nl")}`:""}</div></div>
+      <div style="text-align:right"><div style="font-weight:800;font-size:14px">${kc} <span style="font-size:11px;color:#555">/ ${g.kcal}</span></div>
+      ${sc!==null?`<div style="font-size:14px;font-weight:800;color:${scoreColor(sc)};margin-top:2px">${sc.toFixed(1)}</div>`:""}</div>
+    </div></div>`;
   }).join("");
 
-  return`<div class="page-header"><div class="page-title">Voeding & Dag</div><div class="page-sub">Doel: ${goals.kcal} kcal · P${goals.protein} K${goals.carbs} V${goals.fat}</div></div>
-
+  return`<div class="page-header"><div class="page-title">Voeding</div><div class="page-sub">${isRun?"🏃 Loopdag":"🏋️ Krachtdag"}<br>${goals.kcal} kcal · P${goals.protein} K${goals.carbs} V${goals.fat}</div></div>
   ${scoreHtml}
-
   <div class="card">
-    <div style="font-weight:800;font-size:15px;margin-bottom:14px">Vandaag <span style="font-size:11px;font-weight:400;color:#555">${nutKey}</span></div>
+    <div style="font-weight:800;font-size:15px;margin-bottom:14px">Vandaag <span style="font-size:11px;font-weight:400;color:#555">${fmtDate(nutKey)}</span></div>
     <div class="nut-grid">
-      ${macros.map(m=>`<div class="nut-field">
-        <label style="color:${m.color}">${m.label} (${m.unit})</label>
-        <input class="nut-input${nut[m.field]?" filled":""}" type="number" inputmode="decimal"
-          placeholder="doel: ${m.goal}" value="${nut[m.field]||""}"
-          id="nut-${m.field}"
-          onchange="updateNut('${m.field}',this.value)">
-      </div>`).join("")}
-      <div class="nut-field" style="grid-column:1/-1">
-        <label style="color:#888">👟 Stappen vandaag</label>
-        <input class="nut-input${steps?" filled":""}" type="number" inputmode="numeric"
-          placeholder="bijv. 8500" value="${steps||""}"
-          id="steps-input"
-          onchange="updateSteps(this.value)">
-      </div>
+      ${macros.map(m=>`<div class="nut-field"><label style="color:${m.color}">${m.label} (${m.unit})</label>
+        <input class="nut-input${nut[m.field]?" filled":""}" type="text" inputmode="decimal" autocomplete="off" placeholder="doel: ${m.goal}" value="${nut[m.field]||""}" onchange="updateNut('${m.field}',this.value)"></div>`).join("")}
+      <div class="nut-field" style="grid-column:1/-1"><label style="color:#888">👟 Stappen</label>
+        <input class="nut-input${steps?" filled":""}" type="number" inputmode="numeric" placeholder="bijv. 8500" value="${steps||""}" onchange="updateSteps(this.value)"></div>
     </div>
     ${calcKcal>0&&!nut.kcal?`<div style="font-size:12px;color:#555;margin:0 0 12px">Berekend: <strong style="color:#C8873A">${calcKcal} kcal</strong></div>`:""}
-    ${macros.slice(0,3).map(m=>`<div class="macro-row">
-      <div class="macro-label-row">
-        <span style="color:#666;font-size:12px">${m.label}</span>
-        <span style="color:${m.color};font-weight:700;font-size:12px">${m.val||0}${m.unit} <span style="color:#444">/ ${m.goal}${m.unit}</span></span>
-      </div>
-      ${bar(m.val,m.goal,m.color)}
-    </div>`).join("")}
-    ${st>0?`<div class="macro-row">
-      <div class="macro-label-row">
-        <span style="color:#666;font-size:12px">Stappen</span>
-        <span style="color:#888;font-weight:700;font-size:12px">${st.toLocaleString()} <span style="color:#444">/ 8.000</span></span>
-      </div>
-      <div class="macro-bar"><div class="macro-fill" style="width:${Math.min((st/8000)*100,100)}%;background:#888"></div></div>
-    </div>`:""}
+    ${macros.map(m=>`<div class="macro-row"><div class="macro-label-row"><span style="color:#666;font-size:12px">${m.label}</span>
+      <span style="color:${m.color};font-weight:700;font-size:12px">${m.val||0}${m.unit} <span style="color:#444">/ ${m.goal}${m.unit}</span></span></div>${bar(m.val,m.goal,m.color)}</div>`).join("")}
   </div>
-
   ${feedbackLines.length?`<div class="card" style="background:#111;padding:12px 16px">${feedbackHtml}</div>`:""}
-
-  <div class="section-title">Geschiedenis (7 dagen)</div>
+  <div class="card note">${isRun?"Loopdag: extra 300 kcal, vooral koolhydraten. Lange run: 30 tot 60 g koolhydraten vooraf.":"Krachtdag: om 6:00 iets kleins (banaan + whey), grote maaltijd direct na de training."} Creatine 5 g per dag.</div>
+  <div class="section-title">Laatste 7 dagen</div>
+  ${consist}
   ${histHtml||`<div style="color:#444;font-size:13px;padding:8px 0">Nog niets gelogd.</div>`}`;
 }
 
+// ── VIEWS: PROGRESSIE ────────────────────────────────────────────────────────
 function renderProgress(){
-  const allEx=Object.values(SCHEMA).flatMap(d=>d.exercises).filter(e=>!e.cardio);
-  const opts=allEx.map(ex=>`<option value="${ex.id}"${progressEx===ex.id?" selected":""}>${ex.name}</option>`).join("");
-
+  const allEx=Object.values(EX).filter(e=>!e.run&&e.runSlot===undefined);
+  const opts=allEx.map(ex=>`<option value="${ex.id}"${progressEx===ex.id?" selected":""}>${ex.chest?"💗 ":""}${ex.name}</option>`).join("");
   let chartHtml="";
   if(progressEx){
-    const ex=allEx.find(e=>e.id===progressEx);
+    const ex=EX[progressEx];
     const pts=getProgress(progressEx);
     const pr=getPR(progressEx);
+    const isLoad=ex.mode!=="bw"&&ex.mode!=="core";
+    const stall=ex.chest?stallCheck(ex.id):null;
     chartHtml=`<div class="card">
-      <div style="font-weight:700;margin-bottom:8px">${ex?.name}</div>
-      ${pr?`<div class="pr-badge" style="margin-bottom:12px">🏆 PR: ${pr.weight}kg × ${pr.reps} reps · ${pr.date}</div>`:""}
-      ${miniChart(pts,SCHEMA[Object.values(SCHEMA).find(d=>d.exercises.some(e=>e.id===progressEx))?.exercises?.[0]?.id??"Ma"]?.color||"#C8873A")}
+      <div style="font-weight:700;margin-bottom:4px">${ex.name}</div>
+      <div class="ex-meta" style="margin-bottom:8px">${isLoad?"Geschatte 1RM (e1RM) per sessie: combineert gewicht en reps.":"Beste reps per sessie."}</div>
+      ${pr?`<span class="pill pr-badge" style="margin:0 0 10px">🏆 ${fmtSet(pr,ex)} · ${fmtDate(pr.date)}</span>`:""}
+      ${miniChart(pts,SCHEMA[ex.day].color,{fmt:v=>isLoad?nl(v)+" kg":v+" reps"})}
+      ${stall?`<div class="feedback-box warn" style="margin-top:8px">${stall}</div>`:""}
     </div>`;
   }
-
-  const volHtml=DAYS.filter(d=>SCHEMA[d].exercises.length>0).map(d=>{
-    const keys=Object.keys(DB.sessions).filter(k=>k.startsWith(d+"_")).sort().reverse();
+  const volHtml=DAYS.filter(d=>SCHEMA[d].exercises.length>0&&!SCHEMA[d].run).map(d=>{
+    const ids=SCHEMA[d].exercises.map(e=>e.id);
+    const keys=Object.keys(DB.sessions).filter(k=>ids.some(id=>DB.sessions[k].sets?.[id]?.some(s=>s.done))).sort((a,b)=>DB.sessions[b].date.localeCompare(DB.sessions[a].date));
     const last=keys[0]?DB.sessions[keys[0]]:null;
-    const sets=last?Object.values(last.sets||{}).reduce((a,ss)=>a+ss.filter(s=>s.done).length,0):0;
+    const sets=last?ids.reduce((a,id)=>a+(last.sets?.[id]||[]).filter(s=>s.done).length,0):0;
+    const planned=SCHEMA[d].exercises.reduce((a,e)=>a+e.sets,0);
     return`<div class="card-sm" style="display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <div style="font-weight:700;font-size:13px">${SCHEMA[d].label}</div>
-        <div style="font-size:11px;color:#555">${SCHEMA[d].type}</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-weight:800;color:${sets>0?"#C8873A":"#333"}">${sets>0?sets+" sets":"—"}</div>
-        <div style="font-size:10px;color:#555">${last?.date||"Nog niet gelogd"}</div>
-      </div>
+      <div><div style="font-weight:700;font-size:13px">${SCHEMA[d].type}</div><div style="font-size:11px;color:#555">${SCHEMA[d].label}</div></div>
+      <div style="text-align:right"><div style="font-weight:800;color:${sets>0?SCHEMA[d].color:"#333"}">${sets>0?`${sets} / ${planned} sets`:"–"}</div>
+      <div style="font-size:10px;color:#555">${last?fmtDate(last.date):"Nog niet gelogd"}</div></div>
     </div>`;
   }).join("");
-
   return`<div class="page-header"><div class="page-title">Progressie</div></div>
-
-  <div class="section-title">Oefening kiezen</div>
+  <div class="section-title">Oefening</div>
   <select class="ex-select" onchange="progressEx=this.value;render()"><option value="">Kies een oefening...</option>${opts}</select>
   ${chartHtml}
-
-  <div class="section-title" style="margin-top:8px">Wekelijks volume</div>
+  <div class="section-title">Laatste sessie per workout</div>
   ${volHtml}`;
+}
+
+// ── BACKUP ───────────────────────────────────────────────────────────────────
+function backupDue(){
+  const hasData=Object.keys(DB.sessions).length>0;
+  if(!hasData)return false;
+  return!DB.meta.lastBackup||daysBetween(DB.meta.lastBackup,today())>=7;
+}
+async function exportData(){
+  const prev=DB.meta.lastBackup||null;
+  DB.meta.lastBackup=today();save();
+  const json=JSON.stringify(DB,null,1);
+  const name=`training-backup-${today()}.json`;
+  try{
+    const file=new File([json],name,{type:"application/json"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:name});render();return}
+  }catch(e){if(e.name==="AbortError"){DB.meta.lastBackup=prev;save();render();return}}
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([json],{type:"application/json"}));
+  a.download=name;document.body.appendChild(a);a.click();a.remove();
+  render();
+}
+function importData(input){
+  const f=input.files?.[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const d=JSON.parse(rd.result);
+      if(!d||typeof d!=="object"||!d.sessions)throw new Error("geen trainingsdata");
+      const n=Object.keys(d.sessions).length;
+      if(!confirm(`Backup met ${n} sessies en ${(d.bodyweight||[]).length} gewichtsmetingen terugzetten? Je huidige data op dit apparaat wordt overschreven.`))return;
+      DB=d;DB.meta=DB.meta||{};DB.steps=DB.steps||{};DB.bodyweight=DB.bodyweight||[];DB.nutrition=DB.nutrition||{};
+      save();render();alert("Backup teruggezet.");
+    }catch(e){alert("Dit bestand kan ik niet lezen: "+e.message)}
+    input.value="";
+  };
+  rd.readAsText(f);
 }
 
 // ── RENDER ───────────────────────────────────────────────────────────────────
 function render(){
   const main=document.getElementById("main");
+  const y=main.scrollTop;
   if(currentView==="training")main.innerHTML=renderTraining();
   else if(currentView==="dashboard")main.innerHTML=renderDashboard();
   else if(currentView==="nutrition")main.innerHTML=renderNutrition();
   else if(currentView==="progress")main.innerHTML=renderProgress();
+  main.scrollTop=y;
 }
-
 function setView(v){
   currentView=v;
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
   if(v==="training")requestWake();else releaseWake();
-  render();
+  render();document.getElementById("main").scrollTop=0;
 }
-
-function switchDay(d){activeDay=d;render()}
+function switchDay(d){activeDay=d;render();document.getElementById("main").scrollTop=0;scrollTabIntoView()}
+function scrollTabIntoView(){const t=document.querySelector(".day-tab.active");if(t)t.scrollIntoView({inline:"center",block:"nearest"})}
 
 function logBW(){
   const inp=document.getElementById("bw-input");
-  if(!inp||!inp.value)return;
-  DB.bodyweight=DB.bodyweight||[];
-  DB.bodyweight.push({date:today(),weight:parseFloat(inp.value)});
+  const w=parseFloat(num(inp?.value));
+  if(!w)return;
+  // één meting per dag: overschrijf als je vandaag al gewogen hebt
+  DB.bodyweight=DB.bodyweight.filter(b=>b.date!==today());
+  DB.bodyweight.push({date:today(),weight:w});
+  DB.bodyweight.sort((a,b)=>a.date.localeCompare(b.date));
   save();render();
 }
-
 function updateNut(field,val){
-  DB.nutrition=DB.nutrition||{};
   const key=today();
   DB.nutrition[key]=DB.nutrition[key]||{};
-  DB.nutrition[key][field]=val;
-  save();
-  // live update bars without full re-render
-  renderNutBars();
+  DB.nutrition[key][field]=num(val);
+  save();render();
 }
-
-function updateSteps(val){
-  DB.steps=DB.steps||{};
-  DB.steps[today()]=val;
-  save();
-  renderNutBars();
-}
-
-function renderNutBars(){
-  if(currentView==="nutrition"){
-    const main=document.getElementById("main");
-    const scrollY=main.scrollTop;
-    main.innerHTML=renderNutrition();
-    main.scrollTop=scrollY;
-  }
-}
+function updateSteps(val){DB.steps[today()]=num(val);save();render()}
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 requestWake();
 render();
+scrollTabIntoView();
 </script>
 </body>
 </html>
