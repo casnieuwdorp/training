@@ -160,9 +160,9 @@ const STEPS_GOAL=8000;
 const SCHEMA = {
   Ma:{label:"Maandag",type:"Full body A",color:"#C8873A",
     note:"Squat en bovenkant borst. Max 3 sets per oefening, laatste set 1 tot 2 reps in de tank. Squat op RPE 7 tot 8: je loopt morgen. Klaar binnen het uur.",exercises:[
-    {id:"squat",block:"1",name:"Back Squat",sets:3,min:5,max:8,rest:150,start:80,inc:2.5,rampTo:100,tip:"RPE 7 tot 8, geen sets tot falen."},
+    {id:"squat",block:"1",name:"Back Squat",sets:3,min:5,max:8,rest:135,start:80,inc:2.5,rampTo:100,tip:"RPE 7 tot 8, geen sets tot falen."},
     {id:"incline_smith",block:"2",name:"Incline Smith Machine Press (30°)",sets:3,min:6,max:10,rest:120,start:null,inc:2.5,chest:true,tip:"Bank op ~30°, hoger gaat vooral in je schouders. Stang naar je bovenste borst, 2 tot 3 sec zakken."},
-    {id:"barbell_row",block:"3",name:"Barbell Row",sets:3,min:8,max:12,rest:120,start:null,inc:2.5,tip:"Romp ~45°, stang naar je navel."},
+    {id:"barbell_row",block:"3",name:"Barbell Row",sets:3,min:8,max:12,rest:105,start:null,inc:2.5,tip:"Romp ~45°, stang naar je navel."},
     {id:"rdl_a",block:"4",name:"Romanian Deadlift",sets:2,min:8,max:10,rest:120,start:95,inc:2.5,rampTo:115,tip:"RPE 7, rug neutraal."},
     {id:"lateral_raise",block:"5",name:"Dumbbell Lateral Raise",sets:3,min:12,max:20,rest:60,start:10,inc:2},
     {id:"incline_curl",block:"6a",name:"Incline DB Curl",sets:2,min:10,max:15,rest:0,start:null,inc:2,ss:"A",tip:"Per dumbbell. Zelfde bank en dumbbells als 6b."},
@@ -185,7 +185,7 @@ const SCHEMA = {
     {id:"cable_crunch",block:"8",name:"Cable Crunch",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
   ]},
   Do:{label:"Donderdag",type:"Rustig + strides",color:"#4E97C4",run:true,
-    note:"Echt rustig: hartslag onder 150, ook als dat 7:30/km is. Je rustige runs zaten op 160 tot 169, dat is te hard om van te herstellen. Daarna 6 strides: 20 sec versnellen tot ~90%, rustig teruglopen.",exercises:[
+    note:"Praattempo: hele zinnen kunnen zeggen, gemiddelde HR onder ~158 (zoals je run van 1 november: 7:08/km op HR 153). Daarna 6 strides: 20 sec versnellen tot ~90%, rustig teruglopen.",exercises:[
     {id:"run_comfort",name:"Rustige run + strides",runSlot:1},
   ]},
   Vr:{label:"Vrijdag",type:"Full body C",color:"#E07AA8",
@@ -201,7 +201,7 @@ const SCHEMA = {
     {id:"seated_calf",block:"8",name:"Seated Calf Raise",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
   ]},
   Za:{label:"Zaterdag",type:"Lange run",color:"#3E7FAA",run:true,
-    note:"Rustig opbouwen, hartslag onder 150. Vanaf week 3 een sneller slot. Eet vooraf 30 tot 60 g koolhydraten.",exercises:[
+    note:"Praattempo, gemiddelde HR onder ~158. Mag aan het eind wat oplopen. Vanaf week 3 een sneller slot. Eet vooraf 30 tot 60 g koolhydraten.",exercises:[
     {id:"run_long",name:"Lange duurloop",runSlot:2},
   ]},
   Zo:{label:"Zondag",type:"Rust",color:"#555",exercises:[]}
@@ -210,37 +210,37 @@ const DAYS=["Ma","Di","Wo","Do","Vr","Za","Zo"];
 const MOBILITY=["90/90 hip switches, 6 per kant","Deep goblet squat hold, 30 sec","Couch stretch, 30 sec per kant","Cat-cow + bird dog, 8 reps","2 opbouwsets op oefening 1"];
 
 // Loopschema 8 weken, gebaseerd op Runkeeper-data t/m 30 okt 2026.
-// Startniveau: intervallen ~5:10 tot 5:25/km, rustig ~7:00 tot 7:30 bij HR <150, max HR ~193.
+// Startniveau: intervallen ~5:10 tot 5:25/km, rustig ~7:00 tot 7:15 bij HR ~153 (1 nov), max HR ~200.
 // Doel na 8 weken: 5 km-test, richting je oude niveau (22:00 in dec 2025).
 // Per week: [Di, Do, Za] = {t: titel, d: uitleg, km: geschatte totale afstand}
 const RUN_PLAN=[
   /*1*/[{t:"6 x 800 m @ 5:10",d:"1 km inlopen, 6 x 800 m op 5:10/km, 90 sec dribbel/wandel ertussen, 1 km uitlopen.",km:7.5},
-        {t:"5 km rustig + 6 strides",d:"HR onder 150. Daarna 6 x 20 sec versnellen.",km:5.5},
-        {t:"9 km rustig",d:"Heel de run HR onder 150. Te hoog? Langzamer of 1 min wandelen.",km:9}],
+        {t:"5 km rustig + 6 strides",d:"praattempo, HR onder ~158. Daarna 6 x 20 sec versnellen.",km:5.5},
+        {t:"9 km rustig",d:"Praattempo, gemiddelde HR onder ~158. Te hoog? Iets inhouden, niet wandelen.",km:9}],
   /*2*/[{t:"6 x 800 m @ 5:05",d:"1 km inlopen, 6 x 800 m op 5:05/km, 90 sec rust, 1 km uitlopen.",km:7.5},
-        {t:"5 km rustig + 6 strides",d:"HR onder 150.",km:5.5},
-        {t:"10 km rustig",d:"HR onder 150.",km:10}],
+        {t:"5 km rustig + 6 strides",d:"praattempo, HR onder ~158.",km:5.5},
+        {t:"10 km rustig",d:"praattempo, HR onder ~158.",km:10}],
   /*3*/[{t:"5 x 1 km @ 5:05",d:"1 km inlopen, 5 x 1 km op 5:05/km, 2 min dribbel, 1 km uitlopen.",km:8},
-        {t:"6 km rustig + 6 strides",d:"HR onder 150.",km:6.5},
+        {t:"6 km rustig + 6 strides",d:"praattempo, HR onder ~158.",km:6.5},
         {t:"10 km, laatste 2 km @ 6:00",d:"8 km rustig, dan 2 km stevig op ~6:00/km.",km:10}],
   /*4*/[{t:"4 x 1 km @ 5:00",d:"Lichtere week. 1 km inlopen, 4 x 1 km op 5:00/km, 2 min dribbel, 1 km uitlopen.",km:7},
-        {t:"5 km rustig + 6 strides",d:"HR onder 150.",km:5.5},
-        {t:"8 km rustig",d:"Lichtere week, HR onder 150.",km:8}],
+        {t:"5 km rustig + 6 strides",d:"praattempo, HR onder ~158.",km:5.5},
+        {t:"8 km rustig",d:"Lichtere week, praattempo, HR onder ~158.",km:8}],
   /*5*/[{t:"4 x 1600 m @ 5:10",d:"1 km inlopen, 4 x 1600 m op 5:10/km, 2:30 dribbel, 1 km uitlopen.",km:9},
-        {t:"6 km rustig + 6 strides",d:"HR onder 150.",km:6.5},
+        {t:"6 km rustig + 6 strides",d:"praattempo, HR onder ~158.",km:6.5},
         {t:"11 km, laatste 3 km @ 5:45",d:"8 km rustig, dan 3 km op ~5:45/km.",km:11}],
   /*6*/[{t:"5 x 800 m @ 5:00",d:"Deloadweek. 1 km inlopen, 5 x 800 m op 5:00/km, 2 min rust, 1 km uitlopen.",km:6.5},
         {t:"5 km rustig",d:"Deloadweek, geen strides.",km:5},
-        {t:"8 km rustig",d:"Deloadweek, HR onder 150.",km:8}],
+        {t:"8 km rustig",d:"Deloadweek, praattempo, HR onder ~158.",km:8}],
   /*7*/[{t:"3 x 2 km @ 5:10",d:"1 km inlopen, 3 x 2 km op 5:10/km, 3 min dribbel, 1 km uitlopen.",km:9},
-        {t:"6 km rustig + 6 strides",d:"HR onder 150.",km:6.5},
+        {t:"6 km rustig + 6 strides",d:"praattempo, HR onder ~158.",km:6.5},
         {t:"11 km, laatste 3 km @ 5:40",d:"8 km rustig, dan 3 km op ~5:40/km.",km:11}],
   /*8*/[{t:"6 x 400 m @ 4:45",d:"Scherp blijven, niet moe worden. 1 km inlopen, 6 x 400 m op 4:45/km, 90 sec rust, 1 km uitlopen.",km:5.5},
         {t:"4 km rustig + 4 strides",d:"Kort en fris voor de test.",km:4.5},
         {t:"5 km-test",d:"2 km inlopen + 4 strides, dan 5 km zo snel als je gelijkmatig volhoudt. Start op ~5:15/km, laatste km alles. Stuur me je tijd, dan zet ik de volgende 8 weken klaar.",km:8}],
 ];
 const RUN_TYPES=["interval","easy","long"];
-const EASY_HR_CAP=152;
+const EASY_HR_CAP=158;      // max HR ~200: rustig = praattempo, tot ~158 gemiddeld
 const Z2_HR_CAP=150;
 const Z2_PACE_GOAL=7.0, Z2_PACE_GOAL2=6.5;
 
@@ -257,6 +257,16 @@ const GOALS=[
   {id:"pullups",label:"Pull-ups eigen gewicht",bw:true,r:10},
 ];
 
+// Tijdschatting: 5 min warming-up, ~45 sec per set (90 bij p/been), rust tussen sets, 1 min wisselen per oefening. Doel: 45 tot 60 min.
+function estMin(dayKey){
+  const day=SCHEMA[dayKey];if(!day||day.run||!day.exercises.length)return 0;
+  let sec=300;
+  for(const e of day.exercises){
+    const work=e.repLabel==="p/been"?90:45;
+    sec+=e.sets*work+Math.max(0,e.sets-1)*(e.rest||0)+60; // na de laatste set: wisselen i.p.v. rust
+  }
+  return Math.round(sec/60);
+}
 const EX={};
 for(const d of DAYS)for(const e of SCHEMA[d].exercises)EX[e.id]={...e,day:d};
 
@@ -264,7 +274,8 @@ for(const d of DAYS)for(const e of SCHEMA[d].exercises)EX[e.id]={...e,day:d};
 const SK="gym_v3";
 function blank(){return{sessions:{},bodyweight:[],nutrition:{},steps:{},meta:{}}}
 function load(){try{const r=localStorage.getItem(SK);const d=r?JSON.parse(r):blank();d.meta=d.meta||{};d.steps=d.steps||{};d.bodyweight=d.bodyweight||[];d.nutrition=d.nutrition||{};d.sessions=d.sessions||{};return d}catch{return blank()}}
-function save(){try{localStorage.setItem(SK,JSON.stringify(DB))}catch{}}
+function persist(){try{localStorage.setItem(SK,JSON.stringify(DB))}catch{}}
+function save(){persist();scheduleSync()}
 let DB=load();
 
 // ── DATUM (lokale tijd, niet UTC) ────────────────────────────────────────────
@@ -495,7 +506,8 @@ function renderTraining(){
     const col=SCHEMA[d].color;
     return`<button class="day-tab${active?" active":""}" style="${active?`border-color:${col};color:${col};background:${col}18`:""}" onclick="switchDay('${d}')">${d}<br><span style="font-size:9px;font-weight:400;opacity:.7">${SCHEMA[d].type}</span></button>`;
   }).join("");
-  const header=`<div class="page-header"><div class="page-title">${day.type}</div><div class="page-sub">${day.label} · ${fmtDate(today())}<br>Week ${week}</div></div>
+  const est=estMin(activeDay);
+  const header=`<div class="page-header"><div class="page-title">${day.type}</div><div class="page-sub">${day.label} · ${fmtDate(today())}<br>Week ${week}${est?` · ⏱ ~${est} min`:""}</div></div>
   <div class="day-tabs">${tabsHtml}</div>`;
 
   if(day.exercises.length===0){
@@ -720,8 +732,9 @@ function renderDashboard(){
   ${runList?`<div class="card">${runList}</div>`:""}
 
   <div class="section-title">Data & backup</div>
+  <div class="card">${syncCardHtml()}</div>
   <div class="card">
-    <div class="ex-meta" style="margin-bottom:12px">Alles staat alleen op dit apparaat. Exporteer elke week een backup.<br>Laatste backup: <strong style="color:${backupDue()?"#cc6666":"#3A9B6F"}">${DB.meta.lastBackup?fmtDate(DB.meta.lastBackup):"nog nooit"}</strong></div>
+    <div class="ex-meta" style="margin-bottom:12px">Handmatig: exporteer of zet een backup terug.<br>Laatste backup: <strong style="color:${backupDue()?"#cc6666":"#3A9B6F"}">${DB.meta.lastBackup?fmtDate(DB.meta.lastBackup):"nog nooit"}</strong></div>
     <div class="btn-row">
       <button class="btn" onclick="exportData()">💾 Exporteer</button>
       <button class="btn ghost" onclick="document.getElementById('import-file').click()">📂 Importeer</button>
@@ -870,6 +883,7 @@ function renderProgress(){
 function backupDue(){
   const hasData=Object.keys(DB.sessions).length>0;
   if(!hasData)return false;
+  if(syncCfg()&&DB.meta.lastSync&&daysBetween(ymd(new Date(DB.meta.lastSync)),today())<7)return false;
   return!DB.meta.lastBackup||daysBetween(DB.meta.lastBackup,today())>=7;
 }
 async function exportData(){
@@ -901,6 +915,69 @@ function importData(input){
     input.value="";
   };
   rd.readAsText(f);
+}
+
+// ── AUTOMATISCHE BACKUP (privé GitHub-repo) ──────────────────────────────────
+// Elke wijziging wordt na 15 sec gesynct naar data/latest.json, en elke week krijgt een eigen
+// bestand data/weeks/week-JJJJ-MM-DD.json (maandag van die week). Token staat alleen op dit apparaat,
+// onder een eigen sleutel, en gaat nooit mee in exports of in de code.
+const SYNC_KEY="gym_sync";
+function syncCfg(){try{const c=JSON.parse(localStorage.getItem(SYNC_KEY));return c&&c.repo&&c.token?c:null}catch{return null}}
+function setSyncCfg(c){try{c?localStorage.setItem(SYNC_KEY,JSON.stringify(c)):localStorage.removeItem(SYNC_KEY)}catch{}}
+let syncTimer=null,syncBusy=false,syncError="";
+function scheduleSync(delay=15000){if(!syncCfg())return;clearTimeout(syncTimer);syncTimer=setTimeout(()=>syncNow(),delay)}
+function b64(str){return btoa(unescape(encodeURIComponent(str)))}
+function ghHeaders(cfg){return{Authorization:`Bearer ${cfg.token}`,Accept:"application/vnd.github+json"}}
+async function ghPut(cfg,path,content,msg){
+  const url=`https://api.github.com/repos/${cfg.repo}/contents/${path}`;
+  let sha;
+  const g=await fetch(`${url}?ref=${encodeURIComponent(cfg.branch)}&t=${Date.now()}`,{headers:ghHeaders(cfg),cache:"no-store"});
+  if(g.ok)sha=(await g.json()).sha;else if(g.status!==404)throw new Error(`lezen mislukt (${g.status})`);
+  const body={message:msg,content:b64(content),branch:cfg.branch};if(sha)body.sha=sha;
+  const r=await fetch(url,{method:"PUT",headers:ghHeaders(cfg),body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(`opslaan mislukt (${r.status})`);
+}
+async function syncNow(){
+  const cfg=syncCfg();if(!cfg||syncBusy)return;
+  clearTimeout(syncTimer);syncBusy=true;syncError="";
+  try{
+    const json=JSON.stringify(DB,null,1);
+    await ghPut(cfg,"data/latest.json",json,`Sync ${today()}`);
+    const ws=weekStart(today());
+    await ghPut(cfg,`data/weeks/week-${ws}.json`,json,`Weekbackup ${ws}`);
+    DB.meta.lastSync=new Date().toISOString();DB.meta.lastBackup=today();persist();
+  }catch(e){syncError=e.message||"onbekende fout"}
+  syncBusy=false;
+  if(currentView==="dashboard")render();
+}
+async function connectSync(){
+  const repo=(document.getElementById("sync-repo")?.value||"").trim().replace(/^https?:\/\/github\.com\//,"").replace(/\/$/,"");
+  const token=(document.getElementById("sync-token")?.value||"").trim();
+  if(!/^[\w.-]+\/[\w.-]+$/.test(repo)||!token){alert("Vul je repo in als naam/repo en plak je token.");return}
+  try{
+    const r=await fetch(`https://api.github.com/repos/${repo}`,{headers:ghHeaders({token}),cache:"no-store"});
+    if(!r.ok)throw new Error(r.status===404?"repo niet gevonden, of het token heeft er geen toegang toe":`GitHub ${r.status}`);
+    const info=await r.json();
+    if(!info.private){alert("Deze repo is openbaar. Je trainings-, gewicht- en voedingsdata horen in een privé repo. Maak hem privé en probeer opnieuw.");return}
+    setSyncCfg({repo,token,branch:info.default_branch||"main"});
+    await syncNow();
+    alert(syncError?`Gekoppeld, maar de eerste sync lukte niet: ${syncError}`:"Gekoppeld. Je data wordt nu automatisch opgeslagen.");
+  }catch(e){alert("Koppelen mislukt: "+e.message)}
+}
+function disconnectSync(){if(confirm("Automatische backup uitzetten? Je token wordt van dit apparaat verwijderd.")){setSyncCfg(null);render()}}
+function syncCardHtml(){
+  const cfg=syncCfg();
+  if(cfg){
+    const last=DB.meta.lastSync?new Date(DB.meta.lastSync):null;
+    const lastTxt=last?`${fmtDate(ymd(last))} ${String(last.getHours()).padStart(2,"0")}:${String(last.getMinutes()).padStart(2,"0")}`:"nog niet";
+    return`<div class="ex-meta" style="margin-bottom:12px">☁️ Automatische backup naar <strong style="color:#f0f0f0">${cfg.repo}</strong> (privé).<br>
+      Elke wijziging na 15 sec, plus een weekbestand per week.<br>Laatste sync: <strong style="color:${syncError?"#cc6666":"#3A9B6F"}">${syncBusy?"bezig...":lastTxt}</strong>${syncError?`<br><span style="color:#cc6666">Fout: ${syncError}</span>`:""}</div>
+      <div class="btn-row"><button class="btn" onclick="syncNow()">☁️ Nu syncen</button><button class="btn ghost" onclick="disconnectSync()">Ontkoppel</button></div>`;
+  }
+  return`<div class="ex-meta" style="margin-bottom:10px">☁️ <strong style="color:#f0f0f0">Automatische backup:</strong> koppel een privé GitHub-repo, dan wordt alles vanzelf opgeslagen, met een apart bestand per week.</div>
+    <input class="bw-input" id="sync-repo" placeholder="casnieuwdorp/training-data" autocomplete="off" autocapitalize="off" style="margin-bottom:8px">
+    <input class="bw-input" id="sync-token" type="password" placeholder="GitHub token (alleen Contents: read/write)" autocomplete="off" style="margin-bottom:8px">
+    <button class="btn" style="width:100%" onclick="connectSync()">Koppel</button>`;
 }
 
 // ── RENDER ───────────────────────────────────────────────────────────────────
@@ -941,6 +1018,8 @@ function updateNut(field,val){
 function updateSteps(val){DB.steps[today()]=num(val);save();render()}
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&syncTimer&&syncCfg())syncNow()});
+if(syncCfg()&&(!DB.meta.lastSync||daysBetween(ymd(new Date(DB.meta.lastSync)),today())>=1))scheduleSync(3000);
 requestWake();
 render();
 scrollTabIntoView();

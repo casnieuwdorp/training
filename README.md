@@ -24,19 +24,20 @@ Geen installatie nodig.
 ## Functies
 
 ### Training
-- Dagtabs, opent op vandaag. Weeknummer van het blok bovenin.
+- Dagtabs, opent op vandaag. Weeknummer van het blok en een tijdschatting per krachtsessie (doel 45 tot 60 min) bovenin.
 - **Progressie-coach per oefening:** double progression (alle sets op de bovenkant van de range → gewicht omhoog), opbouwfase voor squat en RDL (+5 kg/week tot 100 en 115 kg), fases voor dips en pull-ups (eigen gewicht → met gewicht bij 3 x 10). Het voorgestelde gewicht staat als placeholder in het veld; afvinken zonder invoer neemt het voorstel over.
 - Chest-oefeningen: 6 weken geen e1RM-progressie → seintje om een variatie te kiezen.
 - "Laatste keer" zoekt over alle dagen heen, dus historie blijft bewaard als een oefening van dag wisselt.
 - Max 3 sets per oefening, binnen het uur. Supersets alleen op dezelfde plek (drukke gym). Warming-up per krachtdag, chest-sets deze week.
 - Deloadbanner elke 6 weken.
-- Runs: minuten, km, gemiddelde hartslag, automatisch tempo, de sessie van die week uit het 8-wekenschema (`RUN_PLAN`) en een waarschuwing als een rustige run boven HR 152 zat. Plus het vinkje voor de zone 2-check.
+- Runs: minuten, km, gemiddelde hartslag, automatisch tempo, de sessie van die week uit het 8-wekenschema (`RUN_PLAN`) en een waarschuwing als een rustige run boven HR 158 zat (max HR ~200). Plus het vinkje voor de zone 2-check.
 
 ### Dashboard
 - Gewicht: 7-daags gemiddelde met recomp-advies (stabiel tot +0,2 kg/week, anders +200 of -150 kcal). Doel 95 kg shredded. Eén meting per dag.
 - Doelen eind december: incline smith 70 x 8, squat 100 x 6, dips en pull-ups 3 x 10 met eigen gewicht.
 - Chest-volume per week (laatste 6 weken), zone 2-tempo-grafiek met de 7:00-lijn, laatste runs.
 - **Backup:** exporteer als JSON (deelmenu op iPhone) en importeer weer. Herinnering na 7 dagen zonder backup.
+- **Automatische backup:** koppel op het dashboard een privé GitHub-repo met een fine-grained token (alleen Contents: read/write op die ene repo). Elke wijziging wordt na 15 sec opgeslagen in `data/latest.json`, en elke week krijgt een eigen bestand `data/weeks/week-JJJJ-MM-DD.json`. Het token staat alleen lokaal op het apparaat (sleutel `gym_sync`) en gaat nooit mee in exports. Openbare repo's worden geweigerd.
 
 ### Voeding
 - Doel per dag: 3.200 kcal (P190 K420 V85), kalibreren op het weekgemiddelde gewicht.
