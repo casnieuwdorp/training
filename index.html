@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Training">
 <meta name="theme-color" content="#0e0e0e">
 <title>Training</title>
+<!-- versie 2026-11-01b -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -956,6 +957,7 @@ async function connectSync(){
   const repo=(document.getElementById("sync-repo")?.value||"").trim().replace(/^https?:\/\/github\.com\//,"").replace(/\/$/,"");
   const token=(document.getElementById("sync-token")?.value||"").trim();
   if(!/^[\w.-]+\/[\w.-]+$/.test(repo)||!token){alert("Vul je repo in als naam/repo en plak je token.");return}
+  if(!/^(github_pat_|ghp_)/.test(token)){alert(`Dit lijkt geen GitHub-token: het begint met "${token.slice(0,4)}..." in plaats van "github_pat_". Misschien heeft je iPhone een wachtwoord ingevuld. Wis het veld en plak het token opnieuw.`);return}
   try{
     const r=await fetch(`https://api.github.com/repos/${repo}`,{headers:ghHeaders({token}),cache:"no-store"});
     if(!r.ok)throw new Error(r.status===404?`repo "${repo}" niet gevonden, of het token heeft er geen toegang toe`:r.status===401?"token ongeldig (niet helemaal gekopieerd of verlopen)":`GitHub ${r.status}`);
@@ -978,7 +980,7 @@ function syncCardHtml(){
   }
   return`<div class="ex-meta" style="margin-bottom:10px">☁️ <strong style="color:#f0f0f0">Automatische backup:</strong> koppel een privé GitHub-repo, dan wordt alles vanzelf opgeslagen, met een apart bestand per week.</div>
     <input class="bw-input" id="sync-repo" placeholder="casnieuwdorp/training-data" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" style="margin-bottom:8px">
-    <input class="bw-input" id="sync-token" type="password" placeholder="GitHub token (alleen Contents: read/write)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="margin-bottom:8px">
+    <input class="bw-input" id="sync-token" type="text" placeholder="Plak je token (begint met github_pat_)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="margin-bottom:8px">
     <button class="btn" style="width:100%" onclick="connectSync()">Koppel</button>`;
 }
 
