@@ -149,51 +149,56 @@
 // ── PROGRAMMA ───────────────────────────────────────────────────────────────
 // Blok 1 start op maandag 5 okt 2026. Weeknummer stuurt loopopbouw, deloads en deficit push-ups.
 const PROGRAM_START="2026-10-05";
-const GOAL_BW=100;          // lean bulk doel
-const BW_RATE=0.25;         // kg per week
+// Blok 2 (vanaf nov 2026): recomp naar 95 kg shredded. 3x full body < 60 min, max 3 sets per oefening.
+const GOAL_BW=95;           // recomp doel: 95 kg, echt shredded
+const BW_RATE=0.1;          // kg per week (recomp: gewicht stabiel tot licht stijgend)
 const STEPS_GOAL=8000;
 
-// Volgorde = prioriteit (chest eerst). Geen supersets over stations heen (drukke gym), alleen op dezelfde plek.
+// Geen supersets over stations heen (drukke gym), alleen op dezelfde plek.
 // mode: "load" = gewicht + reps, "bw" = eigen gewicht (gewicht = extra kg), "core" = geen gewichtscoach
 // inc = stap bij double progression, rampTo = opbouw met +5 kg/week tot dit gewicht (RPE 7)
 const SCHEMA = {
   Ma:{label:"Maandag",type:"Full body A",color:"#C8873A",
-    note:"Volgorde = prioriteit: eerst chest, dan rug, dan benen, core en schouders. Geen supersets: één spier tegelijk, één plek. Chest op RPE 8 tot 9, squat op RPE 7: je loopt morgen.",exercises:[
-    {id:"incline_db",block:"1",name:"Incline Dumbbell Press (30°)",sets:4,min:6,max:10,rest:120,start:24,inc:2,chest:true,tip:"Per dumbbell. 3 sec zakken, pauze in de stretch."},
-    {id:"cable_fly",block:"2",name:"Cable Fly (op borsthoogte)",sets:3,min:10,max:15,rest:90,start:null,inc:2.5,chest:true,tip:"Gewicht per kant. Constante spanning, diep in de stretch. Kabels bezet? Flat DB fly."},
-    {id:"pullups",block:"3",name:"Pull-ups (eigen gewicht)",sets:3,min:6,max:8,rest:120,mode:"bw",tip:"Gewicht = extra kg (0 = eigen gewicht). Onder 5 reps? Aanvullen met band."},
-    {id:"squat",block:"4",name:"Back Squat",sets:3,min:5,max:6,rest:150,start:80,inc:2.5,rampTo:100,tip:"RPE 7, geen sets tot falen."},
-    {id:"ab_wheel",block:"5",name:"Ab Wheel Rollout",sets:3,min:8,max:12,rest:60,mode:"core"},
-    {id:"lateral_raise",block:"6",name:"Dumbbell Lateral Raise",sets:3,min:12,max:20,rest:60,start:10,inc:2},
+    note:"Squat en bovenkant borst. Max 3 sets per oefening, laatste set 1 tot 2 reps in de tank. Squat op RPE 7 tot 8: je loopt morgen. Klaar binnen het uur.",exercises:[
+    {id:"squat",block:"1",name:"Back Squat",sets:3,min:5,max:8,rest:150,start:80,inc:2.5,rampTo:100,tip:"RPE 7 tot 8, geen sets tot falen."},
+    {id:"incline_smith",block:"2",name:"Incline Smith Machine Press (30°)",sets:3,min:6,max:10,rest:120,start:null,inc:2.5,chest:true,tip:"Bank op ~30°, hoger gaat vooral in je schouders. Stang naar je bovenste borst, 2 tot 3 sec zakken."},
+    {id:"barbell_row",block:"3",name:"Barbell Row",sets:3,min:8,max:12,rest:120,start:null,inc:2.5,tip:"Romp ~45°, stang naar je navel."},
+    {id:"rdl_a",block:"4",name:"Romanian Deadlift",sets:2,min:8,max:10,rest:120,start:95,inc:2.5,rampTo:115,tip:"RPE 7, rug neutraal."},
+    {id:"lateral_raise",block:"5",name:"Dumbbell Lateral Raise",sets:3,min:12,max:20,rest:60,start:10,inc:2},
+    {id:"incline_curl",block:"6a",name:"Incline DB Curl",sets:2,min:10,max:15,rest:0,start:null,inc:2,ss:"A",tip:"Per dumbbell. Zelfde bank en dumbbells als 6b."},
+    {id:"oh_tri_ext",block:"6b",name:"Overhead DB Triceps Extension",sets:2,min:10,max:15,rest:75,start:null,inc:2,ss:"A",tip:"Eén dumbbell met twee handen, diep in de stretch."},
+    {id:"hanging_leg",block:"7",name:"Hanging Leg Raise",sets:2,min:10,max:15,rest:60,mode:"core"},
   ]},
   Di:{label:"Dinsdag",type:"Run 1",color:"#5BA8D4",run:true,
     note:"Kort en rustig. Praattempo, korte snelle passen (165 tot 175 spm). Gewrichten protesteren? Doe 45 tot 60 min zone 2 op fiets of roeier.",exercises:[
     {id:"run_easy",name:"Rustige run",runSlot:0},
   ]},
   Wo:{label:"Woensdag",type:"Full body B",color:"#E0A458",
-    note:"Volgorde = prioriteit: chest, dan rug en onderrug, dan core. Dips: eigen reps, daarna negatives (3 tot 5 sec zakken) tot 6 totaal.",exercises:[
-    {id:"bench",block:"1",name:"Flat Barbell Bench Press",sets:4,min:5,max:8,rest:150,start:72.5,inc:2.5,chest:true,alias:["flat_press"]},
-    {id:"dips",block:"2",name:"Dips (eigen gewicht)",sets:3,min:6,max:8,rest:120,mode:"bw",chest:true,tip:"Gewicht = extra kg (0 = eigen gewicht). Reps = eigen reps + negatives. Iets voorover leunen."},
-    {id:"cs_row",block:"3",name:"Chest-Supported DB Row",sets:3,min:8,max:12,rest:90,start:26,inc:2,tip:"Per dumbbell, op de incline bank."},
-    {id:"rdl_a",block:"4",name:"Romanian Deadlift",sets:3,min:6,max:10,rest:120,start:95,inc:2.5,rampTo:115,tip:"RPE 7, rug neutraal."},
-    {id:"back_ext",block:"5",name:"45° Back Extension",sets:3,min:12,max:15,rest:60,start:0,inc:2.5,tip:"Gewicht = schijf tegen je borst (0 = zonder)."},
-    {id:"hanging_leg",block:"6",name:"Hanging Leg Raise",sets:3,min:10,max:15,rest:60,mode:"core"},
-    {id:"calf_raise",block:"7",name:"Single-leg DB Calf Raise",sets:2,min:10,max:15,rest:45,start:20,inc:2},
+    note:"Single-leg benen, staand drukken en rug. Geen deadlifts: hamstrings en bilspieren krijgen genoeg via RDL (A), back extension (B) en leg curl (C). Max 3 sets per oefening.",exercises:[
+    {id:"bss",block:"1",name:"Bulgarian Split Squat",sets:3,min:8,max:12,rest:90,start:null,inc:2,repLabel:"p/been",tip:"Per dumbbell, reps per been. Iets voorover leunen voor meer bilspier."},
+    {id:"ohp",block:"2",name:"Staande Barbell Shoulder Press",sets:3,min:6,max:10,rest:120,start:null,inc:2.5,tip:"Billen en buik aanspannen, geen holle rug."},
+    {id:"pullups",block:"3",name:"Pull-ups",sets:3,min:6,max:10,rest:120,mode:"bw",tip:"Gewicht = extra kg (0 = eigen gewicht). Onder 6 reps? Aanvullen met band."},
+    {id:"low_incline_db",block:"4",name:"Low-incline Dumbbell Press (15°)",sets:2,min:8,max:12,rest:90,start:26,inc:2,chest:true,tip:"Per dumbbell. Lagere hoek pakt je midden-borst."},
+    {id:"back_ext",block:"5",name:"45° Back Extension",sets:2,min:10,max:15,rest:60,start:0,inc:2.5,tip:"Gewicht = schijf tegen je borst (0 = zonder). Ronde rug-variant voor bilspieren en hamstrings."},
+    {id:"reverse_fly",block:"6",name:"Reverse Fly",sets:2,min:12,max:15,rest:60,start:null,inc:1,tip:"Kabel, machine of dumbbells. Achterkant schouders."},
+    {id:"standing_calf",block:"7",name:"Staande Calf Raise",sets:3,min:10,max:15,rest:45,start:null,inc:2.5,tip:"Pauze onderin, volledige range."},
+    {id:"cable_crunch",block:"8",name:"Cable Crunch",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
   ]},
   Do:{label:"Donderdag",type:"Run 2",color:"#4E97C4",run:true,
     note:"Comfortabel tempo (RPE 5): stevig, maar je kunt nog korte zinnen zeggen. Daarna 4 tot 6 strides van 20 sec met 1 min wandelen.",exercises:[
     {id:"run_comfort",name:"Comfortabele run + strides",runSlot:1},
   ]},
   Vr:{label:"Vrijdag",type:"Full body C",color:"#E07AA8",
-    note:"Chest-volume, benen licht: morgen je langste run. Alleen supersets waar je niet hoeft te verplaatsen (zelfde matje, zelfde dumbbells).",exercises:[
-    {id:"low_incline_db",block:"1",name:"Low-incline Dumbbell Press (15°)",sets:4,min:8,max:12,rest:120,start:26,inc:2,chest:true,tip:"Per dumbbell."},
-    {id:"cable_fly_low",block:"2",name:"Low-to-high Cable Fly",sets:3,min:12,max:15,rest:90,start:null,inc:2.5,chest:true,tip:"Gewicht per kant. Van laag naar hoog: bovenkant borst. Kabels bezet? Incline DB fly."},
-    {id:"deficit_pushup",block:"3",name:"Deficit Push-ups (op dumbbells)",sets:2,min:10,max:30,rest:60,mode:"core",chest:true,fromWeek:4,tip:"Zoveel mogelijk reps."},
-    {id:"one_arm_row",block:"4",name:"One-arm Dumbbell Row",sets:3,min:8,max:12,rest:90,start:30,inc:2},
-    {id:"cossack",block:"5",name:"Cossack Squat / Goblet Squat (licht)",sets:2,min:8,max:8,rest:60,mode:"core",repLabel:"p/kant"},
-    {id:"dead_bug",block:"6a",name:"Dead Bug (met DB)",sets:3,min:10,max:10,rest:0,mode:"core",ss:"A",repLabel:"p/kant",tip:"Zelfde matje als 6b."},
-    {id:"copenhagen",block:"6b",name:"Copenhagen Plank",sets:3,min:20,max:30,rest:45,mode:"core",ss:"A",repLabel:"sec"},
-    {id:"arms_giant",block:"7",name:"Lateral Raise + Curl + Skull Crusher",sets:3,min:12,max:15,rest:60,mode:"core",tip:"Zelfde paar dumbbells, achter elkaar. Log de reps van de lateral raise."},
+    note:"Machines en kabels: hypertrofie met weinig vermoeidheid. Hack squat niet tot falen, morgen je langste run. Max 3 sets per oefening.",exercises:[
+    {id:"hack_squat",block:"1",name:"Hack Squat / Leg Press",sets:3,min:8,max:12,rest:120,start:null,inc:5,tip:"RPE 7 tot 8. Diep zakken, gecontroleerd."},
+    {id:"dips",block:"2",name:"Dips",sets:3,min:8,max:12,rest:120,mode:"bw",chest:true,tip:"Gewicht = extra kg (0 = eigen gewicht). Iets voorover leunen voor meer borst."},
+    {id:"lat_pulldown",block:"3",name:"Lat Pulldown",sets:3,min:10,max:12,rest:90,start:null,inc:2.5,tip:"Ellebogen naar je heupen, stretch bovenin."},
+    {id:"cable_row",block:"4",name:"Seated Cable Row",sets:2,min:10,max:12,rest:90,start:null,inc:2.5},
+    {id:"leg_curl",block:"5",name:"Leg Curl",sets:2,min:10,max:15,rest:60,start:null,inc:2.5,tip:"Liefst seated, langzaam terug."},
+    {id:"lateral_raise_c",block:"6",name:"Lateral Raise (kabel of DB)",sets:3,min:15,max:20,rest:60,start:null,inc:1},
+    {id:"hammer_curl",block:"7a",name:"Hammer Curl",sets:2,min:10,max:12,rest:0,start:null,inc:2,ss:"B",tip:"Pak je dumbbells mee naar de kabel, dan hoef je niet te verplaatsen."},
+    {id:"pushdown",block:"7b",name:"Triceps Pushdown",sets:2,min:10,max:12,rest:60,start:null,inc:2.5,ss:"B"},
+    {id:"seated_calf",block:"8",name:"Seated Calf Raise",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
   ]},
   Za:{label:"Zaterdag",type:"Run 3",color:"#3E7FAA",run:true,
     note:"Je langste run. Comfortabel of run/walk (5 min lopen, 1 min wandelen). Eet vooraf 30 tot 60 g koolhydraten.",exercises:[
@@ -214,17 +219,17 @@ const RUN_PLAN=[
 const Z2_HR_CAP=150;
 const Z2_PACE_GOAL=7.0, Z2_PACE_GOAL2=6.5;
 
-// Macro's: krachtdag/zondag 3.500, loopdag 3.800 (extra kcal naar koolhydraten)
-const MACROS_LIFT={kcal:3500,protein:185,carbs:500,fat:85};
-const MACROS_RUN ={kcal:3800,protein:185,carbs:575,fat:85};
+// Macro's: recomp rond onderhoud, elke dag gelijk. Kalibreren op het 7-daags gewichtsgemiddelde.
+const MACROS_LIFT={kcal:3200,protein:190,carbs:420,fat:85};
+const MACROS_RUN ={kcal:3200,protein:190,carbs:420,fat:85};
 function macrosFor(date){return SCHEMA[dayOf(date)]?.run?MACROS_RUN:MACROS_LIFT}
 
 // 12-wekendoelen (eind dec 2026)
 const GOALS=[
-  {id:"bench",label:"Bench",w:80,r:8},
-  {id:"incline_db",label:"Incline DB",w:30,r:8},
-  {id:"dips",label:"Dips eigen gewicht",bw:true,r:8},
-  {id:"pullups",label:"Pull-ups eigen gewicht",bw:true,r:8},
+  {id:"incline_smith",label:"Incline Smith",w:70,r:8},
+  {id:"squat",label:"Squat",w:100,r:6},
+  {id:"dips",label:"Dips eigen gewicht",bw:true,r:10},
+  {id:"pullups",label:"Pull-ups eigen gewicht",bw:true,r:10},
 ];
 
 const EX={};
@@ -362,13 +367,14 @@ function coach(ex){
   if(ex.mode==="core")return null;
   const last=getLastFull(ex.id);
   if(ex.mode==="bw"){
-    if(!last)return{target:0,cls:"",msg:`Fase 1: zoveel mogelijk eigen reps per set, aanvullen ${ex.id==="dips"?"met negatives":"met band"} tot 6 tot 8. Doel: 3 x 8 met eigen gewicht.`};
+    const top=ex.max;
+    if(!last)return{target:0,cls:"",msg:`Fase 1: zoveel mogelijk eigen reps per set, aanvullen ${ex.id==="dips"?"met negatives":"met band"} tot ${ex.min} tot ${top}. Doel: ${ex.sets} x ${top} met eigen gewicht.`};
     const extra=Math.max(...last.sets.map(s=>parseFloat(s.weight)||0));
     const reps=last.sets.slice(0,ex.sets).map(s=>parseInt(s.reps)||0).filter(r=>r>0);
-    const hit=reps.length>=Math.max(1,ex.sets-1)&&reps.every(r=>r>=8);
-    if(hit)return{target:extra+2.5,cls:"up",msg:extra===0?`🎯 3 x 8 met eigen gewicht gehaald. Fase 2: zet er 2,5 kg bij.`:`⬆️ Alle sets op 8+: vandaag +2,5 kg (totaal +${nl(extra+2.5)} kg).`};
-    if(extra>0)return{target:extra,cls:"",msg:`Zelfde extra gewicht (+${nl(extra)} kg), mik op +1 rep per set tot 8.`};
-    return{target:0,cls:"",msg:`Fase 1: vorige keer ${reps.join(" / ")}. Mik op +1 rep. Doel: 3 x 8 met eigen gewicht.`};
+    const hit=reps.length>=Math.max(1,ex.sets-1)&&reps.every(r=>r>=top);
+    if(hit)return{target:extra+2.5,cls:"up",msg:extra===0?`🎯 ${ex.sets} x ${top} met eigen gewicht gehaald. Fase 2: zet er 2,5 kg bij.`:`⬆️ Alle sets op ${top}+: vandaag +2,5 kg (totaal +${nl(extra+2.5)} kg).`};
+    if(extra>0)return{target:extra,cls:"",msg:`Zelfde extra gewicht (+${nl(extra)} kg), mik op +1 rep per set tot ${top}.`};
+    return{target:0,cls:"",msg:`Fase 1: vorige keer ${reps.join(" / ")}. Mik op +1 rep. Doel: ${ex.sets} x ${top} met eigen gewicht.`};
   }
   if(!last&&ex.start==null)return{target:null,cls:"",msg:`Eerste keer: kies een gewicht waarmee je ${ex.min} tot ${ex.max} strikte reps haalt, 1 tot 2 in de tank. Vanaf dan rekent de coach mee.`};
   if(!last)return{target:ex.start,cls:"",msg:`Startgewicht: ${nl(ex.start)} kg × ${ex.min} tot ${ex.max}.${ex.rampTo?` Daarna elke week +5 kg tot ~${ex.rampTo} kg (RPE 7).`:""}`};
@@ -468,7 +474,7 @@ function renderTraining(){
 
   if(day.exercises.length===0){
     return`${header}
-    <div class="rest-day"><div class="big">😴</div><div class="title">Rustdag</div><div class="sub">Herstel is waar groei plaatsvindt.<br>Slaap 7 tot 9 uur. Haal je 185 g eiwit.<br>Morgen: Full body A.</div></div>`;
+    <div class="rest-day"><div class="big">😴</div><div class="title">Rustdag</div><div class="sub">Herstel is waar groei plaatsvindt.<br>Slaap 7 tot 9 uur. Haal je 190 g eiwit.<br>Morgen: Full body A.</div></div>`;
   }
 
   const deload=week%6===0?`<div class="banner">🧘 <strong>Deloadweek.</strong> Helft van de sets, zelfde gewicht. Lopen: zelfde duur, rustig tempo.</div>`:"";
@@ -573,7 +579,7 @@ function toggleZ2(day,exId){
 }
 
 // ── CHEST-VOLUME ─────────────────────────────────────────────────────────────
-function chestTarget(week){return week>=4?22:20}
+function chestTarget(week){return 8} // incline smith 3 + low-incline DB 2 + dips 3
 function chestSetsInWeek(ws){
   const we=addDays(ws,6);let n=0;
   for(const k of Object.keys(DB.sessions)){
@@ -598,12 +604,13 @@ function bwStatus(){
   const prev=bwAvg(addDays(t,-13),addDays(t,-7));
   const first=DB.bodyweight[0]?.date;
   if(cur==null)return{cur:null};
-  if(prev==null||!first||daysBetween(first,t)<13)return{cur,msg:"Weeg elke ochtend. Na 2 weken zie je hier of je op +0,25 kg per week zit.",cls:""};
+  if(prev==null||!first||daysBetween(first,t)<13)return{cur,msg:"Weeg elke ochtend. Na 2 weken zie je hier of je gewicht stabiel blijft (recomp: 0 tot +0,2 kg per week).",cls:""};
   const rate=cur-prev;
+  const sign=rate>=0?"+":"";
   let msg,cls;
-  if(rate<0.15){msg=`Weekgemiddelde +${nl(rate,2)} kg. Te langzaam: eet +150 kcal per dag.`;cls="warn"}
-  else if(rate>0.4){msg=`Weekgemiddelde +${nl(rate,2)} kg. Te snel: eet −150 kcal per dag.`;cls="warn"}
-  else{msg=`Weekgemiddelde +${nl(rate,2)} kg. Precies op koers, zo laten.`;cls="good"}
+  if(rate<-0.2){msg=`Weekgemiddelde ${sign}${nl(rate,2)} kg. Je valt af, dan word je platter: eet +200 kcal per dag.`;cls="warn"}
+  else if(rate>0.3){msg=`Weekgemiddelde ${sign}${nl(rate,2)} kg. Te snel omhoog: eet −150 kcal per dag.`;cls="warn"}
+  else{msg=`Weekgemiddelde ${sign}${nl(rate,2)} kg. Op koers voor de recomp, zo laten. Check ook de spiegel elke 4 weken.`;cls="good"}
   return{cur,rate,msg,cls};
 }
 
@@ -660,7 +667,7 @@ function renderDashboard(){
   return`<div class="page-header"><div class="page-title">Dashboard</div><div class="page-sub">Week ${week} · ${fmtDate(t)}</div></div>
   <div class="stat-grid">
     <div class="stat-card"><div class="stat-val">${bw.cur?nl(bw.cur):"–"}<span style="font-size:14px"> kg</span></div><div class="stat-label">Gem. 7 dagen${latest?` · laatste ${nl(latest.weight)}`:""}</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#C8873A">${GOAL_BW} kg</div><div class="stat-label">${etaWeeks!=null?`Nog ${nl(GOAL_BW-bw.cur)} kg · ~${Math.ceil(etaWeeks)} wk`:"Doel lean bulk"}</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#C8873A">${GOAL_BW} kg</div><div class="stat-label">${etaWeeks!=null?`Doel: 95 kg shredded · nog ${nl(Math.max(0,GOAL_BW-bw.cur))} kg`:"Doel: 95 kg shredded"}</div></div>
     <div class="stat-card"><div class="stat-val" style="color:#E07AA8">${chest}<span style="font-size:14px;color:#666"> / ${chestTarget(week)}</span></div><div class="stat-label">Chest-sets deze week</div></div>
     <div class="stat-card"><div class="stat-val" style="color:#5BA8D4">${Math.round(runMin)}<span style="font-size:14px;color:#666"> min</span></div><div class="stat-label">Gelopen deze week (${runsWeek.length}/3)</div></div>
   </div>
@@ -677,7 +684,7 @@ function renderDashboard(){
   <div class="card">${goalsHtml}</div>
 
   <div class="section-title">Chest-volume per week</div>
-  <div class="card"><div class="week-bars">${chestBars}</div><div class="ex-meta" style="margin-top:8px">Doel: ${chestTarget(week)} sets per week (20 in week 1 tot 3, daarna 22).</div></div>
+  <div class="card"><div class="week-bars">${chestBars}</div><div class="ex-meta" style="margin-top:8px">Doel: ${chestTarget(week)} directe chest-sets per week (incline smith, low-incline DB, dips).</div></div>
 
   <div class="section-title">Zone 2-tempo</div>
   <div class="card">${z2Html}${z2Last?`<div class="ex-meta" style="margin-top:6px">Laatste: ${fmtPace(z2Last.value)} /km. Doel 1: onder 7:00, doel 2: rond 6:30.</div>`:""}</div>
@@ -702,7 +709,7 @@ function calcDayScore(nut,steps,goals){
   const st=parseInt(steps)||0;
   let scored=0,total=0;
   if(p>0){const r=p/goals.protein;scored+=r>=0.92&&r<=1.15?25:r>=0.80?15:r>=0.65?8:2;total+=25}
-  // Bulk: te weinig eten is erger dan iets te veel
+  // Recomp: dicht bij het doel blijven telt het zwaarst
   if(kcalIn>0){const r=kcalIn/goals.kcal;scored+=r>=0.95&&r<=1.05?25:r>=0.90&&r<=1.10?16:r>=0.80?7:2;total+=25}
   if(k>0){const r=k/goals.carbs;scored+=r>=0.88&&r<=1.12?10:r>=0.70?6:3;total+=10}
   if(v>0){const r=v/goals.fat;scored+=r>=0.85&&r<=1.20?5:3;total+=5}
@@ -737,7 +744,7 @@ function renderNutrition(){
     const diff=m.val-m.goal,pct=Math.round((m.val/m.goal)*100);
     let msg,col;
     if(pct>=92&&pct<=108){msg=`✅ ${m.label} op schema`;col="#3A9B6F"}
-    else if(m.val<m.goal){msg=`⬇️ ${m.label} ${Math.abs(diff).toFixed(0)}${m.unit} te laag${m.field==="kcal"?": in een bulk is dit de belangrijkste":""}`;col="#C8873A"}
+    else if(m.val<m.goal){msg=`⬇️ ${m.label} ${Math.abs(diff).toFixed(0)}${m.unit} te laag${m.field==="kcal"?": te weinig eten maakt je plat":""}`;col="#C8873A"}
     else{msg=`⬆️ ${m.label} ${Math.abs(diff).toFixed(0)}${m.unit} te hoog`;col="#7B6FD4"}
     feedbackLines.push({msg,col});
   }
@@ -785,7 +792,7 @@ function renderNutrition(){
       <span style="color:${m.color};font-weight:700;font-size:12px">${m.val||0}${m.unit} <span style="color:#444">/ ${m.goal}${m.unit}</span></span></div>${bar(m.val,m.goal,m.color)}</div>`).join("")}
   </div>
   ${feedbackLines.length?`<div class="card" style="background:#111;padding:12px 16px">${feedbackHtml}</div>`:""}
-  <div class="card note">${isRun?"Loopdag: extra 300 kcal, vooral koolhydraten. Lange run: 30 tot 60 g koolhydraten vooraf.":"Krachtdag: om 6:00 iets kleins (banaan + whey), grote maaltijd direct na de training."} Creatine 5 g per dag.</div>
+  <div class="card note">${isRun?"Loopdag: koolhydraten rond je run plannen. Lange run: 30 tot 60 g koolhydraten vooraf.":"Krachtdag: iets kleins vooraf (banaan + whey), grote maaltijd direct na de training."} Creatine 5 g per dag.</div>
   <div class="section-title">Laatste 7 dagen</div>
   ${consist}
   ${histHtml||`<div style="color:#444;font-size:13px;padding:8px 0">Nog niets gelogd.</div>`}`;
