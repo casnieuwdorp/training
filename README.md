@@ -2,7 +2,7 @@
 
 Een mobiele, offline trainings- en voedingstracker als één los HTML-bestand. Geen build, geen framework, geen backend. Je opent `index.html` en alles draait lokaal in de browser, met je data opgeslagen op het apparaat zelf.
 
-Blok 2 (vanaf november 2026): recomp naar 95 kg shredded. 3x full body (max 60 min, max 3 sets per oefening, focus bovenkant borst, geen deadlifts) afgewisseld met 3 runs, zondag rust. Het loopschema wordt opnieuw opgebouwd zodra de loopdata gekoppeld is.
+Blok 2 (vanaf november 2026): recomp naar 95 kg shredded. 3x full body (max 60 min, max 3 sets per oefening, focus bovenkant borst, geen deadlifts) afgewisseld met 3 runs, zondag rust. Loopschema: 8 weken (intervallen di, rustig + strides do, lange run za), gebaseerd op de Runkeeper-export van 1 nov 2026, eindigend met een 5 km-test. Blok 2 start op 2 november 2026.
 
 ## Inhoud van de repo
 
@@ -30,7 +30,7 @@ Geen installatie nodig.
 - "Laatste keer" zoekt over alle dagen heen, dus historie blijft bewaard als een oefening van dag wisselt.
 - Max 3 sets per oefening, binnen het uur. Supersets alleen op dezelfde plek (drukke gym). Warming-up per krachtdag, chest-sets deze week.
 - Deloadbanner elke 6 weken.
-- Runs: minuten, km, gemiddelde hartslag, automatisch tempo, doelduur per week en een vinkje voor de zone 2-check.
+- Runs: minuten, km, gemiddelde hartslag, automatisch tempo, de sessie van die week uit het 8-wekenschema (`RUN_PLAN`) en een waarschuwing als een rustige run boven HR 152 zat. Plus het vinkje voor de zone 2-check.
 
 ### Dashboard
 - Gewicht: 7-daags gemiddelde met recomp-advies (stabiel tot +0,2 kg/week, anders +200 of -150 kcal). Doel 95 kg shredded. Eén meting per dag.
@@ -52,11 +52,11 @@ Geen installatie nodig.
 | Dag | Sessie |
 |---|---|
 | Ma | Full body A: squat, incline smith press, barbell row, RDL, lateral raise, incline curl + overhead triceps, hanging leg raise |
-| Di | Run 1: kort en rustig |
+| Di | Intervallen (800 m tot 2 km herhalingen) |
 | Wo | Full body B: Bulgarian split squat, staande shoulder press, pull-ups, low-incline DB press, back extension, reverse fly, calf raise, cable crunch |
-| Do | Run 2: comfortabel + strides |
+| Do | Rustig (HR < 150) + strides |
 | Vr | Full body C: hack squat, dips, lat pulldown, cable row, leg curl, lateral raise, hammer curl + pushdown, seated calf raise |
-| Za | Run 3: langste run |
+| Za | Lange run, vanaf week 3 met snel slot; week 8 een 5 km-test |
 | Zo | Rust |
 
 ## Techniek
@@ -75,4 +75,4 @@ Alle data staat uitsluitend lokaal in de browser van het apparaat. Er gaat niets
 ## Aanpassen
 
 - Het schema staat bovenin het script in `SCHEMA`. Per oefening: `id`, `block`, `name`, `sets`, `min`/`max` (reprange), `rest`, `start` (startgewicht), `inc` (stap), optioneel `rampTo`, `mode` (`bw` of `core`), `chest`, `ss` (superset), `fromWeek`, `alias` (oude id's voor historie).
-- Macro's: `MACROS_LIFT` en `MACROS_RUN`. Doelgewicht: `GOAL_BW`. Blokstart: `PROGRAM_START`. Loopopbouw: `RUN_PLAN`. 12-wekendoelen: `GOALS`.
+- Macro's: `MACROS_LIFT` en `MACROS_RUN`. Doelgewicht: `GOAL_BW`. Blokstart: `PROGRAM_START`. Loopschema: `RUN_PLAN` (per week [di, do, za] met titel, uitleg en km). 12-wekendoelen: `GOALS`.

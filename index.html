@@ -147,8 +147,8 @@
 
 <script>
 // ── PROGRAMMA ───────────────────────────────────────────────────────────────
-// Blok 1 start op maandag 5 okt 2026. Weeknummer stuurt loopopbouw, deloads en deficit push-ups.
-const PROGRAM_START="2026-10-05";
+// Blok 2 start op maandag 2 nov 2026. Weeknummer stuurt het loopschema (8 weken) en deloads (week 6).
+const PROGRAM_START="2026-11-02";
 // Blok 2 (vanaf nov 2026): recomp naar 95 kg shredded. 3x full body < 60 min, max 3 sets per oefening.
 const GOAL_BW=95;           // recomp doel: 95 kg, echt shredded
 const BW_RATE=0.1;          // kg per week (recomp: gewicht stabiel tot licht stijgend)
@@ -169,9 +169,9 @@ const SCHEMA = {
     {id:"oh_tri_ext",block:"6b",name:"Overhead DB Triceps Extension",sets:2,min:10,max:15,rest:75,start:null,inc:2,ss:"A",tip:"Eén dumbbell met twee handen, diep in de stretch."},
     {id:"hanging_leg",block:"7",name:"Hanging Leg Raise",sets:2,min:10,max:15,rest:60,mode:"core"},
   ]},
-  Di:{label:"Dinsdag",type:"Run 1",color:"#5BA8D4",run:true,
-    note:"Kort en rustig. Praattempo, korte snelle passen (165 tot 175 spm). Gewrichten protesteren? Doe 45 tot 60 min zone 2 op fiets of roeier.",exercises:[
-    {id:"run_easy",name:"Rustige run",runSlot:0},
+  Di:{label:"Dinsdag",type:"Intervallen",color:"#5BA8D4",run:true,
+    note:"Je snelheidstraining. Gelijkmatig lopen: de laatste herhaling even snel als de eerste. Eerste herhaling te snel = de rest zakt in (zoals je 4x800 van 4 oktober).",exercises:[
+    {id:"run_easy",name:"Intervaltraining",runSlot:0},
   ]},
   Wo:{label:"Woensdag",type:"Full body B",color:"#E0A458",
     note:"Single-leg benen, staand drukken en rug. Geen deadlifts: hamstrings en bilspieren krijgen genoeg via RDL (A), back extension (B) en leg curl (C). Max 3 sets per oefening.",exercises:[
@@ -184,9 +184,9 @@ const SCHEMA = {
     {id:"standing_calf",block:"7",name:"Staande Calf Raise",sets:3,min:10,max:15,rest:45,start:null,inc:2.5,tip:"Pauze onderin, volledige range."},
     {id:"cable_crunch",block:"8",name:"Cable Crunch",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
   ]},
-  Do:{label:"Donderdag",type:"Run 2",color:"#4E97C4",run:true,
-    note:"Comfortabel tempo (RPE 5): stevig, maar je kunt nog korte zinnen zeggen. Daarna 4 tot 6 strides van 20 sec met 1 min wandelen.",exercises:[
-    {id:"run_comfort",name:"Comfortabele run + strides",runSlot:1},
+  Do:{label:"Donderdag",type:"Rustig + strides",color:"#4E97C4",run:true,
+    note:"Echt rustig: hartslag onder 150, ook als dat 7:30/km is. Je rustige runs zaten op 160 tot 169, dat is te hard om van te herstellen. Daarna 6 strides: 20 sec versnellen tot ~90%, rustig teruglopen.",exercises:[
+    {id:"run_comfort",name:"Rustige run + strides",runSlot:1},
   ]},
   Vr:{label:"Vrijdag",type:"Full body C",color:"#E07AA8",
     note:"Machines en kabels: hypertrofie met weinig vermoeidheid. Hack squat niet tot falen, morgen je langste run. Max 3 sets per oefening.",exercises:[
@@ -200,22 +200,47 @@ const SCHEMA = {
     {id:"pushdown",block:"7b",name:"Triceps Pushdown",sets:2,min:10,max:12,rest:60,start:null,inc:2.5,ss:"B"},
     {id:"seated_calf",block:"8",name:"Seated Calf Raise",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
   ]},
-  Za:{label:"Zaterdag",type:"Run 3",color:"#3E7FAA",run:true,
-    note:"Je langste run. Comfortabel of run/walk (5 min lopen, 1 min wandelen). Eet vooraf 30 tot 60 g koolhydraten.",exercises:[
-    {id:"run_long",name:"Lange run",runSlot:2},
+  Za:{label:"Zaterdag",type:"Lange run",color:"#3E7FAA",run:true,
+    note:"Rustig opbouwen, hartslag onder 150. Vanaf week 3 een sneller slot. Eet vooraf 30 tot 60 g koolhydraten.",exercises:[
+    {id:"run_long",name:"Lange duurloop",runSlot:2},
   ]},
   Zo:{label:"Zondag",type:"Rust",color:"#555",exercises:[]}
 };
 const DAYS=["Ma","Di","Wo","Do","Vr","Za","Zo"];
 const MOBILITY=["90/90 hip switches, 6 per kant","Deep goblet squat hold, 30 sec","Couch stretch, 30 sec per kant","Cat-cow + bird dog, 8 reps","2 opbouwsets op oefening 1"];
 
-// Loopopbouw per week: [Di, Do, Za] in minuten
+// Loopschema 8 weken, gebaseerd op Runkeeper-data t/m 30 okt 2026.
+// Startniveau: intervallen ~5:10 tot 5:25/km, rustig ~7:00 tot 7:30 bij HR <150, max HR ~193.
+// Doel na 8 weken: 5 km-test, richting je oude niveau (22:00 in dec 2025).
+// Per week: [Di, Do, Za] = {t: titel, d: uitleg, km: geschatte totale afstand}
 const RUN_PLAN=[
-  {upTo:2,mins:["20","20 tot 25","30"]},
-  {upTo:4,mins:["25","25","35"]},
-  {upTo:6,mins:["25","30","40"]},
-  {upTo:99,mins:["30","35","45 tot 50"]},
+  /*1*/[{t:"6 x 800 m @ 5:10",d:"1 km inlopen, 6 x 800 m op 5:10/km, 90 sec dribbel/wandel ertussen, 1 km uitlopen.",km:7.5},
+        {t:"5 km rustig + 6 strides",d:"HR onder 150. Daarna 6 x 20 sec versnellen.",km:5.5},
+        {t:"9 km rustig",d:"Heel de run HR onder 150. Te hoog? Langzamer of 1 min wandelen.",km:9}],
+  /*2*/[{t:"6 x 800 m @ 5:05",d:"1 km inlopen, 6 x 800 m op 5:05/km, 90 sec rust, 1 km uitlopen.",km:7.5},
+        {t:"5 km rustig + 6 strides",d:"HR onder 150.",km:5.5},
+        {t:"10 km rustig",d:"HR onder 150.",km:10}],
+  /*3*/[{t:"5 x 1 km @ 5:05",d:"1 km inlopen, 5 x 1 km op 5:05/km, 2 min dribbel, 1 km uitlopen.",km:8},
+        {t:"6 km rustig + 6 strides",d:"HR onder 150.",km:6.5},
+        {t:"10 km, laatste 2 km @ 6:00",d:"8 km rustig, dan 2 km stevig op ~6:00/km.",km:10}],
+  /*4*/[{t:"4 x 1 km @ 5:00",d:"Lichtere week. 1 km inlopen, 4 x 1 km op 5:00/km, 2 min dribbel, 1 km uitlopen.",km:7},
+        {t:"5 km rustig + 6 strides",d:"HR onder 150.",km:5.5},
+        {t:"8 km rustig",d:"Lichtere week, HR onder 150.",km:8}],
+  /*5*/[{t:"4 x 1600 m @ 5:10",d:"1 km inlopen, 4 x 1600 m op 5:10/km, 2:30 dribbel, 1 km uitlopen.",km:9},
+        {t:"6 km rustig + 6 strides",d:"HR onder 150.",km:6.5},
+        {t:"11 km, laatste 3 km @ 5:45",d:"8 km rustig, dan 3 km op ~5:45/km.",km:11}],
+  /*6*/[{t:"5 x 800 m @ 5:00",d:"Deloadweek. 1 km inlopen, 5 x 800 m op 5:00/km, 2 min rust, 1 km uitlopen.",km:6.5},
+        {t:"5 km rustig",d:"Deloadweek, geen strides.",km:5},
+        {t:"8 km rustig",d:"Deloadweek, HR onder 150.",km:8}],
+  /*7*/[{t:"3 x 2 km @ 5:10",d:"1 km inlopen, 3 x 2 km op 5:10/km, 3 min dribbel, 1 km uitlopen.",km:9},
+        {t:"6 km rustig + 6 strides",d:"HR onder 150.",km:6.5},
+        {t:"11 km, laatste 3 km @ 5:40",d:"8 km rustig, dan 3 km op ~5:40/km.",km:11}],
+  /*8*/[{t:"6 x 400 m @ 4:45",d:"Scherp blijven, niet moe worden. 1 km inlopen, 6 x 400 m op 4:45/km, 90 sec rust, 1 km uitlopen.",km:5.5},
+        {t:"4 km rustig + 4 strides",d:"Kort en fris voor de test.",km:4.5},
+        {t:"5 km-test",d:"2 km inlopen + 4 strides, dan 5 km zo snel als je gelijkmatig volhoudt. Start op ~5:15/km, laatste km alles. Stuur me je tijd, dan zet ik de volgende 8 weken klaar.",km:8}],
 ];
+const RUN_TYPES=["interval","easy","long"];
+const EASY_HR_CAP=152;
 const Z2_HR_CAP=150;
 const Z2_PACE_GOAL=7.0, Z2_PACE_GOAL2=6.5;
 
@@ -437,7 +462,8 @@ function allRuns(){
   }
   return out.sort((a,b)=>a.date.localeCompare(b.date));
 }
-function runPlanMins(slot,week=programWeek()){return RUN_PLAN.find(p=>week<=p.upTo).mins[slot]}
+function runPlan(slot,week=programWeek()){const w=RUN_PLAN[Math.min(week,RUN_PLAN.length)-1];return w[slot]}
+function runPlanKm(week=programWeek()){const w=RUN_PLAN[Math.min(week,RUN_PLAN.length)-1];return w.reduce((a,x)=>a+x.km,0)}
 
 // ── CHART ────────────────────────────────────────────────────────────────────
 function miniChart(data,color,{fmt=v=>v,goal=null,goalLabel="",invert=false}={}){
@@ -477,7 +503,7 @@ function renderTraining(){
     <div class="rest-day"><div class="big">😴</div><div class="title">Rustdag</div><div class="sub">Herstel is waar groei plaatsvindt.<br>Slaap 7 tot 9 uur. Haal je 190 g eiwit.<br>Morgen: Full body A.</div></div>`;
   }
 
-  const deload=week%6===0?`<div class="banner">🧘 <strong>Deloadweek.</strong> Helft van de sets, zelfde gewicht. Lopen: zelfde duur, rustig tempo.</div>`:"";
+  const deload=week%6===0?`<div class="banner">🧘 <strong>Deloadweek.</strong> Helft van de sets, zelfde gewicht. Lopen: zie je lichtere loopschema.</div>`:"";
   const backupNudge=backupDue()?`<div class="banner" onclick="setView('dashboard')" style="cursor:pointer">💾 Je laatste backup is ${DB.meta.lastBackup?`van ${fmtDate(DB.meta.lastBackup)}`:"er nog niet"}. Tik hier en exporteer je data.</div>`:"";
   const sess=peekSession(activeDay);
   let exHtml="";
@@ -487,11 +513,13 @@ function renderTraining(){
     const r=(sess.sets[ex.id]||[])[0]||{};
     const pace=paceOf(r);
     const isDone=!!r.done;
-    const hrWarn=parseInt(r.hr)>170?`<div class="feedback-box warn">Gemiddelde hartslag boven 170: te hard voor deze fase. Volgende keer langzamer of run/walk.</div>`:"";
+    const plan=runPlan(ex.runSlot,week);
+    const hrWarn=ex.runSlot!==0&&parseInt(r.hr)>EASY_HR_CAP?`<div class="feedback-box warn">Gemiddelde hartslag ${r.hr}: te hard voor een rustige run. Volgende keer langzamer, ook als het tempo dan rond 7:30 zit. Rustig = sneller herstel = betere intervallen.</div>`:(ex.runSlot!==0&&parseInt(r.hr)>0?`<div class="feedback-box good">Mooi rustig gehouden.</div>`:"");
+    const beyond=week>RUN_PLAN.length?`<div class="banner">De 8 weken zitten erop. Stuur je 5 km-tijd en nieuwe Runkeeper-export, dan zet ik het volgende blok klaar.</div>`:"";
     exHtml=`<div class="card" style="border-left:3px solid ${day.color}">
       <div style="font-size:10px;font-weight:800;color:${day.color};letter-spacing:.08em;margin-bottom:5px">🏃 RUN · WEEK ${week}</div>
       <div class="ex-name">${ex.name}</div>
-      <div class="ex-meta">Doel deze week: <strong style="color:#9fc4dd">${runPlanMins(ex.runSlot,week)} min</strong></div>
+      <div class="ex-meta">Deze week: <strong style="color:#9fc4dd">${plan.t}</strong> · ~${nl(plan.km)} km<br>${plan.d}</div>
       <div class="run-grid" style="margin-top:12px">
         <div><label>Minuten</label><input class="set-input${isDone?" done":""}" type="text" inputmode="decimal" autocomplete="off" placeholder="min" value="${r.min||""}" onchange="setVal('${activeDay}','${ex.id}',0,'min',this.value);render()" onfocus="this.select()"></div>
         <div><label>Km</label><input class="set-input${isDone?" done":""}" type="text" inputmode="decimal" autocomplete="off" placeholder="km" value="${r.km||""}" onchange="setVal('${activeDay}','${ex.id}',0,'km',this.value);render()" onfocus="this.select()"></div>
@@ -506,7 +534,7 @@ function renderTraining(){
       </div>
       ${hrWarn}
     </div>`;
-    return`${header}${deload}${backupNudge}<div class="card note">${day.note}</div>${exHtml}`;
+    return`${header}${deload}${beyond}${backupNudge}<div class="card note">${day.note}</div>${exHtml}`;
   }
 
   const ssMap={};
@@ -625,6 +653,7 @@ function renderDashboard(){
   const chest=chestSetsInWeek(ws);
   const runsWeek=allRuns().filter(r=>r.date>=ws&&r.date<=addDays(ws,6));
   const runMin=runsWeek.reduce((a,r)=>a+r.min,0);
+  const runKm=runsWeek.reduce((a,r)=>a+r.km,0);
 
   // Doelen 12 weken
   const goalsHtml=GOALS.map(g=>{
@@ -669,7 +698,7 @@ function renderDashboard(){
     <div class="stat-card"><div class="stat-val">${bw.cur?nl(bw.cur):"–"}<span style="font-size:14px"> kg</span></div><div class="stat-label">Gem. 7 dagen${latest?` · laatste ${nl(latest.weight)}`:""}</div></div>
     <div class="stat-card"><div class="stat-val" style="color:#C8873A">${GOAL_BW} kg</div><div class="stat-label">${etaWeeks!=null?`Doel: 95 kg shredded · nog ${nl(Math.max(0,GOAL_BW-bw.cur))} kg`:"Doel: 95 kg shredded"}</div></div>
     <div class="stat-card"><div class="stat-val" style="color:#E07AA8">${chest}<span style="font-size:14px;color:#666"> / ${chestTarget(week)}</span></div><div class="stat-label">Chest-sets deze week</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#5BA8D4">${Math.round(runMin)}<span style="font-size:14px;color:#666"> min</span></div><div class="stat-label">Gelopen deze week (${runsWeek.length}/3)</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#5BA8D4">${nl(runKm)}<span style="font-size:14px;color:#666"> / ${nl(runPlanKm(week))} km</span></div><div class="stat-label">Gelopen deze week (${runsWeek.length}/3 · ${Math.round(runMin)} min)</div></div>
   </div>
 
   <div class="section-title">Lichaamsgewicht (elke ochtend)</div>
