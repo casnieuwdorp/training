@@ -159,15 +159,16 @@ const STEPS_GOAL=8000;
 // inc = stap bij double progression, rampTo = opbouw met +5 kg/week tot dit gewicht (RPE 7)
 const SCHEMA = {
   Ma:{label:"Maandag",type:"Full body A",color:"#C8873A",
-    note:"Squat en bovenkant borst. Max 3 sets per oefening, laatste set 1 tot 2 reps in de tank. Squat op RPE 7 tot 8: je loopt morgen. Klaar binnen het uur.",exercises:[
-    {id:"squat",block:"1",name:"Back Squat",sets:3,min:5,max:8,rest:135,start:80,inc:2.5,rampTo:100,tip:"RPE 7 tot 8, geen sets tot falen."},
-    {id:"incline_smith",block:"2",name:"Incline Smith Machine Press (30°)",sets:3,min:6,max:10,rest:120,start:null,inc:2.5,chest:true,tip:"Bank op ~30°, hoger gaat vooral in je schouders. Stang naar je bovenste borst, 2 tot 3 sec zakken."},
-    {id:"barbell_row",block:"3",name:"Barbell Row",sets:3,min:8,max:12,rest:105,start:null,inc:2.5,tip:"Romp ~45°, stang naar je navel."},
-    {id:"rdl_a",block:"4",name:"Romanian Deadlift",sets:2,min:8,max:10,rest:120,start:95,inc:2.5,rampTo:115,tip:"RPE 7, rug neutraal."},
-    {id:"lateral_raise",block:"5",name:"Dumbbell Lateral Raise",sets:3,min:12,max:20,rest:60,start:10,inc:2},
-    {id:"incline_curl",block:"6a",name:"Incline DB Curl",sets:2,min:10,max:15,rest:0,start:null,inc:2,ss:"A",tip:"Per dumbbell. Zelfde bank en dumbbells als 6b."},
-    {id:"oh_tri_ext",block:"6b",name:"Overhead DB Triceps Extension",sets:2,min:10,max:15,rest:75,start:null,inc:2,ss:"A",tip:"Eén dumbbell met twee handen, diep in de stretch."},
-    {id:"hanging_leg",block:"7",name:"Hanging Leg Raise",sets:2,min:10,max:15,rest:60,mode:"core"},
+    note:"Chest eerst, dan squat. Max 3 sets per oefening, laatste set 1 tot 2 reps in de tank. Squat op RPE 7 tot 8: je loopt morgen. Klaar binnen het uur.",exercises:[
+    {id:"incline_smith",block:"1",name:"Incline Smith Machine Press (30°)",sets:3,min:6,max:10,rest:120,start:null,inc:2.5,chest:true,tip:"Bank op ~30°, hoger gaat vooral in je schouders. Stang naar je bovenste borst, 2 tot 3 sec zakken."},
+    {id:"squat",block:"2",name:"Back Squat",sets:3,min:5,max:8,rest:135,start:80,inc:2.5,rampTo:100,tip:"RPE 7 tot 8, geen sets tot falen."},
+    {id:"cable_fly_low",block:"3",name:"Low-to-high Cable Fly",sets:2,min:12,max:15,rest:60,start:null,inc:2.5,chest:true,tip:"Gewicht per kant. Van laag naar hoog: bovenkant borst. Kabels bezet? Incline DB fly."},
+    {id:"barbell_row",block:"4",name:"Barbell Row",sets:3,min:8,max:12,rest:105,start:null,inc:2.5,tip:"Romp ~45°, stang naar je navel."},
+    {id:"rdl_a",block:"5",name:"Romanian Deadlift",sets:2,min:8,max:10,rest:120,start:95,inc:2.5,rampTo:115,tip:"RPE 7, rug neutraal."},
+    {id:"lateral_raise",block:"6",name:"Dumbbell Lateral Raise",sets:3,min:12,max:20,rest:60,start:10,inc:2},
+    {id:"incline_curl",block:"7a",name:"Incline DB Curl",sets:2,min:10,max:15,rest:0,start:null,inc:2,ss:"A",tip:"Per dumbbell. Zelfde bank en dumbbells als 7b."},
+    {id:"oh_tri_ext",block:"7b",name:"Overhead DB Triceps Extension",sets:2,min:10,max:15,rest:75,start:null,inc:2,ss:"A",tip:"Eén dumbbell met twee handen, diep in de stretch."},
+    {id:"hanging_leg",block:"8",name:"Hanging Leg Raise",sets:2,min:10,max:15,rest:60,mode:"core",tip:"Langzaam zakken, bekken naar voren kantelen. Te makkelijk? Dumbbell tussen je voeten."},
   ]},
   Di:{label:"Dinsdag",type:"Intervallen",color:"#5BA8D4",run:true,
     note:"Je snelheidstraining. Gelijkmatig lopen: de laatste herhaling even snel als de eerste. Eerste herhaling te snel = de rest zakt in (zoals je 4x800 van 4 oktober).",exercises:[
@@ -182,23 +183,24 @@ const SCHEMA = {
     {id:"back_ext",block:"5",name:"45° Back Extension",sets:2,min:10,max:15,rest:60,start:0,inc:2.5,tip:"Gewicht = schijf tegen je borst (0 = zonder). Ronde rug-variant voor bilspieren en hamstrings."},
     {id:"reverse_fly",block:"6",name:"Reverse Fly",sets:2,min:12,max:15,rest:60,start:null,inc:1,tip:"Kabel, machine of dumbbells. Achterkant schouders."},
     {id:"standing_calf",block:"7",name:"Staande Calf Raise",sets:3,min:10,max:15,rest:45,start:null,inc:2.5,tip:"Pauze onderin, volledige range."},
-    {id:"cable_crunch",block:"8",name:"Cable Crunch",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
+    {id:"cable_crunch",block:"8",name:"Cable Crunch",sets:2,min:10,max:15,rest:45,start:null,inc:2.5,tip:"Zwaar genoeg dat 15 reps echt pijn doet. Ribben naar je bekken, heupen stil."},
   ]},
   Do:{label:"Donderdag",type:"Rustig + strides",color:"#4E97C4",run:true,
     note:"Praattempo: hele zinnen kunnen zeggen, gemiddelde HR onder ~158 (zoals je run van 1 november: 7:08/km op HR 153). Daarna 6 strides: 20 sec versnellen tot ~90%, rustig teruglopen.",exercises:[
     {id:"run_comfort",name:"Rustige run + strides",runSlot:1},
   ]},
   Vr:{label:"Vrijdag",type:"Full body C",color:"#E07AA8",
-    note:"Machines en kabels: hypertrofie met weinig vermoeidheid. Hack squat niet tot falen, morgen je langste run. Max 3 sets per oefening.",exercises:[
-    {id:"hack_squat",block:"1",name:"Hack Squat / Leg Press",sets:3,min:8,max:12,rest:120,start:null,inc:5,tip:"RPE 7 tot 8. Diep zakken, gecontroleerd."},
-    {id:"dips",block:"2",name:"Dips",sets:3,min:8,max:12,rest:120,mode:"bw",chest:true,tip:"Gewicht = extra kg (0 = eigen gewicht). Iets voorover leunen voor meer borst."},
-    {id:"lat_pulldown",block:"3",name:"Lat Pulldown",sets:3,min:10,max:12,rest:90,start:null,inc:2.5,tip:"Ellebogen naar je heupen, stretch bovenin."},
-    {id:"cable_row",block:"4",name:"Seated Cable Row",sets:2,min:10,max:12,rest:90,start:null,inc:2.5},
+    note:"Chest eerst, dan machines en kabels: hypertrofie met weinig vermoeidheid. Hack squat niet tot falen, morgen je langste run. Max 3 sets per oefening.",exercises:[
+    {id:"dips",block:"1",name:"Dips",sets:3,min:8,max:12,rest:120,mode:"bw",chest:true,tip:"Gewicht = extra kg (0 = eigen gewicht). Iets voorover leunen voor meer borst."},
+    {id:"hack_squat",block:"2",name:"Hack Squat / Leg Press",sets:3,min:8,max:12,rest:120,start:null,inc:5,tip:"RPE 7 tot 8. Diep zakken, gecontroleerd."},
+    {id:"pec_deck",block:"3",name:"Pec Deck / Cable Fly",sets:2,min:12,max:15,rest:60,start:null,inc:2.5,chest:true,tip:"Pauze in de stretch, knijpen in het midden. Machine bezet? Cable fly op borsthoogte."},
+    {id:"lat_pulldown",block:"4",name:"Lat Pulldown",sets:3,min:10,max:12,rest:90,start:null,inc:2.5,tip:"Ellebogen naar je heupen, stretch bovenin."},
     {id:"leg_curl",block:"5",name:"Leg Curl",sets:2,min:10,max:15,rest:60,start:null,inc:2.5,tip:"Liefst seated, langzaam terug."},
     {id:"lateral_raise_c",block:"6",name:"Lateral Raise (kabel of DB)",sets:3,min:15,max:20,rest:60,start:null,inc:1},
     {id:"hammer_curl",block:"7a",name:"Hammer Curl",sets:2,min:10,max:12,rest:0,start:null,inc:2,ss:"B",tip:"Pak je dumbbells mee naar de kabel, dan hoef je niet te verplaatsen."},
     {id:"pushdown",block:"7b",name:"Triceps Pushdown",sets:2,min:10,max:12,rest:60,start:null,inc:2.5,ss:"B"},
-    {id:"seated_calf",block:"8",name:"Seated Calf Raise",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
+    {id:"ab_wheel",block:"8",name:"Ab Wheel Rollout",sets:2,min:8,max:15,rest:60,mode:"core",tip:"Vanaf je knieën, rug niet laten doorzakken. 15 makkelijk? Verder uitrollen of vanaf staand."},
+    {id:"seated_calf",block:"9",name:"Seated Calf Raise",sets:2,min:12,max:15,rest:45,start:null,inc:2.5},
   ]},
   Za:{label:"Zaterdag",type:"Lange run",color:"#3E7FAA",run:true,
     note:"Praattempo, gemiddelde HR onder ~158. Mag aan het eind wat oplopen. Vanaf week 3 een sneller slot. Eet vooraf 30 tot 60 g koolhydraten.",exercises:[
@@ -619,7 +621,7 @@ function toggleZ2(day,exId){
 }
 
 // ── CHEST-VOLUME ─────────────────────────────────────────────────────────────
-function chestTarget(week){return 8} // incline smith 3 + low-incline DB 2 + dips 3
+function chestTarget(week){return 12} // incline smith 3 + cable fly 2 + low-incline DB 2 + dips 3 + pec deck 2
 function chestSetsInWeek(ws){
   const we=addDays(ws,6);let n=0;
   for(const k of Object.keys(DB.sessions)){
@@ -725,7 +727,7 @@ function renderDashboard(){
   <div class="card">${goalsHtml}</div>
 
   <div class="section-title">Chest-volume per week</div>
-  <div class="card"><div class="week-bars">${chestBars}</div><div class="ex-meta" style="margin-top:8px">Doel: ${chestTarget(week)} directe chest-sets per week (incline smith, low-incline DB, dips).</div></div>
+  <div class="card"><div class="week-bars">${chestBars}</div><div class="ex-meta" style="margin-top:8px">Doel: ${chestTarget(week)} directe chest-sets per week, nadruk op de bovenkant.</div></div>
 
   <div class="section-title">Zone 2-tempo</div>
   <div class="card">${z2Html}${z2Last?`<div class="ex-meta" style="margin-top:6px">Laatste: ${fmtPace(z2Last.value)} /km. Doel 1: onder 7:00, doel 2: rond 6:30.</div>`:""}</div>

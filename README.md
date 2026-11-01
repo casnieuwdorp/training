@@ -24,6 +24,7 @@ Geen installatie nodig.
 ## Functies
 
 ### Training
+- Chest en abs zijn focus: 12 chest-sets en 6 ab-sets per week, chest altijd als eerste oefening op A en C.
 - Dagtabs, opent op vandaag. Weeknummer van het blok en een tijdschatting per krachtsessie (doel 45 tot 60 min) bovenin.
 - **Progressie-coach per oefening:** double progression (alle sets op de bovenkant van de range → gewicht omhoog), opbouwfase voor squat en RDL (+5 kg/week tot 100 en 115 kg), fases voor dips en pull-ups (eigen gewicht → met gewicht bij 3 x 10). Het voorgestelde gewicht staat als placeholder in het veld; afvinken zonder invoer neemt het voorstel over.
 - Chest-oefeningen: 6 weken geen e1RM-progressie → seintje om een variatie te kiezen.
@@ -52,11 +53,11 @@ Geen installatie nodig.
 
 | Dag | Sessie |
 |---|---|
-| Ma | Full body A: squat, incline smith press, barbell row, RDL, lateral raise, incline curl + overhead triceps, hanging leg raise |
+| Ma | Full body A: incline smith press, squat, low-to-high cable fly, barbell row, RDL, lateral raise, incline curl + overhead triceps, hanging leg raise |
 | Di | Intervallen (800 m tot 2 km herhalingen) |
 | Wo | Full body B: Bulgarian split squat, staande shoulder press, pull-ups, low-incline DB press, back extension, reverse fly, calf raise, cable crunch |
 | Do | Rustig (HR < 150) + strides |
-| Vr | Full body C: hack squat, dips, lat pulldown, cable row, leg curl, lateral raise, hammer curl + pushdown, seated calf raise |
+| Vr | Full body C: dips, hack squat, pec deck, lat pulldown, leg curl, lateral raise, hammer curl + pushdown, ab wheel, seated calf raise |
 | Za | Lange run, vanaf week 3 met snel slot; week 8 een 5 km-test |
 | Zo | Rust |
 
